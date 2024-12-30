@@ -21,8 +21,8 @@ const articles = [
     {
         id: 1,
         title: `Proč zrovna "Pravěk v Ráji"?`,
-        image: "/path/to/image1.jpg",
-        dialogImage: "/path/to/dialog-image1.jpg", // Fotka do dialogu
+        image: "/img/1685012737662.webp",
+        dialogImage: "/img/1685012737662.webp", // Fotka do dialogu
         excerpt: "Důvod je prostý. S partou přátel jsme se rozhodli uspořádat dogtrekking...",
         content: `
       <p>Důvod je prostý. S partou přátel jsme se rozhodli uspořádat dogtrekking, který povede srdcem Českého ráje. Protože je to akce benefiční, vteřiny nejsou to nejdůležitější, oč tady kráčí. Čas vůbec měřit nebudeme. Celá akce je koncipovaná tak, aby přinesla nějaké penízky tam, kde je to potřeba.</p>
@@ -35,8 +35,8 @@ const articles = [
     {
         id: 2,
         title: "Jak to celé vzniklo?",
-        image: "/path/to/image2.jpg",
-        dialogImage: "/path/to/dialog-image2.jpg", // Fotka do dialogu
+        image: "/img/20220416_191043.webp",
+        dialogImage: "/img/20220416_191043.webp", // Fotka do dialogu
         excerpt: "Od doby, co mám Jardu je Vyskeř v Českém ráji moje druhé doma. Krásná vesnička...",
         content: `
       <p>Od doby, co mám Jardu je Vyskeř v Českém ráji moje druhé doma. Krásná vesnička, jejíž dominantou je kaple Sv. Anny, která se nachází na vrcholku čedičového kopce.</p>
