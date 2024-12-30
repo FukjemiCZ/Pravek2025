@@ -10,7 +10,8 @@ import Image from 'next/image';
 
 export default function ContactSection() {
   return (
-    <Box id="kontakt" sx={{ mb: 5, p: 3, backgroundColor: "#f9f9f9", borderRadius: 2, boxShadow: 3 }}>
+    <Box id="kontakt" sx={{ mb: 5, p: 3, backgroundColor: (theme) =>
+      theme.palette.mode === "light" ? "#f9f9f9" : "#333333", borderRadius: 2, boxShadow: 3 }}>
       <Typography variant="h4" gutterBottom sx={{ textAlign: "center", mb: 3 }}>
         Kontakt
       </Typography>
