@@ -82,15 +82,15 @@ export default function HeroSection() {
 
     return (
         <Box
-    id="home"
-    sx={{
-        backgroundColor: (theme) =>
-            theme.palette.mode === "light" ? "#E6F7FF" : "#2C3E50",
-        textAlign: "center",
-        py: 5,
-        px: 2,
-    }}
->
+            id="home"
+            sx={{
+                backgroundColor: (theme) =>
+                    theme.palette.mode === "light" ? "#E6F7FF" : "#2C3E50",
+                textAlign: "center",
+                py: 5,
+                px: 2,
+            }}
+        >
             <Container maxWidth="md">
                 <Typography variant="h3" component="h1" gutterBottom>
                     Benefiční dogtrekking Pravěk v Ráji 2025
@@ -99,13 +99,15 @@ export default function HeroSection() {
                     15. - 18. května 2025 &nbsp;|&nbsp; Fotbalové hřiště Vyskeř
                 </Typography>
 
-                <Typography
-                    variant="h5"
-                    gutterBottom
-                    sx={{ mt: 3, cursor: "pointer" }}
-                >
-                    Vybráno: {raisedAmount.toLocaleString("cs-CZ")} Kč
-                </Typography>
+                {raisedAmount > 0 && (
+                    <Typography
+                        variant="h5"
+                        gutterBottom
+                        sx={{ mt: 3, cursor: "pointer" }}
+                    >
+                        Vybráno: {raisedAmount.toLocaleString("cs-CZ")} Kč
+                    </Typography>
+                )}
 
                 <Box mt={3}>
                     <Button
@@ -113,11 +115,11 @@ export default function HeroSection() {
                         color="secondary"
                         sx={{ m: 1 }}
                         onClick={handleOpenSupportDialog}
-                        disabled={!isPayOpen }
-                        >
-                            {isPayOpen
-                                ? "Podpořit"
-                                : "Možnosti plateb spouštíme 1.3.2024"}
+                        disabled={!isPayOpen}
+                    >
+                        {isPayOpen
+                            ? "Podpořit"
+                            : "Možnosti plateb spouštíme 1.3.2024"}
                     </Button>
 
                     <Button

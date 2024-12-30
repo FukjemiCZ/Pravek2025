@@ -63,7 +63,7 @@ export default function Milestones() {
         Naše milníky
       </Typography>
       <Typography variant="body1" paragraph>
-        Zde najdete všechny milníky, které podporujeme, seřazené podle splněnosti.
+        V minulém roce jsme společně pořídili handbike pro Elen, letos bychom rádi přispěli na...
       </Typography>
 
       {milestones.length === 0 ? (
