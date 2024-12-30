@@ -11,15 +11,25 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+// Definice typů
+interface RuleSection {
+  title: string;
+  rules: string[];
+}
+
+interface Rules {
+  sections: RuleSection[];
+}
+
 export default function RulesSection() {
-  const [rules, setRules] = useState(null);
+  const [rules, setRules] = useState<Rules | null>(null); // Přidán typ
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchRules() {
       try {
         const response = await fetch("/data/rules.json");
-        const data = await response.json();
+        const data: Rules = await response.json(); // Explicitní typ
         setRules(data);
       } catch (error) {
         console.error("Error loading rules:", error);

@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import Image from 'next/image';
 
 interface DrawerContentProps {
   isDesktop: boolean;
@@ -58,12 +59,11 @@ export default function DrawerContent({
           backgroundColor: "white", // Bílý podklad
           borderRadius: "50%", // Kulatý tvar
           overflow: "hidden", // Skryje přesah obrázku, pokud není přesně kulatý
-          display: "flex",
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        <img
+        <Image
           src="/sponsors/ruffianslegend-logo.webp"
           alt="Ruffian's Legend"
           style={{

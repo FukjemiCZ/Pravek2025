@@ -11,13 +11,33 @@ import {
   CircularProgress,
   Link,
   List,
-  ListItem
+  ListItem,
 } from "@mui/material";
 
+// Definice typu
+interface Facilities {
+  accommodation: {
+    own: string;
+    local: Array<{ name: string; link?: string }>;
+  };
+  onSite: {
+    water?: boolean;
+    electricity?: boolean;
+    partyTent?: boolean;
+    mobileToilets?: boolean;
+    showers?: boolean;
+  };
+  foodAndDrinks: {
+    basicRefreshments?: boolean;
+    saturdayGrill?: string;
+    drinks: string[];
+    local: Array<{ name: string; link?: string }>;
+  };
+}
+
 export default function FacilitiesSection() {
-  const [facilities, setFacilities] = React.useState(null);
+  const [facilities, setFacilities] = React.useState<Facilities | null>(null);
   const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
     const fetchFacilities = async () => {
@@ -28,8 +48,6 @@ export default function FacilitiesSection() {
         }
         const data = await response.json();
         setFacilities(data.facilities);
-      } catch (err) {
-        setError(err.message);
       } finally {
         setLoading(false);
       }
@@ -40,10 +58,6 @@ export default function FacilitiesSection() {
 
   if (loading) {
     return <CircularProgress />;
-  }
-
-  if (error) {
-    return <Typography color="error">Error: {error}</Typography>;
   }
 
   return (
@@ -60,7 +74,7 @@ export default function FacilitiesSection() {
               sx={{
                 position: "relative",
                 overflow: "hidden",
-                height: "200px"
+                height: "200px",
               }}
             >
               <iframe
@@ -69,7 +83,6 @@ export default function FacilitiesSection() {
                 width="100%"
                 height="100%"
                 style={{ border: "none" }}
-                allowFullScreen=""
                 loading="lazy"
               ></iframe>
             </Box>
@@ -79,14 +92,16 @@ export default function FacilitiesSection() {
               </Typography>
               <List>
                 <ListItem disablePadding>
-                  <Typography>{facilities.accommodation.own}</Typography>
+                  <Typography>
+                    {facilities?.accommodation?.own || "Data nejsou k dispozici"}
+                  </Typography>
                 </ListItem>
                 <ListItem disablePadding>
                   <Typography variant="body2" color="textSecondary">
                     Další možnosti:
                   </Typography>
                 </ListItem>
-                {facilities.accommodation.local.map((option, index) => (
+                {facilities?.accommodation?.local?.map((option, index) => (
                   <ListItem key={index} disablePadding>
                     {option.link ? (
                       <Link href={option.link} target="_blank" rel="noopener">
@@ -116,19 +131,19 @@ export default function FacilitiesSection() {
                 Na místě
               </Typography>
               <List>
-                {facilities.onSite.water && (
+                {facilities?.onSite?.water && (
                   <ListItem disablePadding>• Voda</ListItem>
                 )}
-                {facilities.onSite.electricity && (
+                {facilities?.onSite?.electricity && (
                   <ListItem disablePadding>• Elektřina</ListItem>
                 )}
-                {facilities.onSite.partyTent && (
+                {facilities?.onSite?.partyTent && (
                   <ListItem disablePadding>• Párty stan</ListItem>
                 )}
-                {facilities.onSite.mobileToilets && (
+                {facilities?.onSite?.mobileToilets && (
                   <ListItem disablePadding>• Mobilní WC</ListItem>
                 )}
-                {facilities.onSite.showers && (
+                {facilities?.onSite?.showers && (
                   <ListItem disablePadding>• Sprcha</ListItem>
                 )}
               </List>
@@ -150,17 +165,20 @@ export default function FacilitiesSection() {
                 Občerstvení a nápoje
               </Typography>
               <List>
-                {facilities.foodAndDrinks.basicRefreshments && (
+                {facilities?.foodAndDrinks?.basicRefreshments && (
                   <ListItem disablePadding>
                     <Typography>• Základní občerstvení</Typography>
                   </ListItem>
                 )}
                 <ListItem disablePadding>
-                  <Typography>• {facilities.foodAndDrinks.saturdayGrill}</Typography>
+                  <Typography>
+                    • {facilities?.foodAndDrinks?.saturdayGrill || "Neznámé"}
+                  </Typography>
                 </ListItem>
                 <ListItem disablePadding>
                   <Typography>
-                    • Nápoje: {facilities.foodAndDrinks.drinks.join(", ")}
+                    • Nápoje:{" "}
+                    {facilities?.foodAndDrinks?.drinks?.join(", ") || "Neznámé"}
                   </Typography>
                 </ListItem>
               </List>
@@ -168,7 +186,7 @@ export default function FacilitiesSection() {
                 Další možnosti:
               </Typography>
               <List>
-                {facilities.foodAndDrinks.local.map((option, index) => (
+                {facilities?.foodAndDrinks?.local?.map((option, index) => (
                   <ListItem key={index} disablePadding>
                     {option.link ? (
                       <Link href={option.link} target="_blank" rel="noopener">

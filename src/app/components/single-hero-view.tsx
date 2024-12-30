@@ -18,17 +18,38 @@ import {
   useTheme,
   Card,
   CardContent,
-  CardMedia,
-  CardActions,
 } from "@mui/material";
-import { Timeline, TimelineItem, TimelineSeparator, TimelineConnector, TimelineContent, TimelineDot } from "@mui/lab";
+import Image from "next/image";
+import {
+  Timeline,
+  TimelineItem,
+  TimelineSeparator,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+} from "@mui/lab";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
-export default function SingleHeroView({ hero }) {
+// Typy
+interface Milestone {
+  title: string;
+  description: string;
+  currentAmount: number;
+  targetAmount: number;
+  collectedPercentage: number;
+}
+
+interface Hero {
+  story: string;
+  gallery: string[];
+  milestones?: Milestone[];
+}
+
+export default function SingleHeroView({ hero }: { hero: Hero }) {
   const [selectedTab, setSelectedTab] = useState(0);
   const [openGallery, setOpenGallery] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
@@ -36,11 +57,11 @@ export default function SingleHeroView({ hero }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue);
   };
 
-  const openImageDialog = (index) => {
+  const openImageDialog = (index: number) => {
     setCurrentImage(index);
     setOpenGallery(true);
   };
@@ -57,7 +78,7 @@ export default function SingleHeroView({ hero }) {
     setCurrentImage((prev) => (prev - 1 + hero.gallery.length) % hero.gallery.length);
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "ArrowRight") {
       handleNextImage();
     } else if (event.key === "ArrowLeft") {
@@ -95,9 +116,13 @@ export default function SingleHeroView({ hero }) {
               <ImageListItem
                 key={index}
                 onClick={() => openImageDialog(index)}
-                sx={{ cursor: "pointer", transition: "transform 0.3s", '&:hover': { transform: 'scale(1.05)' } }}
+                sx={{
+                  cursor: "pointer",
+                  transition: "transform 0.3s",
+                  "&:hover": { transform: "scale(1.05)" },
+                }}
               >
-                <img
+                <Image
                   src={image}
                   alt={`Gallery image ${index + 1}`}
                   loading="lazy"
@@ -124,14 +149,23 @@ export default function SingleHeroView({ hero }) {
                 <CloseIcon />
               </IconButton>
             </DialogTitle>
-            <DialogContent sx={{ position: "relative", width: "80vw", height: "80vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <DialogContent
+              sx={{
+                position: "relative",
+                width: "80vw",
+                height: "80vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
               <IconButton
                 onClick={handlePrevImage}
                 sx={{ position: "absolute", left: 10, zIndex: 1 }}
               >
                 <ArrowBackIosNewIcon fontSize="large" />
               </IconButton>
-              <img
+              <Image
                 src={hero.gallery[currentImage]}
                 alt="Current gallery image"
                 style={{ maxHeight: "100%", maxWidth: "100%", borderRadius: "12px" }}
@@ -147,7 +181,7 @@ export default function SingleHeroView({ hero }) {
         </>
       )}
 
-      {selectedTab === 2 && hero.milestones?.length > 0 && (
+      {selectedTab === 2 && hero.milestones && hero.milestones.length > 0 && (
         <Timeline position="alternate">
           {hero.milestones.map((milestone, index) => (
             <TimelineItem key={index}>

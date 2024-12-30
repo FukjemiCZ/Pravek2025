@@ -4,7 +4,6 @@ import * as React from "react";
 import {
   AppBar,
   Box,
-  Button,
   Container,
   CssBaseline,
   Divider,
@@ -27,7 +26,6 @@ import PrologSection from "./components/prolog-section";
 import SupportSection from "./components/support-section";
 import RulesSection from "./components/rules-section";
 import MapSection from "./components/map-section";
-import AccommodationSection from "./components/accommodation-section";
 import FacilitiesSection from "./components/facilities-section";
 import ContactSection from "./components/contact-section";
 import DrawerContent from "./components/drawer-content";
@@ -102,9 +100,10 @@ export default function HomePage() {
 
   // Filtrace a seřazení sponzorů
   const sponsorsFilteredAndSorted = sponsorsData
-    .filter((s) => s.years.includes(CURRENT_YEAR))
-    .sort((a, b) => a.position - b.position);
-
+  .filter((s) => s.years.includes(CURRENT_YEAR))
+  .map((sponsor) => ({ ...sponsor, position: sponsor.position ?? Infinity }))
+  .sort((a, b) => a.position - b.position);
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -196,7 +195,7 @@ export default function HomePage() {
             <Divider sx={{ mb: 5 }} />
 
             {/* 3) Koho podporujeme */}
-            <SupportSection />
+            <SupportSection/>
             <Divider sx={{ mb: 5 }} />
 
             {/* 4) Pravidla závodu */}

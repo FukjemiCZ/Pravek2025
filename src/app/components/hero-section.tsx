@@ -16,14 +16,19 @@ import SupportDialog from "./support-dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import NavigationIcon from "@mui/icons-material/Navigation";
 
+// Definice typu pro účastníka
+interface Participant {
+    name: string;
+    registration_order: number;
+    dogs: string[];
+    paid: boolean;
+}
+
 export default function HeroSection() {
+    const [participants, setParticipants] = React.useState<Participant[]>([]);
     const [raisedAmount, setRaisedAmount] = React.useState(0);
-    const [details, setDetails] = React.useState({});
     const [openSupportDialog, setOpenSupportDialog] = React.useState(false);
     const [openParticipantsDialog, setOpenParticipantsDialog] = React.useState(false);
-    const [openRaisedDialog, setOpenRaisedDialog] = React.useState(false);
-    const [participants, setParticipants] = React.useState([]);
-    const [substitutes, setSubstitutes] = React.useState([]);
     const [isRegistrationFull, setIsRegistrationFull] = React.useState(false);
     const [searchQuery, setSearchQuery] = React.useState("");
     const capacity = 50;
@@ -38,27 +43,16 @@ export default function HeroSection() {
                 const responseAmount = await fetch("/data/vybrano.json");
                 const dataAmount = await responseAmount.json();
                 setRaisedAmount(dataAmount.amount);
-                setDetails(dataAmount.details || {});
 
                 const responseParticipants = await fetch("/data/racers60.json");
-                const dataParticipants = await responseParticipants.json();
+                const dataParticipants: Participant[] = await responseParticipants.json();
 
                 const sortedData = dataParticipants.sort(
                     (a, b) => a.registration_order - b.registration_order
                 );
                 const mainParticipants = sortedData.slice(0, capacity);
-                const substitutes = sortedData
-                    .slice(capacity)
-                    .filter(
-                        (substitute) =>
-                            !mainParticipants.some(
-                                (participant) => participant.name === substitute.name
-                            )
-                    )
-                    .sort((a, b) => a.name.localeCompare(b.name));
 
                 setParticipants(mainParticipants);
-                setSubstitutes(substitutes);
                 setIsRegistrationFull(mainParticipants.length >= capacity);
             } catch (error) {
                 console.error("Chyba při načítání dat:", error);
@@ -73,9 +67,6 @@ export default function HeroSection() {
     const handleOpenParticipantsDialog = () => setOpenParticipantsDialog(true);
     const handleCloseParticipantsDialog = () => setOpenParticipantsDialog(false);
 
-    const handleOpenRaisedDialog = () => setOpenRaisedDialog(true);
-    const handleCloseRaisedDialog = () => setOpenRaisedDialog(false);
-
     const handleRegistration = () => {
         window.open("https://prihlaseni.pravek-v-raji.cz/", "_blank");
     };
@@ -86,10 +77,6 @@ export default function HeroSection() {
 
     const filteredParticipants = participants.filter((participant) =>
         participant.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-
-    const filteredSubstitutes = substitutes.filter((substitute) =>
-        substitute.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
@@ -114,7 +101,6 @@ export default function HeroSection() {
                     variant="h5"
                     gutterBottom
                     sx={{ mt: 3, cursor: "pointer" }}
-                    onClick={handleOpenRaisedDialog}
                 >
                     Vybráno: {raisedAmount.toLocaleString("cs-CZ")} Kč
                 </Typography>
@@ -168,7 +154,12 @@ export default function HeroSection() {
 
             <SupportDialog open={openSupportDialog} onClose={handleCloseSupportDialog} />
 
-            <Dialog open={openParticipantsDialog} onClose={handleCloseParticipantsDialog} maxWidth="md" fullWidth>
+            <Dialog
+                open={openParticipantsDialog}
+                onClose={handleCloseParticipantsDialog}
+                maxWidth="md"
+                fullWidth
+            >
                 <DialogTitle>
                     Seznam závodníků
                     <IconButton

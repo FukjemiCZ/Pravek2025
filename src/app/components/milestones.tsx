@@ -5,8 +5,6 @@ import {
   Box,
   Typography,
   LinearProgress,
-  Card,
-  CardContent,
   CardMedia,
 } from "@mui/material";
 import {
@@ -17,29 +15,45 @@ import {
   TimelineContent,
   TimelineDot,
 } from "@mui/lab";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import { useState, useEffect } from "react";
 
-export default function MilestonesTimeline() {
-  const [milestones, setMilestones] = useState([]);
+interface Milestone {
+  title: string;
+  description: string;
+  currentAmount: number;
+  targetAmount: number;
+  collectedPercentage: number;
+}
+
+interface Hero {
+  name: string;
+  photo: string;
+  milestones?: Milestone[];
+}
+
+export default function Milestones() {
+  const [milestones, setMilestones] = useState<
+    (Milestone & { personName: string; personPhoto: string })[]
+  >([]);
 
   useEffect(() => {
-    fetch("/data/heroshh.json")
+    fetch("/data/heros.json")
       .then((response) => response.json())
-      .then((data) => {
-        const allMilestones = data.flatMap((hero) =>
+      .then((data: Hero[]) => {
+        const allMilestones = data.flatMap((hero: Hero) =>
           hero.milestones?.map((milestone) => ({
             ...milestone,
             personName: hero.name,
             personPhoto: hero.photo,
           })) || []
         );
-        allMilestones.sort((a, b) => b.collectedPercentage - a.collectedPercentage);
+        allMilestones.sort((a, b) =>
+          b.collectedPercentage - a.collectedPercentage
+        );
         setMilestones(allMilestones);
       })
-      .catch(() => {
-        setMilestones([]);
+      .catch((error) => {
+        console.error("Chyba při načítání dat:", error);
       });
   }, []);
 
@@ -70,61 +84,37 @@ export default function MilestonesTimeline() {
           {milestones.map((milestone, index) => (
             <TimelineItem key={index}>
               <TimelineSeparator>
-                <TimelineDot
-                  color={milestone.collectedPercentage >= 100 ? "success" : "grey"}
-                >
-                  {milestone.collectedPercentage >= 100 ? (
-                    <CheckCircleIcon />
-                  ) : (
-                    <AttachMoneyIcon />
-                  )}
-                </TimelineDot>
+                <TimelineDot color={milestone.collectedPercentage >= 100 ? "primary" : "secondary"} />
                 {index < milestones.length - 1 && <TimelineConnector />}
               </TimelineSeparator>
               <TimelineContent>
-                <Card sx={{ maxWidth: 400, mb: 2 }}>
-                  <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                      {milestone.title}
-                    </Typography>
-                    <Typography variant="body2" gutterBottom>
-                      {milestone.description}
-                    </Typography>
-                    <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
-                      <CardMedia
-                        component="img"
-                        image={milestone.personPhoto}
-                        alt={milestone.personName}
-                        sx={{
-                          width: 40,
-                          height: 40,
-                          borderRadius: "50%",
-                          mr: 2,
-                        }}
-                      />
-                      <Typography variant="body2" color="text.secondary">
-                        {milestone.personName}
-                      </Typography>
-                    </Box>
-                    <LinearProgress
-                      variant="determinate"
-                      value={milestone.collectedPercentage || 0}
-                      sx={{ height: 10, borderRadius: 5, mb: 1 }}
+                <Box sx={{ mb: 3 }}>
+                  <Typography variant="h6" gutterBottom>
+                    {milestone.title}
+                  </Typography>
+                  <Typography variant="body2" gutterBottom>
+                    {milestone.description}
+                  </Typography>
+                  <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                    <CardMedia
+                      component="img"
+                      image={milestone.personPhoto}
+                      alt={milestone.personName}
+                      sx={{ width: 40, height: 40, borderRadius: "50%", mr: 2 }}
                     />
-                    <Typography
-                      variant="body2"
-                      color={
-                        milestone.collectedPercentage >= 100
-                          ? "green"
-                          : "text.secondary"
-                      }
-                    >
-                      {milestone.collectedPercentage >= 100
-                        ? `Milník splněn: ${milestone.currentAmount} Kč (${milestone.collectedPercentage} %)`
-                        : `Vybráno: ${milestone.currentAmount} Kč z ${milestone.targetAmount} Kč`}
+                    <Typography variant="body2" color="text.secondary">
+                      {milestone.personName}
                     </Typography>
-                  </CardContent>
-                </Card>
+                  </Box>
+                  <LinearProgress
+                    variant="determinate"
+                    value={milestone.collectedPercentage}
+                    sx={{ height: 10, borderRadius: 5, mb: 1 }}
+                  />
+                  <Typography variant="body2">
+                    {`Vybráno: ${milestone.currentAmount} Kč z ${milestone.targetAmount} Kč`}
+                  </Typography>
+                </Box>
               </TimelineContent>
             </TimelineItem>
           ))}

@@ -6,6 +6,7 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PersonIcon from "@mui/icons-material/Person";
+import Image from 'next/image';
 
 export default function ContactSection() {
   return (
@@ -45,13 +46,12 @@ export default function ContactSection() {
               backgroundColor: "white",
               borderRadius: "50%",
               overflow: "hidden",
-              display: "flex",
               justifyContent: "center",
               alignItems: "center",
               marginRight: { xs: 0, md: 3 },
             }}
           >
-            <img
+            <Image
               src="/sponsors/ruffianslegend-logo.webp"
               alt="Profilová fotka"
               style={{
@@ -87,7 +87,6 @@ export default function ContactSection() {
             width="100%"
             height="100%"
             style={{ border: "none" }}
-            allowFullScreen=""
             loading="lazy"
           ></iframe>
         </Box>

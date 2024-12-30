@@ -17,25 +17,43 @@ import {
 } from "@mui/lab";
 import { useState, useEffect } from "react";
 
-export default function MilestonesTimeline() {
-  const [milestones, setMilestones] = useState([]);
+interface Milestone {
+  title: string;
+  description: string;
+  currentAmount: number;
+  targetAmount: number;
+  collectedPercentage: number;
+}
+
+interface Hero {
+  name: string;
+  photo: string;
+  milestones?: Milestone[];
+}
+
+export default function Milestones() {
+  const [milestones, setMilestones] = useState<
+    (Milestone & { personName: string; personPhoto: string })[]
+  >([]);
 
   useEffect(() => {
-    // Fetch all milestones data from an API or local JSON file
     fetch("/data/heros.json")
       .then((response) => response.json())
-      .then((data) => {
-        const allMilestones = data.flatMap((hero) =>
-          hero.milestones.map((milestone) => ({
+      .then((data: Hero[]) => {
+        const allMilestones = data.flatMap((hero: Hero) =>
+          hero.milestones?.map((milestone) => ({
             ...milestone,
             personName: hero.name,
             personPhoto: hero.photo,
-          }))
+          })) || []
         );
         allMilestones.sort((a, b) =>
           b.collectedPercentage - a.collectedPercentage
-        ); // Sort by percentage (completed first)
+        );
         setMilestones(allMilestones);
+      })
+      .catch((error) => {
+        console.error("Chyba při načítání dat:", error);
       });
   }, []);
 
