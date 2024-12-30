@@ -36,6 +36,7 @@ export default function HeroSection() {
     const today = new Date();
     const showNavigateButton = today > new Date("2025-05-12");
     const isRegistrationOpen = today >= new Date("2025-01-01");
+    const isPayOpen = today >= new Date("2025-03-01");
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -111,8 +112,11 @@ export default function HeroSection() {
                         color="secondary"
                         sx={{ m: 1 }}
                         onClick={handleOpenSupportDialog}
-                    >
-                        Podpořit
+                        disabled={!isPayOpen }
+                        >
+                            {isPayOpen
+                                ? "Podpořit"
+                                : "Možnosti plateb spouštíme 1.3.2024"}
                     </Button>
 
                     <Button
