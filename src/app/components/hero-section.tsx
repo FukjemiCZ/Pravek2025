@@ -11,7 +11,6 @@ import {
     DialogTitle,
     IconButton,
     TextField,
-    Divider,
 } from "@mui/material";
 import SupportDialog from "./support-dialog";
 import CloseIcon from "@mui/icons-material/Close";
@@ -19,7 +18,6 @@ import NavigationIcon from "@mui/icons-material/Navigation";
 
 export default function HeroSection() {
     const [raisedAmount, setRaisedAmount] = React.useState(0);
-    const [details, setDetails] = React.useState({});
     const [openSupportDialog, setOpenSupportDialog] = React.useState(false);
     const [openParticipantsDialog, setOpenParticipantsDialog] = React.useState(false);
     const [openRaisedDialog, setOpenRaisedDialog] = React.useState(false);
