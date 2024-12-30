@@ -123,7 +123,7 @@ export default function FacilitiesSection() {
             <CardMedia
               component="img"
               height="200"
-              image="/images/onsite.jpg"
+              image="/img/hriste.jpg"
               alt="Na místě"
             />
             <CardContent>
@@ -157,7 +157,7 @@ export default function FacilitiesSection() {
             <CardMedia
               component="img"
               height="200"
-              image="/images/food.jpg"
+              image="/img/food.jpg"
               alt="Občerstvení a nápoje"
             />
             <CardContent>

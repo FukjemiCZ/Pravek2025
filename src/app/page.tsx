@@ -28,6 +28,7 @@ import ContactSection from "./components/contact-section";
 import SponsorsSection from "./components/sponsors-section";
 import MilestonesSection from "./components/milestones";
 import SponsorDialog, { Sponsor } from "./components/sponsor-dialog";
+import SummarySection from "./components/sumary-section";
 
 const drawerWidth = 240;
 const CURRENT_YEAR = 2024;
@@ -142,6 +143,8 @@ export default function HomePage() {
             />
             <Divider sx={{ mb: 5 }} />
             <ContactSection />
+            <Divider sx={{ mb: 5 }} />
+            <SummarySection />
           </Container>
 
           <Box
@@ -153,7 +156,7 @@ export default function HomePage() {
               mt: 5,
             }}
           >
-            <Typography variant="body2">Pravěk v Ráji 2025</Typography>
+            <Typography variant="body2">Benefiční dogtrekking Pravěk v Ráji 2025</Typography>
           </Box>
         </Box>
       </Box>

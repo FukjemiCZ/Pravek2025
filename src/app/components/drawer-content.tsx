@@ -29,6 +29,7 @@ const menuItems = [
   { text: "Zázemí", href: "#zazemi" },
   { text: "Sponzoři", href: "#sponzori" },
   { text: "Kontakt", href: "#kontakt" },
+  { text: "Ročník 2024", href: "#summary2024" },
 ];
 
 export default function DrawerContent({

@@ -45,7 +45,7 @@ export default function HeroSection() {
                 const dataAmount = await responseAmount.json();
                 setRaisedAmount(dataAmount.amount);
 
-                const responseParticipants = await fetch("/data/racers60.json");
+                const responseParticipants = await fetch("/data/racers.json");
                 const dataParticipants: Participant[] = await responseParticipants.json();
 
                 const sortedData = dataParticipants.sort(
@@ -93,7 +93,7 @@ export default function HeroSection() {
 >
             <Container maxWidth="md">
                 <Typography variant="h3" component="h1" gutterBottom>
-                    Benefiční dogtrekking Pravěk v Ráji
+                    Benefiční dogtrekking Pravěk v Ráji 2025
                 </Typography>
                 <Typography variant="h6" gutterBottom>
                     15. - 18. května 2025 &nbsp;|&nbsp; Fotbalové hřiště Vyskeř
