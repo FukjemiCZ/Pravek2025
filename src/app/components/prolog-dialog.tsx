@@ -26,7 +26,7 @@ function PrologDialog() {
         <DialogContent>
           <Box id="prolog">
             <Typography variant="h4" gutterBottom>
-              Asi se ptáte proč zrovna "Pravěk v Ráji".
+              Asi se ptáte proč zrovna &quot;escaped&quotPravěk v Ráji&quot;escaped&quot.
             </Typography>
             <Typography variant="body1" paragraph>
               Důvod je prostý. S partou přátel jsme se rozhodli uspořádat dogtrekking,
