@@ -90,7 +90,20 @@ export default function SingleHeroView({ hero }: { hero?: Hero }) {
   };
 
   if (!hero) {
-    return <Typography variant="body1">Žádný hrdina k zobrazení</Typography>;
+    return (
+      <Box
+        sx={{
+          textAlign: "center",
+          py: 5,
+          backgroundColor: "#fafafa",
+          border: "1px dashed #ccc",
+          fontStyle: "italic",
+          color: "#999",
+        }}
+      >
+        Hrdinu pro tuto akci zveřejníme v pravý čas. Děkujeme za Vaši podporu a trpělivost!
+      </Box>
+    );
   }
 
   return (
