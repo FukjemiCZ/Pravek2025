@@ -35,7 +35,7 @@ export default function HeroSection() {
 
     const today = new Date();
     const showNavigateButton = today > new Date("2025-05-12");
-    const isRegistrationOpen = today >= new Date("2025-01-01");
+    const isRegistrationOpen = today >= new Date("2025-01-01T13:30:00");
     const isPayOpen = today >= new Date("2025-03-01");
 
     React.useEffect(() => {
@@ -82,14 +82,15 @@ export default function HeroSection() {
 
     return (
         <Box
-            id="home"
-            sx={{
-                backgroundColor: "#E6F7FF",
-                textAlign: "center",
-                py: 5,
-                px: 2,
-            }}
-        >
+    id="home"
+    sx={{
+        backgroundColor: (theme) =>
+            theme.palette.mode === "light" ? "#E6F7FF" : "#2C3E50",
+        textAlign: "center",
+        py: 5,
+        px: 2,
+    }}
+>
             <Container maxWidth="md">
                 <Typography variant="h3" component="h1" gutterBottom>
                     Benefiční dogtrekking Pravěk v Ráji
@@ -130,7 +131,7 @@ export default function HeroSection() {
                             ? isRegistrationFull
                                 ? "Startovka plná"
                                 : "Registrace závodníka"
-                            : "Registrace není otevřena"}
+                            : "Registrace otevřeme 1.1.2024 ve 13:30"}
                     </Button>
 
                     <Button
