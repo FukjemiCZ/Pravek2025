@@ -6,23 +6,17 @@ import {
   IconButton,
   List,
   ListItemButton,
-  ListItemText
+  ListItemText,
+  useMediaQuery,
+  useTheme
 } from "@mui/material";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import Image from 'next/image';
-
-interface DrawerContentProps {
-  isDesktop: boolean;
-  handleDrawerToggle: () => void;
-  darkMode: boolean;
-  handleToggleDarkMode: () => void;
-}
+import Image from "next/image";
 
 // Položky menu
 const menuItems = [
   { text: "O akci", href: "#home" },
-  { text: "Milestones", href: "#milestones" },
   { text: "Koho podporujeme", href: "#koho-podporujeme" },
   { text: "Pravidla závodu", href: "#pravidla" },
   { text: "Mapa závodu", href: "#mapa" },
@@ -32,12 +26,39 @@ const menuItems = [
   { text: "Ročník 2024", href: "#summary2024" },
 ];
 
+interface DrawerContentProps {
+  isDesktop: boolean;
+  handleDrawerToggle: () => void;
+  darkMode: boolean;
+  handleToggleDarkMode: () => void;
+}
+
 export default function DrawerContent({
   isDesktop,
   handleDrawerToggle,
   darkMode,
   handleToggleDarkMode,
 }: DrawerContentProps) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  // Funkce pro hladký scroll po kliknutí na položku menu
+  const handleSmoothScroll = (anchor: string) => {
+    // Pokud jsme na mobilu, nejdříve zavřít Drawer
+    if (!isDesktop) {
+      handleDrawerToggle();
+    }
+
+    // Timeout malinko odsune spuštění scrollu,
+    // aby se Drawer stihl zavřít a neskákalo to
+    setTimeout(() => {
+      const element = document.querySelector(anchor);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 50);
+  };
+
   return (
     <Box
       sx={{
@@ -52,14 +73,13 @@ export default function DrawerContent({
       {/* Logo */}
       <Box
         sx={{
-          mb: 3,
+          mb: 1,
           textAlign: "center",
-          display: "inline-block", // Aby se velikost Boxu přizpůsobila obsahu
-          width: "150px", // Stejná šířka a výška pro kruh
-          height: "150px", // Stejná výška jako šířka
-          backgroundColor: "white", // Bílý podklad
-          borderRadius: "50%", // Kulatý tvar
-          overflow: "hidden", // Skryje přesah obrázku, pokud není přesně kulatý
+          display: "inline-block",
+          width: "150px",
+          height: "150px",
+          borderRadius: "50%",
+          overflow: "hidden",
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -71,8 +91,25 @@ export default function DrawerContent({
             maxWidth: "100%",
             maxHeight: "100%",
             objectFit: "contain",
+            backgroundColor: "white",
           }}
         />
+      </Box>
+
+      {/* Text pod logem */}
+      <Box
+        sx={{
+          fontFamily: "Life Savers, Life-Savers-Fallback, Noto Color Emoji, sans-serif",
+          fontSize: isDesktop ? "1.2rem" : "1rem",
+          textAlign: "center",
+          lineHeight: "1.5",
+          mb: 3,
+          display: isMobile ? "none" : "block",
+        }}
+      >
+        <strong>PRAVĚK V RÁJI</strong>
+        <br />
+        15.5.-18.5.2024 Vyskeř
       </Box>
 
       {/* Menu */}
@@ -80,9 +117,8 @@ export default function DrawerContent({
         {menuItems.map((item) => (
           <ListItemButton
             key={item.text}
-            component="a"
-            href={item.href}
-            onClick={() => (isDesktop ? null : handleDrawerToggle())}
+            // Odstraníme component="a" i href a přidáme onClick:
+            onClick={() => handleSmoothScroll(item.href)}
           >
             <ListItemText primary={item.text} />
           </ListItemButton>

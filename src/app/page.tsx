@@ -64,9 +64,12 @@ export default function HomePage() {
           }}
         >
           <Toolbar>
+            
+              
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               Pravěk v Ráji
             </Typography>
+            
             <IconButton color="inherit" edge="end" onClick={handleDrawerToggle}>
               <MenuIcon />
             </IconButton>
@@ -127,9 +130,9 @@ export default function HomePage() {
           <Container maxWidth="lg" sx={{ py: 5 }}>
             <PrologSection />
             <Divider sx={{ mb: 5 }} />
-            <MilestonesSection />
-            <Divider sx={{ mb: 5 }} />
             <SupportSection />
+            <Divider sx={{ mb: 5 }} />
+            <MilestonesSection />
             <Divider sx={{ mb: 5 }} />
             <RulesSection />
             <Divider sx={{ mb: 5 }} />

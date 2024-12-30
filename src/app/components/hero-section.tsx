@@ -26,6 +26,7 @@ interface Participant {
 
 export default function HeroSection() {
     const [participants, setParticipants] = React.useState<Participant[]>([]);
+    const [substitutes, setSubstitutes] = React.useState<Participant[]>([]);
     const [raisedAmount, setRaisedAmount] = React.useState(0);
     const [openSupportDialog, setOpenSupportDialog] = React.useState(false);
     const [openParticipantsDialog, setOpenParticipantsDialog] = React.useState(false);
@@ -52,8 +53,10 @@ export default function HeroSection() {
                     (a, b) => a.registration_order - b.registration_order
                 );
                 const mainParticipants = sortedData.slice(0, capacity);
+                const substituteParticipants = sortedData.slice(capacity);
 
                 setParticipants(mainParticipants);
+                setSubstitutes(substituteParticipants);
                 setIsRegistrationFull(mainParticipants.length >= capacity);
             } catch (error) {
                 console.error("Chyba při načítání dat:", error);
@@ -223,6 +226,32 @@ export default function HeroSection() {
                             </Box>
                         ))}
                     </Box>
+
+                    {substitutes.length > 0 && (
+                        <>
+                            <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
+                                Náhradníci ({substitutes.length})
+                            </Typography>
+                            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+                                {substitutes.map((substitute, index) => (
+                                    <Box
+                                        key={index}
+                                        sx={{
+                                            flex: "1 1 calc(50% - 16px)",
+                                            backgroundColor: "#f9f9f9",
+                                            borderRadius: 2,
+                                            padding: 2,
+                                        }}
+                                    >
+                                        <Typography variant="h6">{substitute.name}</Typography>
+                                        <Typography variant="body2">
+                                            Psi: {substitute.dogs.join(", ")}
+                                        </Typography>
+                                    </Box>
+                                ))}
+                            </Box>
+                        </>
+                    )}
                 </DialogContent>
             </Dialog>
         </Box>
