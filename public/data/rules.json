@@ -1,0 +1,78 @@
+{
+    "sections": [
+        {
+            "title": "Veterinární podmínky",
+            "rules": [
+              "Psi musí být klinicky zdraví a doprovázeni platným očkovacím průkazem nebo pasem.",
+              "Platné musí být očkování proti vzteklině.",
+              "Závodu se smí účastnit pouze zdraví psi, starší jednoho roku.",
+              "Veterinární podmínky se týkají i psů, kteří se závodu neúčastní, ale vyskytují se v zázemí závodu."
+            ]
+          },
+        {
+            "title": "Pro diváky a návštěvníky zázemí",
+            "rules": [
+              "Respektujte pokyny organizátorů a dobrovolníků.",
+              "Nehlaďte psi bez povolení jejich majitele.",
+              "Zajistěte si, aby vaše děti byly pod dohledem a v bezpečí.",
+              "V případě, že přivedete do zázemí psa, automaticky pro vás platí Veterinární podmínky.",
+              "Každý pes v kempu musí mít prokazatelně platné očkování(očkováky s sebou).",
+              "Zachovávejte čistotu a využívejte odpadkové koše.",
+              "Vyvarujte se hlasitých zvuků a jiných činností, které by mohly stresovat zvířata nebo rušit závodníky.",
+              "Podporujte závodníky, ale nenabízejte jim pomoc na trati, pokud k tomu nejste vyzváni organizátory."
+            ]
+          },
+        {
+        "title": "Pravidla účastníků závodu",
+        "rules": [
+          "Psi musí být po celou dobu dogtrekku připoutání ke svému psovodovi.",
+          "Každý, kdo dogtrekk nedokončí projitím cíle, je povinen tuto informaci neprodleně oznámit pořadateli.",
+          "Pořadatel nebude v průběhu závodu radit po telefonu trasu. Výjimkou jsou situace ohrožující zdraví a výjimečné situace.",
+          "V případě účastníka mladšího 15 let bude start povolen pouze s doprovodem, ve věku 15-18 let je třeba předložit písemný souhlas rodičů k přihlášce.",
+          "Dodržujte pravidla fair play.",
+          "Dávejte pozor na bezpečnost ostatních účastníků.",
+          "Je povoleno a doporučeno doplňovat zásoby vody a jídla u domorodců.",
+          "Kontroly na trati budou oznamovány na informačním meetingu.",
+          "Trasa vede chráněnou krajinou oblastí, proto se prosím pohybujte s nejvyšší úctou k přírodě.",
+          "Přísný zákaz rozdělávání ohně při bivaku mimo vyhrazená ohniště."
+        ]
+      },
+      {
+        "title": "Odpady a ochrana přírody",
+        "rules": [
+          "Prosíme o dodržování pořádku v celém areálu i na trase.",
+          "Každý je povinen si po svém čtyřnožci uklidit.",
+          "Respektujte zásady CHKO: choďte pouze po značených cestách, nekrmte divoká zvířata, neničte rostliny a nezakládejte oheň mimo vyznačená místa.",
+          "Všechny odpadky si po sobě odneste.",
+          "Chovejte se ohleduplně k ostatním návštěvníkům i přírodě."
+        ]
+      },
+      {
+        "title": "Povinná výbava",
+        "rules": [
+          "Lékárnička: 1x obvaz hotový, 1x elastické obinadlo, 5x náplast s polštářkem, 1x isotermická folie.",
+          "2x botička pro každého psa.",
+          "Čelovka (nebo baterka).",
+          "Strava pro psa.",
+          "Miska pro psa.",
+          "Láhev s vodou pro psa.",
+          "Strava pro člověka.",
+          "Reflexní prvky.",
+          "Bivakovací potřeby (spací pytel a karimatka nebo alumatka)."
+        ]
+      },
+      {
+        "title": "Doporučená výbava",
+        "rules": [
+          "Orientační smysl a dobrá nálada.",
+          "Mobilní telefon.",
+          "Náhradní baterie.",
+          "Power banka.",
+          "Pláštěnka.",
+          "Náhradní ponožky.",
+          "Pytlíky na psí exkrementy."
+        ]
+      }
+    ]
+  }
+  

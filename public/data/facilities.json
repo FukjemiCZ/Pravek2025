@@ -1,0 +1,30 @@
+{
+    "facilities": {
+      "accommodation": {
+        "own": "Ve vlastních stanech nebo autech na fotbalovém hřišti",
+        "local": [
+          { "name": "Penzion Vyskeř", "link": "https://www.penzionvysker.cz" },
+          { "name": "Penzion Láska", "link": "https://www.penzionlaska.cz" },
+          { "name": "Roubenka Vyskeř", "link": "https://www.roubenkavysker.cz" },
+          { "name": "Apartmány Chlum", "link": "https://www.apartmanychlum.cz" }
+        ]
+      },
+      "onSite": {
+        "water": true,
+        "electricity": true,
+        "partyTent": true,
+        "mobileToilets": true,
+        "showers": false
+      },
+      "foodAndDrinks": {
+        "saturdayGrill": "V sobotu grilování kýty",
+        "local": [
+            {"name": "Místní obchod Koloniál", "link": "https://www.kolonialvysker.cz"},
+            {"name": "Penzion Vyskeř", "link": "https://www.penzionvysker.cz"}
+        ],
+        "basicRefreshments": true,
+        "drinks": ["Pivo", "Limo"]
+      }
+    }
+  }
+  
