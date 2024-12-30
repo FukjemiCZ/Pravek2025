@@ -14,9 +14,6 @@ export default function ContactSection() {
       <Typography variant="h4" gutterBottom sx={{ textAlign: "center", mb: 3 }}>
         Kontakt
       </Typography>
-      <Typography variant="body1" paragraph sx={{ textAlign: "center", mb: 4 }}>
-        V případě dotazů či zájmu o partnerství se nám ozvěte:
-      </Typography>
       <Box
         sx={{
           display: { xs: "block", md: "flex" },
