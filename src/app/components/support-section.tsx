@@ -91,7 +91,11 @@ export default function SingleHeroView({ hero }: { hero?: Hero }) {
 
   if (!hero) {
     return (
-      <Box id="koho-podporujeme"
+      <Box id="koho-podporujeme" sx={{ flexGrow: 1 }}>
+      <Typography variant="h4" gutterBottom>
+        Koho podporujeme
+      </Typography>
+      <Box
         sx={{
           textAlign: "center",
           py: 5,
@@ -102,6 +106,7 @@ export default function SingleHeroView({ hero }: { hero?: Hero }) {
         }}
       >
         Hrdinu pro tuto akci zveřejníme v pravý čas. Děkujeme za Vaši podporu a trpělivost!
+        </Box>
       </Box>
     );
   }
