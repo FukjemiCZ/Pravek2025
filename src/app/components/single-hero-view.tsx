@@ -44,12 +44,13 @@ interface Milestone {
 }
 
 interface Hero {
+  id: string;
   story: string;
   gallery: string[];
   milestones?: Milestone[];
 }
 
-export default function SingleHeroView({ hero }: { hero: Hero }) {
+export default function SingleHeroView({ hero }: { hero?: Hero }) {
   const [selectedTab, setSelectedTab] = useState(0);
   const [openGallery, setOpenGallery] = useState(false);
   const [currentImage, setCurrentImage] = useState(0);
@@ -71,10 +72,12 @@ export default function SingleHeroView({ hero }: { hero: Hero }) {
   };
 
   const handleNextImage = () => {
+    if (!hero) return;
     setCurrentImage((prev) => (prev + 1) % hero.gallery.length);
   };
 
   const handlePrevImage = () => {
+    if (!hero) return;
     setCurrentImage((prev) => (prev - 1 + hero.gallery.length) % hero.gallery.length);
   };
 
@@ -85,6 +88,28 @@ export default function SingleHeroView({ hero }: { hero: Hero }) {
       handlePrevImage();
     }
   };
+
+  if (!hero) {
+    return (
+      <Box
+        sx={{
+          textAlign: "center",
+          py: 5,
+          backgroundColor: "#fafafa",
+          border: "1px dashed #ccc",
+          fontStyle: "italic",
+          color: "#999",
+        }}
+      >
+        <Typography variant="h6" gutterBottom>
+          Hrdinu zveřejníme v pravý čas.
+        </Typography>
+        <Typography variant="body1">
+          Pracujeme na benefiční akci, která vás určitě zaujme. Děkujeme za vaši trpělivost a podporu!
+        </Typography>
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
