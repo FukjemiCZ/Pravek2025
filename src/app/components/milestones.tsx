@@ -58,7 +58,7 @@ export default function Milestones() {
   }, []);
 
   return (
-    <Box id="milestones-timeline" sx={{ mb: 5 }}>
+    <Box id="milestones" sx={{ mb: 5 }}>
       <Typography variant="h4" gutterBottom>
         Naše milníky
       </Typography>
