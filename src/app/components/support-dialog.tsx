@@ -60,9 +60,8 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
               Pro finanční podporu použijte prosím následující údaje:
             </Typography>
             <Typography variant="body2" paragraph>
-              Číslo účtu: 123456789/0100 <br />
-              IBAN: CZ65 0100 1234 5678 0000 0000 <br />
-              Variabilní symbol: 2025
+              Číslo účtu: 2887773010/3030<br />
+              Poznámka: "Pravěk 2025 + jméno startujícího"
             </Typography>
             <Typography variant="body2" paragraph sx={{ mt: 3, fontStyle: "italic" }}>
             Startovné je stanoveno na minimálně 500 Kč, ale velmi oceníme, pokud se rozhodnete přispět vyšší částkou. Vaše štědrost pomůže tam, kde je to nejvíce potřeba. Děkujeme za vaši podporu!

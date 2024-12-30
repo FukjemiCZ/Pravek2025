@@ -31,7 +31,7 @@ export default function HeroSection() {
     const [openParticipantsDialog, setOpenParticipantsDialog] = React.useState(false);
     const [isRegistrationFull, setIsRegistrationFull] = React.useState(false);
     const [searchQuery, setSearchQuery] = React.useState("");
-    const capacity = 50;
+    const capacity = 49;
 
     const today = new Date();
     const showNavigateButton = today > new Date("2025-05-12");
