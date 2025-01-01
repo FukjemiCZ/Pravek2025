@@ -1,262 +1,157 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
 import {
   Box,
-  Typography,
-  Tabs,
-  Tab,
-  ImageList,
-  ImageListItem,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  LinearProgress,
-  useMediaQuery,
-  useTheme,
   Card,
   CardContent,
+  CardMedia,
+  Typography,
+  Select,
+  MenuItem,
+  useMediaQuery,
+  useTheme,
+  SelectChangeEvent,
 } from "@mui/material";
-import Image from "next/image";
-import {
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-} from "@mui/lab";
-import CloseIcon from "@mui/icons-material/Close";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
+import { useState, useEffect } from "react";
+import SingleHeroView from "./single-hero-view";
 
-// Typy
-interface Milestone {
-  title: string;
-  description: string;
-  currentAmount: number;
-  targetAmount: number;
-  collectedPercentage: number;
-}
-
+// Typ pro hrdinu
 interface Hero {
-  id: string;
+  id: number;
+  name: string;
+  photo: string;
+  reason: string;
   story: string;
   gallery: string[];
-  milestones?: Milestone[];
 }
 
-export default function SingleHeroView({ hero }: { hero?: Hero }) {
-  const [selectedTab, setSelectedTab] = useState(0);
-  const [openGallery, setOpenGallery] = useState(false);
-  const [currentImage, setCurrentImage] = useState(0);
+export default function SupportSection() {
+  const [heroes, setHeroes] = useState<Hero[]>([]);
+  const [selectedHero, setSelectedHero] = useState<Hero | null>(null);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setSelectedTab(newValue);
-  };
+  useEffect(() => {
+    fetch("/data/heros.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setHeroes(data);
+        if (data.length === 1) {
+          setSelectedHero(data[0]);
+        }
+      });
+  }, []);
 
-  const openImageDialog = (index: number) => {
-    setCurrentImage(index);
-    setOpenGallery(true);
+  const handleHeroChange = (event: SelectChangeEvent<number>) => {
+    const hero = heroes.find((h) => h.id === Number(event.target.value));
+    setSelectedHero(hero || null);
   };
-
-  const closeImageDialog = () => {
-    setOpenGallery(false);
-  };
-
-  const handleNextImage = () => {
-    if (!hero) return;
-    setCurrentImage((prev) => (prev + 1) % hero.gallery.length);
-  };
-
-  const handlePrevImage = () => {
-    if (!hero) return;
-    setCurrentImage((prev) => (prev - 1 + hero.gallery.length) % hero.gallery.length);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === "ArrowRight") {
-      handleNextImage();
-    } else if (event.key === "ArrowLeft") {
-      handlePrevImage();
-    }
-  };
-
-  if (!hero) {
-    return (
-      <Box id="koho-podporujeme" sx={{ flexGrow: 1 }}>
-      <Typography variant="h4" gutterBottom>
-        Koho podporujeme
-      </Typography>
-      <Box
-        sx={{
-          textAlign: "center",
-          py: 5,
-          backgroundColor: "#fafafa",
-          border: "1px dashed #ccc",
-          fontStyle: "italic",
-          color: "#999",
-        }}
-      >
-        Hrdinu pro tuto akci zveřejníme v pravý čas. Děkujeme za Vaši podporu a trpělivost!
-        </Box>
-      </Box>
-    );
-  }
 
   return (
-    <Box id="koho-podporujeme" sx={{ flexGrow: 1 }}>
+    <Box id="koho-podporujeme" sx={{ mb: 5 }}>
       <Typography variant="h4" gutterBottom>
         Koho podporujeme
       </Typography>
-      <Tabs
-        value={selectedTab}
-        onChange={handleTabChange}
-        aria-label="Hero details tabs"
-        sx={{ mb: 2 }}
-      >
-        <Tab label="Příběh" />
-        <Tab label="Galerie" />
-        <Tab label="Milníky" />
-      </Tabs>
+      <Typography variant="body1" paragraph>
+        {heroes.length === 1
+          ? `V letošním roce jsme se rozhodli pomoci ${heroes[0].name}, který/á ${heroes[0].reason}`
+          : "V letošním roce jsme se rozhodli pomoci několika jednotlivcům, kteří podporují zdravotně znevýhodněné."}
+      </Typography>
 
-      {selectedTab === 0 && (
-        <Box>
-          {hero.story.split("\n").map((paragraph, index) => (
-            <Typography key={index} variant="body1" sx={{ mb: 2 }}>
-              {paragraph}
-            </Typography>
-          ))}
+      {heroes.length === 0 ? (
+        <Box
+          sx={{
+            textAlign: "center",
+            py: 5,
+            backgroundColor: "#fafafa",
+            border: "1px dashed #ccc",
+            fontStyle: "italic",
+            color: "#999",
+          }}
+        >
+          Brzy je zveřejníme, jen co přijde ten správný čas :)
         </Box>
-      )}
-
-      {selectedTab === 1 && hero.gallery?.length > 0 && (
-        <>
-          <ImageList cols={isMobile ? 2 : 3} gap={8}>
-            {hero.gallery.map((image, index) => (
-              <ImageListItem
-                key={index}
-                onClick={() => openImageDialog(index)}
+      ) : heroes.length === 1 ? (
+        <Box>
+          <Typography variant="h5" gutterBottom>
+            {heroes[0].name}
+          </Typography>
+          <Typography variant="body1" paragraph>
+            {heroes[0].reason}
+          </Typography>
+          <SingleHeroView hero={heroes[0]} />
+        </Box>
+      ) : (
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          {isMobile ? (
+            <>
+              <Select
+                fullWidth
+                value={selectedHero?.id || ""}
+                onChange={handleHeroChange}
+                displayEmpty
+                sx={{ mb: 2 }}
+              >
+                <MenuItem value="" disabled>
+                  Vyberte osobu
+                </MenuItem>
+                {heroes.map((hero) => (
+                  <MenuItem key={hero.id} value={hero.id}>
+                    {hero.name}
+                  </MenuItem>
+                ))}
+              </Select>
+              {selectedHero && <SingleHeroView hero={selectedHero} />}
+            </>
+          ) : (
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Box
                 sx={{
-                  cursor: "pointer",
-                  transition: "transform 0.3s",
-                  "&:hover": { transform: "scale(1.05)" },
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "25%",
+                  mr: 3,
                 }}
               >
-                <Image
-                  src={image}
-                  alt={`Gallery image ${index + 1}`}
-                  loading="lazy"
-                  style={{ borderRadius: "8px" }}
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
-
-          <Dialog
-            open={openGallery}
-            onClose={closeImageDialog}
-            maxWidth="lg"
-            onKeyDown={handleKeyDown}
-            sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-          >
-            <DialogTitle sx={{ position: "absolute", top: 0, right: 0 }}>
-              <IconButton
-                edge="end"
-                color="inherit"
-                onClick={closeImageDialog}
-                aria-label="close"
-              >
-                <CloseIcon />
-              </IconButton>
-            </DialogTitle>
-            <DialogContent
-              sx={{
-                position: "relative",
-                width: "80vw",
-                height: "80vh",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <IconButton
-                onClick={handlePrevImage}
-                sx={{ position: "absolute", left: 10, zIndex: 1 }}
-              >
-                <ArrowBackIosNewIcon fontSize="large" />
-              </IconButton>
-              <Image
-                src={hero.gallery[currentImage]}
-                alt="Current gallery image"
-                style={{ maxHeight: "100%", maxWidth: "100%", borderRadius: "12px" }}
-              />
-              <IconButton
-                onClick={handleNextImage}
-                sx={{ position: "absolute", right: 10, zIndex: 1 }}
-              >
-                <ArrowForwardIosIcon fontSize="large" />
-              </IconButton>
-            </DialogContent>
-          </Dialog>
-        </>
-      )}
-
-      {selectedTab === 2 && hero.milestones && hero.milestones.length > 0 && (
-        <Timeline position="alternate">
-          {hero.milestones.map((milestone, index) => (
-            <TimelineItem key={index}>
-              <TimelineSeparator>
-                <TimelineDot
-                  color={milestone.collectedPercentage >= 100 ? "success" : "grey"}
-                >
-                  {milestone.collectedPercentage >= 100 ? (
-                    <CheckCircleIcon />
-                  ) : (
-                    <AttachMoneyIcon />
-                  )}
-                </TimelineDot>
-                <TimelineConnector />
-              </TimelineSeparator>
-              <TimelineContent>
-                <Card sx={{ maxWidth: 400, mb: 2 }}>
-                  <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                      {milestone.title}
-                    </Typography>
-                    <Typography variant="body2" gutterBottom>
-                      {milestone.description}
-                    </Typography>
-                    <LinearProgress
-                      variant="determinate"
-                      value={milestone.collectedPercentage || 0}
-                      sx={{ height: 10, borderRadius: 5, mb: 1 }}
+                {heroes.map((hero) => (
+                  <Card
+                    key={hero.id}
+                    onClick={() => setSelectedHero(hero)}
+                    sx={{
+                      mb: 2,
+                      cursor: "pointer",
+                      border: selectedHero?.id === hero.id ? "2px solid #1976d2" : "1px solid #ddd",
+                      boxShadow: selectedHero?.id === hero.id ? "0 0 10px rgba(25, 118, 210, 0.5)" : "none",
+                    }}
+                  >
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={hero.photo}
+                      alt={hero.name}
                     />
-                    <Typography
-                      variant="body2"
-                      color={
-                        milestone.collectedPercentage >= 100
-                          ? "green"
-                          : "text.secondary"
-                      }
-                    >
-                      {milestone.collectedPercentage >= 100
-                        ? `Milník splněn: ${milestone.currentAmount} Kč (${milestone.collectedPercentage} %)`
-                        : `Vybráno: ${milestone.currentAmount} Kč z ${milestone.targetAmount} Kč`}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </TimelineContent>
-            </TimelineItem>
-          ))}
-        </Timeline>
+                    <CardContent>
+                      <Typography variant="h6">{hero.name}</Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {hero.reason}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ))}
+              </Box>
+
+              <Box sx={{ flexGrow: 1, width: "75%" }}>
+                {selectedHero ? (
+                  <SingleHeroView hero={selectedHero} />
+                ) : (
+                  <Typography variant="body1">Vyberte osobu z nabídky.</Typography>
+                )}
+              </Box>
+            </Box>
+          )}
+        </Box>
       )}
     </Box>
   );

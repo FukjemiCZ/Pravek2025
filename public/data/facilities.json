@@ -3,10 +3,10 @@
       "accommodation": {
         "own": "Ve vlastních stanech nebo autech na fotbalovém hřišti",
         "local": [
-          { "name": "Penzion Vyskeř", "link": "https://www.penzionvysker.cz" },
-          { "name": "Penzion Láska", "link": "https://www.penzionlaska.cz" },
-          { "name": "Roubenka Vyskeř", "link": "https://www.roubenkavysker.cz" },
-          { "name": "Apartmány Chlum", "link": "https://www.apartmanychlum.cz" }
+          { "name": "Penzion Vyskeř", "link": "https://www.penzionvysker.com/" },
+          { "name": "Penzion Láska", "link": "https://ubytovani-laska.cz/penzion/" },
+          { "name": "Roubenka Vyskeř", "link": "http://www.roubenka-ceskyraj.cz/" },
+          { "name": "Apartmány Chlum", "link": "https://www.chlum.com/ubytovani" }
         ]
       },
       "onSite": {
@@ -20,7 +20,8 @@
         "saturdayGrill": "V sobotu grilování kýty",
         "local": [
             {"name": "Místní obchod Koloniál", "link": "https://www.kolonialvysker.cz"},
-            {"name": "Penzion Vyskeř", "link": "https://www.penzionvysker.cz"}
+            {"name": "Penzion Vyskeř", "link": "https://www.penzionvysker.com/"},
+            { "name": "Chlum", "link": "https://www.chlum.com/restaurace" }
         ],
         "basicRefreshments": true,
         "drinks": ["Pivo", "Limo"]
