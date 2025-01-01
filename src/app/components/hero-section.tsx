@@ -122,7 +122,7 @@ export default function HeroSection() {
                     >
                         {isPayOpen
                             ? "Podpořit"
-                            : "Možnosti plateb spouštíme 1.3.2024"}
+                            : "Možnosti plateb spouštíme 1.3.2025"}
                     </Button>
 
                     <Button
@@ -136,7 +136,7 @@ export default function HeroSection() {
                             ? isRegistrationFull
                                 ? "Startovka plná"
                                 : "Registrace závodníka"
-                            : "Registrace otevřeme 1.1.2024 ve 13:30"}
+                            : "Registrace otevřeme 1.1.2025 ve 13:30"}
                     </Button>
 
                     <Button
