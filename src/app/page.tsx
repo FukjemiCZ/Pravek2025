@@ -29,6 +29,7 @@ import SponsorsSection from "./components/sponsors-section";
 import MilestonesSection from "./components/milestones";
 import SponsorDialog, { Sponsor } from "./components/sponsor-dialog";
 import SummarySection from "./components/sumary-section";
+import { Analytics } from "@vercel/analytics/react"
 
 const drawerWidth = 240;
 const CURRENT_YEAR = 2024;
@@ -54,6 +55,7 @@ export default function HomePage() {
 
   return (
     <ThemeProvider theme={theme}>
+      <Analytics/>
       <CssBaseline />
       <Box sx={{ display: "flex" }}>
         <AppBar
