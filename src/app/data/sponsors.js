@@ -4,7 +4,7 @@ const sponsors = [
         logo: '/sponsors/kartografiehp-logo.webp', // Sem můžeš nahrát logo
         description: 'Honza Prášil pro Vás připravil krásnou trasu a mapové podklady.',
         link: 'https://www.kartografiehp.cz/',
-        years: [2024],
+        years: [2024,2025],
         position: 10,
       },
       {
