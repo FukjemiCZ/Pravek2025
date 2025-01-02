@@ -1,5 +1,3 @@
-// app/components/sponsors-section.tsx
-
 "use client";
 
 import * as React from "react";
@@ -23,13 +21,18 @@ export default function SponsorsSection({
   sponsors,
   onSelectSponsor,
 }: SponsorsSectionProps) {
+  // Filtrujeme pouze sponzory, kteří mají rok 2025
+  const sponsors2025 = sponsors.filter((sponsor) =>
+    sponsor.years.includes(2025)
+  );
+
   return (
     <Box id="sponzori" sx={{ mb: 5 }}>
       <Typography variant="h4" gutterBottom>
         Sponzoři akce
       </Typography>
       <Grid container spacing={3} alignItems="stretch">
-        {sponsors.map((sponsor) => (
+        {sponsors2025.map((sponsor) => (
           <Grid item xs={12} sm={6} md={4} key={sponsor.name}>
             <Card
               sx={{
