@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Pavla Vejvalková ",
+    "dogs": [
+      "Marley"
+    ],
+    "paid": false
+  },
+  {
+    "name": "Petra Janáčková",
+    "dogs": [
+      "Olaf Debbie-Ann"
+    ],
+    "paid": false
+  },
+  {
+    "name": "Miroslav Strašil",
+    "dogs": [
+      "Isabel Fon Bubák",
+      "Archibald Ruffian's Legend"
+    ],
+    "paid": false
+  },
+  {
+    "name": "Jana Bečvářová ",
+    "dogs": [
+      "Muf"
+    ],
+    "paid": false
+  },
+  {
+    "name": "Veronika Fricová ",
+    "dogs": [
+      "Rézi"
+    ],
+    "paid": false
+  },
+  {
+    "name": "Kristýna Čermáková ",
+    "dogs": [
+      "Easy"
+    ],
+    "paid": false
+  },
+  {
+    "name": "Karolina Vršková ",
+    "dogs": [
+      "Teo",
+      "Jura",
+      "Fru"
+    ],
+    "paid": false
+  },
+  {
+    "name": "Aneta Mišková",
+    "dogs": [
+      "Barnabáš",
+      "Robin"
+    ],
+    "paid": false
+  },
+  {
+    "name": "Vojtěch Hendrych",
+    "dogs": [
+      "Lucifer"
+    ],
+    "paid": false
+  },
+  {
+    "name": "Hana Křováková ",
+    "dogs": [
+      "Crazy z Divoké Třešňovky"
+    ],
+    "paid": false
+  },
+  {
+    "name": "Eliška Fricová ",
+    "dogs": [
+      "Ája"
+    ],
+    "paid": false
+  }
+]
