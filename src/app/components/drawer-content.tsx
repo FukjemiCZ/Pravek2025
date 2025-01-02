@@ -109,7 +109,7 @@ export default function DrawerContent({
       >
         <strong>PRAVĚK V RÁJI</strong>
         <br />
-        15.5.-18.5.2024 Vyskeř
+        15.5.-18.5.2025 Vyskeř
       </Box>
 
       {/* Menu */}
