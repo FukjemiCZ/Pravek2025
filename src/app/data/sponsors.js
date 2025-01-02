@@ -36,7 +36,7 @@ const sponsors = [
         logo: '/sponsors/kennelfavourite-logo.webp', // Sem můžeš nahrát logo
         description: 'Holandská značka krmení s bohatým výběrem granulí a veterinárních diet.',
         link: 'https://www.granule-eshop.cz',
-        years: [2024],
+        years: [2024,2025],
         position: 50,
       },
       {
@@ -60,7 +60,8 @@ const sponsors = [
         logo: '/sponsors/veterinananamesti-logo.webp', // Sem můžeš nahrát logo
         description: 'Veterinární ordinace MVDr. Petry Janáčkové, vřele doporučeno šesti ze šesti huskounů.',
         link: 'https://www.veterinananamesti.cz/',
-        years: [2024],
+        years: [2024,2025
+        ],
         position: 80,
       },
       {
@@ -92,7 +93,7 @@ const sponsors = [
         logo: '/sponsors/vysker-logo.webp', // Sem můžeš nahrát logo
         description: 'Obec Vyskeř a SDH Vyskeř.',
         link: 'https://www.vysker.cz/',
-        years: [2024],
+        years: [2024,2025],
       },
       {
         name: 'Manuální terapie pro psy',
@@ -155,7 +156,7 @@ const sponsors = [
         logo: '/sponsors/milusezemankova-logo.webp', // Sem můžeš nahrát logo
         description: 'Komplexní péče o domácí i hospodářská zvířata.',
         link: 'https://mvdr-miluse-zemankova.webnode.cz/',
-        years: [2024],
+        years: [2024,2025],
         position: 190,
       },
       {
