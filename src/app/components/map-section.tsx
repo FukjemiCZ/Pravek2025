@@ -19,7 +19,7 @@ export default function MapSection() {
           color: "#999",
         }}
       >
-        Mapa závodu bude zveřejněna v den akce.
+        Mapa závodu bude zveřejněna nejdříve v den akce. Počítat můžeš s +/- 98 km.
       </Box>
     </Box>
   );
