@@ -92,7 +92,7 @@ const sponsors = [
         logo: '/sponsors/vysker-logo.webp', // Sem můžeš nahrát logo
         description: 'Obec Vyskeř a SDH Vyskeř.',
         link: 'https://www.vysker.cz/',
-        years: [2024,2025],
+        years: [2024],
       },
       {
         name: 'Manuální terapie pro psy',
@@ -107,7 +107,7 @@ const sponsors = [
         logo: '/sponsors/krmivaanet-logo.webp', // Sem můžeš nahrát logo
         description: 'Obchod s krmením pro hospodářská zvířata a koníky.',
         link: 'https://www.krmiva-anet.cz/',
-        years: [2024],
+        years: [2024,2025],
         position: 130,
       },
       {
@@ -131,7 +131,7 @@ const sponsors = [
         logo: '/sponsors/kolonialvysker-logo.webp', // Sem můžeš nahrát logo
         description: 'Koloniál Vyskeř nabízí široký sortiment potravin a suvenýrů z Českého ráje.',
         link: 'https://www.kolonialvysker.cz/',
-        years: [2024,2025],
+        years: [2024],
         position: 160,
       },
       {
@@ -179,7 +179,7 @@ const sponsors = [
         logo: '/sponsors/granulejehlicka-logo.webp', // Sem můžeš nahrát logo
         description: 'dodavatel granulí Kennels Favourite 👩‍⚕️PRO-VET pro ČR a SK',
         link: 'https://www.granule-eshop.cz/',
-        years: [2024],
+        years: [2024,2025],
         position: 220,
       },
   ];
