@@ -4,14 +4,16 @@
     "dogs": [
       "Marley"
     ],
-    "paid": false
+    "paid": false,
+    "isOnStartList": false
   },
   {
     "name": "Petra Janáčková",
     "dogs": [
       "Olaf Debbie-Ann"
     ],
-    "paid": false
+    "paid": false,
+    "isOnStartList": true
   },
   {
     "name": "Miroslav Strašil",
@@ -19,28 +21,32 @@
       "Isabel Fon Bubák",
       "Archibald Ruffian's Legend"
     ],
-    "paid": false
+    "paid": false,
+    "isOnStartList": true
   },
   {
     "name": "Jana Bečvářová",
     "dogs": [
       "Muf"
     ],
-    "paid": false
+    "paid": false,
+    "isOnStartList": true
   },
   {
     "name": "Veronika Fricová",
     "dogs": [
       "Rézi"
     ],
-    "paid": false
+    "paid": false,
+    "isOnStartList": true
   },
   {
     "name": "Kristýna Čermáková",
     "dogs": [
       "Easy"
     ],
-    "paid": false
+    "paid": false,
+    "isOnStartList": true
   },
   {
     "name": "Karolina Vršková ",
@@ -49,7 +55,8 @@
       "Jura",
       "Fru"
     ],
-    "paid": false
+    "paid": false,
+    "isOnStartList": false
   },
   {
     "name": "Aneta Mišková",
@@ -57,34 +64,89 @@
       "Barnabáš",
       "Robin"
     ],
-    "paid": false
+    "paid": false,
+    "isOnStartList": true
   },
   {
     "name": "Vojtěch Hendrych",
     "dogs": [
       "Lucifer"
     ],
-    "paid": false
+    "paid": false,
+    "isOnStartList": true
   },
   {
     "name": "Hana Křováková",
     "dogs": [
       "Crazy z Divoké Třešňovky"
     ],
-    "paid": false
+    "paid": false,
+    "isOnStartList": true
   },
   {
     "name": "Eliška Fricová",
     "dogs": [
       "Ája"
     ],
-    "paid": false
+    "paid": false,
+    "isOnStartList": true
   },
   {
     "name": "Irena Jurečková",
     "dogs": [
       "Chara"
     ],
-    "paid": false
-  }
-]
+    "paid": false,
+    "isOnStartList": false
+  },
+  {
+    "name": "Petra Hnídková",
+    "dogs": [
+      "Rozárka"
+    ],
+    "paid": false,
+    "isOnStartList": false
+  },
+{
+    "name": "Simona Majerová",
+    "dogs": [
+      "Alex",
+      "Airin z Litavské kotliny"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+{
+      "name": "Jaromír Hurych",
+      "dogs": [
+        "GP"
+      ],
+      "paid": false,
+      "isOnStartList": true
+    },
+    {
+      "name": "Barbora Kovaříková",
+      "dogs": [
+        "Capri"
+      ],
+      "paid": false,
+      "isOnStartList": true
+    },
+    {
+      "name": "Vít Bauer",
+      "dogs": [
+        "Honey"
+      ],
+      "paid": false,
+      "isOnStartList": true
+    },
+    {
+      "name":"Milena Bauerová",
+      "dogs":
+      [
+        "Isla Bonita"
+      ],
+      "paid": false,
+      "isOnStartList": true
+    }
+  ]

@@ -16,17 +16,18 @@ import SupportDialog from "./support-dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import NavigationIcon from "@mui/icons-material/Navigation";
 
-// Definice typu pro účastníka
+// Rozšíření typu pro účastníka
 interface Participant {
     name: string;
     registration_order: number;
     dogs: string[];
     paid: boolean;
+    isOnStartList: boolean; // Nový parametr
 }
 
 export default function HeroSection() {
     const [participants, setParticipants] = React.useState<Participant[]>([]);
-    const [substitutes, setSubstitutes] = React.useState<Participant[]>([]);
+    const [registered, setRegistered] = React.useState<Participant[]>([]); // Registrovaní závodníci
     const [raisedAmount, setRaisedAmount] = React.useState(0);
     const [openSupportDialog, setOpenSupportDialog] = React.useState(false);
     const [openParticipantsDialog, setOpenParticipantsDialog] = React.useState(false);
@@ -49,14 +50,16 @@ export default function HeroSection() {
                 const responseParticipants = await fetch("/data/racers.json");
                 const dataParticipants: Participant[] = await responseParticipants.json();
 
-                const sortedData = dataParticipants.sort(
-                    (a, b) => a.registration_order - b.registration_order
+                // Rozdělení podle `isOnStartList`
+                const mainParticipants = dataParticipants.filter(
+                    (participant) => participant.isOnStartList
                 );
-                const mainParticipants = sortedData.slice(0, capacity);
-                const substituteParticipants = sortedData.slice(capacity);
+                const registeredParticipants = dataParticipants.filter(
+                    (participant) => !participant.isOnStartList
+                );
 
                 setParticipants(mainParticipants);
-                setSubstitutes(substituteParticipants);
+                setRegistered(registeredParticipants);
                 setIsRegistrationFull(mainParticipants.length >= capacity);
             } catch (error) {
                 console.error("Chyba při načítání dat:", error);
@@ -208,7 +211,11 @@ export default function HeroSection() {
                                 key={index}
                                 sx={{
                                     flex: "1 1 calc(50% - 16px)",
-                                    backgroundColor: participant.paid ? "#e8f5e9" : "#ffebee",
+                                    backgroundColor: isPayOpen
+                                        ? participant.paid
+                                            ? "#e8f5e9" // Zelená pro uhrazené
+                                            : "#ffebee" // Červená pro neuhrazené
+                                        : "#f9f9f9", // Šedá před spuštěním plateb
                                     borderRadius: 2,
                                     padding: 2,
                                 }}
@@ -217,23 +224,25 @@ export default function HeroSection() {
                                 <Typography variant="body2">
                                     Psi: {participant.dogs.join(", ")}
                                 </Typography>
-                                <Typography
-                                    variant="body2"
-                                    sx={{ fontWeight: "bold", mt: 1 }}
-                                >
-                                    Stav platby: {participant.paid ? "Uhrazeno" : "Neuhrazeno"}
-                                </Typography>
+                                {isPayOpen && (
+                                    <Typography
+                                        variant="body2"
+                                        sx={{ fontWeight: "bold", mt: 1 }}
+                                    >
+                                        Stav platby: {participant.paid ? "Uhrazeno" : "Neuhrazeno"}
+                                    </Typography>
+                                )}
                             </Box>
                         ))}
                     </Box>
 
-                    {substitutes.length > 0 && (
+                    {registered.length > 0 && (
                         <>
                             <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
-                                Náhradníci ({substitutes.length})
+                                Registrovaní ({registered.length})
                             </Typography>
                             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-                                {substitutes.map((substitute, index) => (
+                                {registered.map((participant, index) => (
                                     <Box
                                         key={index}
                                         sx={{
@@ -243,9 +252,9 @@ export default function HeroSection() {
                                             padding: 2,
                                         }}
                                     >
-                                        <Typography variant="h6">{substitute.name}</Typography>
+                                        <Typography variant="h6">{participant.name}</Typography>
                                         <Typography variant="body2">
-                                            Psi: {substitute.dogs.join(", ")}
+                                            Psi: {participant.dogs.join(", ")}
                                         </Typography>
                                     </Box>
                                 ))}
