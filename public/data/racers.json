@@ -148,5 +148,13 @@
       ],
       "paid": false,
       "isOnStartList": true
+    },
+    {
+      "name":"Libor Bolehovský",
+      "dogs":[
+        "Deizy z Dašického zátiší"
+      ],
+      "paid":false,
+      "isOnStartList":true
     }
   ]
