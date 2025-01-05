@@ -77,7 +77,7 @@ const sponsors = [
         logo: '/sponsors/antonovi-logo.webp', // Sem můžeš nahrát logo
         description: 'Nově zrekonstruovaná chalupa v Českém ráji, ideální pro rodiny.',
         link: 'https://ubytovani.antonovi.cz/',
-        years: [2024],
+        years: [2024,2025],
         position: 100,
       },
       {
@@ -132,7 +132,7 @@ const sponsors = [
         logo: '/sponsors/kolonialvysker-logo.webp', // Sem můžeš nahrát logo
         description: 'Koloniál Vyskeř nabízí široký sortiment potravin a suvenýrů z Českého ráje.',
         link: 'https://www.kolonialvysker.cz/',
-        years: [2024],
+        years: [2024,2025],
         position: 160,
       },
       {

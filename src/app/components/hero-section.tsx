@@ -201,7 +201,9 @@ export default function HeroSection() {
                             fullWidth
                         />
                     </Box>
-
+                    <Typography variant="body2" gutterBottom sx={{ mb: 3, fontStyle: "italic" }}>
+                        Platí přednostní právo zapsání na startovku pro ty, co naši myšlenku podpořili svojí účastí v prvním ročníku. Počet startujících je opět omezen.
+                    </Typography>
                     <Typography variant="h5" gutterBottom>
                         Startovka ({participants.length}/{capacity})
                     </Typography>

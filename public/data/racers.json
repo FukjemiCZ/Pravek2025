@@ -107,7 +107,7 @@
     "paid": false,
     "isOnStartList": false
   },
-{
+  {
     "name": "Simona Majerová",
     "dogs": [
       "Alex",
@@ -116,45 +116,76 @@
     "paid": false,
     "isOnStartList": true
   },
-{
-      "name": "Jaromír Hurych",
-      "dogs": [
-        "GP"
-      ],
-      "paid": false,
-      "isOnStartList": true
-    },
-    {
-      "name": "Barbora Kovaříková",
-      "dogs": [
-        "Capri"
-      ],
-      "paid": false,
-      "isOnStartList": true
-    },
-    {
-      "name": "Vít Bauer",
-      "dogs": [
-        "Honey"
-      ],
-      "paid": false,
-      "isOnStartList": true
-    },
-    {
-      "name":"Milena Bauerová",
-      "dogs":
-      [
-        "Isla Bonita"
-      ],
-      "paid": false,
-      "isOnStartList": true
-    },
-    {
-      "name":"Libor Bolehovský",
-      "dogs":[
-        "Deizy z Dašického zátiší"
-      ],
-      "paid":false,
-      "isOnStartList":true
-    }
-  ]
+  {
+    "name": "Jaromír Hurych",
+    "dogs": [
+      "GP"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Barbora Kovaříková",
+    "dogs": [
+      "Capri"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Vít Bauer",
+    "dogs": [
+      "Honey"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Milena Bauerová",
+    "dogs": [
+      "Isla Bonita"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Libor Bolehovský",
+    "dogs": [
+      "Deizy z Dašického zátiší"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Barbora Janková",
+    "dogs": [
+      "Vánoční Dárek"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Erik Šikuta",
+    "dogs": [
+      "Eliška"
+    ],
+    "paid": false,
+    "isOnStartList": false
+  },
+  {
+    "name": "Martin Sieber",
+    "dogs": [
+      "Merlin"
+    ],
+    "paid": false,
+    "isOnStartList": false
+  },
+  {
+    "name": "Petra Frýzková",
+    "dogs": [
+      "Amy"
+    ],
+    "paid": false,
+    "isOnStartList": false
+  }
+]
