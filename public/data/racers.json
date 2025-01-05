@@ -175,7 +175,8 @@
   {
     "name": "Martin Sieber",
     "dogs": [
-      "Merlin"
+      "Merlin",
+      "Molly"
     ],
     "paid": false,
     "isOnStartList": false
@@ -183,7 +184,8 @@
   {
     "name": "Petra Frýzková",
     "dogs": [
-      "Amy"
+      "Amy",
+      "Dag"
     ],
     "paid": false,
     "isOnStartList": false
