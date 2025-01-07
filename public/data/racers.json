@@ -189,5 +189,61 @@
     ],
     "paid": false,
     "isOnStartList": false
+  },
+  {
+    "name": "Lukáš Vrajík",
+    "dogs": [
+      "Ariana of Whisky Vidnavská záře"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Anna Kolátorová",
+    "dogs": [
+      "Diblin"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Vít Kolátor",
+    "dogs": [
+      "Karel"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Viktor Vala",
+    "dogs": [
+      "Mia Vala´s"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Christine Daoudová",
+    "dogs": [
+      "Luna DeVile"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Zbyněk Heřmánek",
+    "dogs": [
+      "Renn"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name":"Johana Drlíková",
+    "dogs": [
+      "Lexi"
+    ],
+    "paid": false,
+    "isOnStartList": true
   }
 ]
