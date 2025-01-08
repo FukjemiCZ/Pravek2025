@@ -278,5 +278,10 @@
     ],
     "paid": false,
     "isOnStartList": true
-  }
+  },
+  {"name":"Eliška Pacltová",
+  "dogs":["Frisky Whiskey Srdcerváč"],
+  "paid": false,
+  "isOnStartList": true
+}
 ]
