@@ -240,11 +240,19 @@
     "isOnStartList": true
   },
   {
-    "name":"Johana Drlíková",
+    "name": "Johana Drlíková",
     "dogs": [
       "Lexi"
     ],
     "paid": false,
     "isOnStartList": true
+  },
+  {
+    "name": "Kateřina Radvanská",
+    "dogs":[
+      "Edith Yabalute"
+    ],
+    "paid": false,
+    "isOnStartList": false
   }
 ]
