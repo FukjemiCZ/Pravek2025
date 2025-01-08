@@ -39,6 +39,8 @@ export default function HeroSection() {
     const showNavigateButton = today > new Date("2025-05-12");
     const isRegistrationOpen = today >= new Date("2025-01-01T13:30:00");
     const isPayOpen = today >= new Date("2025-03-01");
+    const registrationCloseDate = new Date("2025-05-07T23:59:59");
+    const isRegistrationClosed = today > registrationCloseDate;
 
     React.useEffect(() => {
         const fetchData = async () => {
@@ -133,13 +135,15 @@ export default function HeroSection() {
                         color="primary"
                         sx={{ m: 1 }}
                         onClick={handleRegistration}
-                        disabled={!isRegistrationOpen || isRegistrationFull}
+                        disabled={!isRegistrationOpen || isRegistrationClosed}
                     >
-                        {isRegistrationOpen
-                            ? isRegistrationFull
-                                ? "Startovka plná"
-                                : "Registrace závodníka"
-                            : "Registrace otevřeme 1.1.2025 ve 13:30"}
+                        {isRegistrationClosed
+                            ? "Registrace uzavřena"
+                            : isRegistrationOpen
+                                ? isRegistrationFull
+                                    ? "Registrace náhradníka"
+                                    : "Registrace závodníka"
+                                : "Registrace otevřeme 1.1.2025 ve 13:30"}
                     </Button>
 
                     <Button
@@ -202,7 +206,7 @@ export default function HeroSection() {
                         />
                     </Box>
                     <Typography variant="body2" gutterBottom sx={{ mb: 3, fontStyle: "italic" }}>
-                    Platí přednostní právo zařazení na startovní listinu pro ty, kteří podpořili naši myšlenku svojí účastí v prvním ročníku. Do 1.3. je registrace vyhrazena pro tyto účastníky, poté uvolníme volná místa všem ostatním. Počet startujících je opět omezen.
+                        Platí přednostní právo zařazení na startovní listinu pro ty, kteří podpořili naši myšlenku svojí účastí v prvním ročníku. Do 1.3. je registrace vyhrazena pro tyto účastníky, poté uvolníme volná místa všem ostatním. Počet startujících je opět omezen.
                     </Typography>
                     <Typography variant="h5" gutterBottom>
                         Startovka ({participants.length}/{capacity})
