@@ -249,10 +249,34 @@
   },
   {
     "name": "Kateřina Radvanská",
-    "dogs":[
+    "dogs": [
       "Edith Yabalute"
     ],
     "paid": false,
     "isOnStartList": false
+  },
+  {
+    "name": "Tomáš Twardek",
+    "dogs": [
+      "Agregát"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Dana Konečná",
+    "dogs": [
+      "Anonymní pes(Alaskan)"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Ladislav Konečný",
+    "dogs": [
+      "Anonymní pes(Alaskan)"
+    ],
+    "paid": false,
+    "isOnStartList": true
   }
 ]
