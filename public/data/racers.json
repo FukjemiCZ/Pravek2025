@@ -294,5 +294,13 @@
     ],
     "paid": false,
     "isOnStartList": true
+  },
+  {
+    "name": "Renáta Juřenová",
+    "dogs": [
+      "Adaro z Krpole"
+    ],
+    "paid": false,
+    "isOnStartList": true
   }
 ]
