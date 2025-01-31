@@ -303,7 +303,6 @@
     "paid": false,
     "isOnStartList": false
   },
-  
   {
     "name": "Roman Brabec",
     "dogs": [
@@ -313,7 +312,6 @@
     "paid": false,
     "isOnStartList": false
   },
-
   {
     "name": "Marie Payne",
     "dogs": [
@@ -321,11 +319,20 @@
     ],
     "paid": false,
     "isOnStartList": false
-  },{
+  },
+  {
     "name": "Jiří Urbánek",
     "dogs": [],
     "paid": false,
     "isOnStartList": true
+  },
+  {
+    "name": "Michaela Ulbrichová",
+    "dogs": [
+      "Cassiopeia Caya",
+      "Ephel Havlovický čert"
+    ],
+    "paid": false,
+    "isOnStartList": true
   }
-  
 ]
