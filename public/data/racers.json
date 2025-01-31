@@ -334,5 +334,15 @@
     ],
     "paid": false,
     "isOnStartList": true
+  },
+  {
+    "name": "Antonín Hutnik",
+    "dogs": [
+      "Gray",
+      "Flame of love",
+      "Amor"
+    ],
+    "paid": false,
+    "isOnStartList": true
   }
 ]
