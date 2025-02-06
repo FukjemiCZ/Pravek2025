@@ -32,6 +32,14 @@ const sponsors = [
         position: 40,
       },
       {
+        name: 'NAP - psí protein',
+        logo: '/sponsors/nap.webp', // Sem můžeš nahrát logo
+        description: '',
+        link: 'https://psiprotein.cz/',
+        years: [2024,2025],
+        position: 45,
+      },
+      {
         name: 'Kennels\' Favourite',
         logo: '/sponsors/kennelfavourite-logo.webp', // Sem můžeš nahrát logo
         description: 'Holandská značka krmení s bohatým výběrem granulí a veterinárních diet.',
@@ -182,15 +190,7 @@ const sponsors = [
         link: 'https://www.granule-eshop.cz/',
         years: [2024,2025],
         position: 220,
-      },
-      {
-        name: 'NAP - psi protein',
-        logo: '/sponsors/nap.png', // Sem můžeš nahrát logo
-        description: '',
-        link: 'https://psiprotein.cz/',
-        years: [2025],
-        position: 45,
-      },
+      }
   ];
   
   export default sponsors;
