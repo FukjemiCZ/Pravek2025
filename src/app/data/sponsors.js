@@ -183,6 +183,14 @@ const sponsors = [
         years: [2024,2025],
         position: 220,
       },
+      {
+        name: 'NAP - psi protein',
+        logo: '/sponsors/nap.webp', // Sem můžeš nahrát logo
+        description: 'dodavatel granulí Kennels Favourite 👩‍⚕️PRO-VET pro ČR a SK',
+        link: 'https://psiprotein.cz/',
+        years: [2025],
+        position: 45,
+      },
   ];
   
   export default sponsors;
