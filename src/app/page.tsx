@@ -20,13 +20,12 @@ import sponsorsData from "./data/sponsors";
 import DrawerContent from "./components/drawer-content";
 import HeroSection from "./components/hero-section";
 import PrologSection from "./components/prolog-section";
-import SupportSection from "./components/support-section";
 import RulesSection from "./components/rules-section";
 import MapSection from "./components/map-section";
 import FacilitiesSection from "./components/facilities-section";
 import ContactSection from "./components/contact-section";
+import PersonSection from "./components/person-section";
 import SponsorsSection from "./components/sponsors-section";
-import MilestonesSection from "./components/milestones";
 import SponsorDialog, { Sponsor } from "./components/sponsor-dialog";
 import SummarySection from "./components/sumary-section";
 import { Analytics } from "@vercel/analytics/react"
@@ -132,9 +131,7 @@ export default function HomePage() {
           <Container maxWidth="lg" sx={{ py: 5 }}>
             <PrologSection />
             <Divider sx={{ mb: 5 }} />
-            <SupportSection />
-            <Divider sx={{ mb: 5 }} />
-            <MilestonesSection />
+            <PersonSection />
             <Divider sx={{ mb: 5 }} />
             <RulesSection />
             <Divider sx={{ mb: 5 }} />
