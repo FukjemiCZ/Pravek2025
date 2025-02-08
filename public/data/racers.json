@@ -344,5 +344,13 @@
     ],
     "paid": false,
     "isOnStartList": true
+  },
+  {
+    "name": "Jana Hofmanová",
+    "dogs": [
+      "Armin"
+    ],
+    "paid": false,
+    "isOnStartList": true
   }
 ]
