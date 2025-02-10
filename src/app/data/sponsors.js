@@ -52,7 +52,7 @@ const sponsors = [
         logo: '/sponsors/oslici-logo.webp', // Sem můžeš nahrát logo
         description: 'Zažijte výlet s oslíky Českým rájem.',
         link: 'https://ceskym-rajem-s-oslikem.webnode.cz/',
-        years: [2024],
+        years: [2024,2025],
         position: 60,
       },
       {
@@ -132,7 +132,7 @@ const sponsors = [
         logo: '/sponsors/lgvdesign-logo.webp', // Sem můžeš nahrát logo
         description: 'Výroba dřevěných originálních dekorací.',
         link: 'https://www.lgvdesign.cz/',
-        years: [2024],
+        years: [2024,2025],
         position: 150,
       },
       {
