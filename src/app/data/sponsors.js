@@ -60,7 +60,7 @@ const sponsors = [
         logo: '/sponsors/zerodc-logo.webp', // Sem můžeš nahrát logo
         description: 'Výroba a prodej kynologických potřeb se zaměřením na psí sporty jako mushing, canicross a dogtrekking.',
         link: 'https://www.zerodc.cz/cz/',
-        years: [2024],
+        years: [2024,2025],
         position: 70,
       },
       {
