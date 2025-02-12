@@ -352,5 +352,13 @@
     ],
     "paid": false,
     "isOnStartList": true
-  }
+  },
+  {
+    "name": "Ondřej Slavík",
+    "dogs": [
+      "Eywa"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  }	
 ]
