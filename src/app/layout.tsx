@@ -8,7 +8,7 @@ export const metadata = {
     siteName: "Pravěk v ráji",
     images: [
       {
-        url: "/img/image.png", // Použití cesty z public/
+        url: "/img/image.jpeg", // Použití cesty z public/
         width: 1200,
         height: 630,
         alt: "Pravěk v ráji - Benefiční dogtrekking",
@@ -21,7 +21,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Pravěk v ráji",
     description: "Benefiční dogtrekking",
-    images: ["/img/image.png"], // Twitter také použije stejný obrázek
+    images: ["/img/image.jpeg"], // Twitter také použije stejný obrázek
   },
 };
 
