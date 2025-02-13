@@ -85,7 +85,7 @@ export default function DrawerContent({
         }}
       >
         <Image
-          src="/sponsors/ruffianslegend-logo.webp"
+          src="/img/logo25.webp"
           alt="Ruffian's Legend"
           style={{
             maxWidth: "100%",

@@ -50,7 +50,7 @@ export default function ContactSection() {
             }}
           >
             <Image
-              src="/sponsors/ruffianslegend-logo.webp"
+              src="/img/logo25.webp"
               alt="Profilová fotka"
               style={{
                 maxWidth: "100%",
