@@ -23,6 +23,7 @@ interface Participant {
     dogs: string[];
     paid: boolean;
     isOnStartList: boolean; // Nový parametr
+    registration_date: string;
 }
 
 export default function HeroSection() {
@@ -48,18 +49,43 @@ export default function HeroSection() {
                 const responseAmount = await fetch("/data/vybrano.json");
                 const dataAmount = await responseAmount.json();
                 setRaisedAmount(dataAmount.amount);
-
+    
                 const responseParticipants = await fetch("/data/racers.json");
-                const dataParticipants: Participant[] = await responseParticipants.json();
-
-                // Rozdělení podle `isOnStartList`
-                const mainParticipants = dataParticipants.filter(
-                    (participant) => participant.isOnStartList
-                );
-                const registeredParticipants = dataParticipants.filter(
-                    (participant) => !participant.isOnStartList
-                );
-
+                const dataParticipants: Participant[] = await responseParticipants.json(); // Použití `const`
+    
+                // Konstanty pro kontrolu data
+                const priorityEndDate = new Date("2025-02-28T23:59:59");
+    
+                let mainParticipants: Participant[] = [];
+                let registeredParticipants: Participant[] = [];
+    
+                if (today <= priorityEndDate) {
+                    // Před 28.2. -> Pouze loňští závodníci na startovce, ostatní registrovaní
+                    mainParticipants = dataParticipants.filter(p => p.isOnStartList);
+                    registeredParticipants = dataParticipants.filter(p => !p.isOnStartList);
+                } else {
+                    // Po 1.3. -> Doplníme startovku nejrychlejšími registrovanými
+                    mainParticipants = dataParticipants.filter(p => p.isOnStartList);
+                    registeredParticipants = dataParticipants.filter(p => !p.isOnStartList);
+    
+                    // Seřadíme registrované podle času registrace
+                    registeredParticipants.sort((a, b) => {
+                        const dateA = new Date(a.registration_date.split(" ").reverse().join("T"));
+                        const dateB = new Date(b.registration_date.split(" ").reverse().join("T"));
+                        return dateA.getTime() - dateB.getTime();
+                    });
+    
+                    // Doplnění startovky, pokud je místo
+                    const freeSlots = capacity - mainParticipants.length;
+                    if (freeSlots > 0) {
+                        const toMove = registeredParticipants.slice(0, freeSlots);
+                        toMove.forEach(p => (p.isOnStartList = true));
+    
+                        mainParticipants = [...mainParticipants, ...toMove];
+                        registeredParticipants = registeredParticipants.slice(freeSlots);
+                    }
+                }
+    
                 setParticipants(mainParticipants);
                 setRegistered(registeredParticipants);
                 setIsRegistrationFull(mainParticipants.length >= capacity);
@@ -68,7 +94,8 @@ export default function HeroSection() {
             }
         };
         fetchData();
-    }, []);
+    }, [today]); // Přidání `today` do dependency array
+    
 
     const handleOpenSupportDialog = () => setOpenSupportDialog(true);
     const handleCloseSupportDialog = () => setOpenSupportDialog(false);
@@ -206,7 +233,7 @@ export default function HeroSection() {
                         />
                     </Box>
                     <Typography variant="body2" gutterBottom sx={{ mb: 3, fontStyle: "italic" }}>
-                        Platí přednostní právo zařazení na startovní listinu pro ty, kteří podpořili naši myšlenku svojí účastí v prvním ročníku. Do 1.3. je registrace vyhrazena pro tyto účastníky, poté uvolníme volná místa všem ostatním. Počet startujících je opět omezen.
+                        Platí přednostní právo zařazení na startovní listinu pro ty, kteří podpořili naši myšlenku svojí účastí v prvním ročníku. Do 23:59 28.2.2025 je startovka vyhrazena pro tyto účastníky, poté uvolníme volná místa všem ostatním. Počet startujících je opět omezen.
                     </Typography>
                     <Typography variant="h5" gutterBottom>
                         Startovka ({participants.length}/{capacity})
@@ -245,7 +272,7 @@ export default function HeroSection() {
                     {registered.length > 0 && (
                         <>
                             <Typography variant="h5" gutterBottom sx={{ mt: 4 }}>
-                                Registrovaní ({registered.length})
+                                {today <= new Date("2025-02-28T23:59:59") ? "Registrovaní" : "Náhradníci"} ({registered.length})
                             </Typography>
                             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
                                 {registered.map((participant, index) => (
