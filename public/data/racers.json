@@ -360,5 +360,38 @@
     ],
     "paid": false,
     "isOnStartList": true
+  },
+  {
+    "name": "Ina Rybenská",
+    "dogs": [
+      "Ypsi",
+      "Dija"
+    ],
+    "paid": false,
+    "isOnStartList": false
+  },
+  {
+    "name": "Jan Kalinová",
+    "dogs": [
+      "Aimy z Archy"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Michal Mihok",
+    "dogs": [
+      "Mandy z Archy"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "name": "Pavel Křížek",
+    "dogs": [
+      "Sisi"
+    ],
+    "paid": false,
+    "isOnStartList": true
   }	
 ]
