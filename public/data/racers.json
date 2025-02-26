@@ -413,7 +413,7 @@
       "Dija"
     ],
     "paid": false,
-    "isOnStartList": false
+    "isOnStartList": true
   },
   {
     "registration_date":"17.2.2025 15:13:24",
@@ -441,4 +441,23 @@
     ],
     "paid": false,
     "isOnStartList": true
-  }]
+  },
+  {
+    "registration_date":"24.2.2025 21:30:22",
+    "name": "Martin Kotiš",
+    "dogs": [
+      "Fany"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  },
+  {
+    "registration_date":"26.2.2025 16:37:47",
+    "name": "Petra Hamouzová",
+    "dogs": [
+      "Alba"
+    ],
+    "paid": false,
+    "isOnStartList": true
+  }
+]
