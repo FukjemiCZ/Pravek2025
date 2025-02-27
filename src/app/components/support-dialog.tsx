@@ -44,7 +44,7 @@ export default function SupportDialog({ open, onClose }: SupportDialogProps) {
           <CardMedia
             component="img"
             alt="QR Kód"
-            src="/images/qrkod.png"
+            src="/img/qr2025.jpeg"
             // Sem vložte cestu k vašemu skutečnému QR kódu
             sx={{
               objectFit: "contain",
