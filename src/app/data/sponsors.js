@@ -131,7 +131,7 @@ const sponsors = [
         name: 'LGV Design',
         logo: '/sponsors/lgvdesign-logo.webp', // Sem můžeš nahrát logo
         description: 'Výroba dřevěných originálních dekorací.',
-        link: 'https://www.lgvdesign.cz/',
+        link: 'https://www.instagram.com/_lgv_design_?igsh=MzQ5dTRiZ21nOWtu',
         years: [2024,2025],
         position: 150,
       },
@@ -156,7 +156,7 @@ const sponsors = [
         logo: '/sponsors/svijany-logo.webp', // Sem můžeš nahrát logo
         description: 'Jeden z nejstarších pivovarů v Česku, používající typický způsob výroby Českého piva.',
         link: 'https://www.pivovarsvijany.cz/',
-        years: [2024],
+        years: [2024,2025],
         position: 180,
       },
       {
