@@ -133,6 +133,9 @@ export default function HeroSection() {
                 <Typography variant="h6" gutterBottom>
                     15. - 18. května 2025 &nbsp;|&nbsp; Fotbalové hřiště Vyskeř
                 </Typography>
+                <Typography variant="h6" gutterBottom>
+                    ve spolupráci se Sportovní klub ČSV & spol.
+                </Typography>
 
                 {raisedAmount > 0 && (
                     <Typography
@@ -175,8 +178,20 @@ export default function HeroSection() {
 
                     <Button
                         variant="contained"
-                        color="primary"
+                        color="secondary"
                         sx={{ m: 1 }}
+                        onClick={handleOpenSupportDialog}
+                        disabled={!isPayOpen}
+                    >
+                        {isPayOpen
+                            ? "Platba startovného"
+                            : "Možnosti plateb spouštíme 1.3.2025"}
+                    </Button>
+
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        sx={{ m: 1, display: "none" }}
                         onClick={handleOpenParticipantsDialog}
                     >
                         Startovka
