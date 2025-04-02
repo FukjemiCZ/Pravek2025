@@ -31,7 +31,7 @@ import SummarySection from "./components/sumary-section";
 import { Analytics } from "@vercel/analytics/react";
 
 const drawerWidth = 240;
-const CURRENT_YEAR = 2024;
+const CURRENT_YEAR = 2025;
 
 export default function HomePage() {
   const { darkMode, toggleDarkMode } = useDarkMode();

@@ -16,27 +16,27 @@ import SupportDialog from "./support-dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import NavigationIcon from "@mui/icons-material/Navigation";
 
-// Rozšíření typu pro účastníka
 interface Participant {
     name: string;
     registration_order: number;
     dogs: string[];
     paid: boolean;
-    isOnStartList: boolean; // Nový parametr
+    isOnStartList: boolean;
     registration_date: string;
 }
 
 export default function HeroSection() {
     const [participants, setParticipants] = React.useState<Participant[]>([]);
-    const [registered, setRegistered] = React.useState<Participant[]>([]); // Registrovaní závodníci
+    const [registered, setRegistered] = React.useState<Participant[]>([]);
     const [raisedAmount, setRaisedAmount] = React.useState(0);
     const [openSupportDialog, setOpenSupportDialog] = React.useState(false);
     const [openParticipantsDialog, setOpenParticipantsDialog] = React.useState(false);
     const [isRegistrationFull, setIsRegistrationFull] = React.useState(false);
     const [searchQuery, setSearchQuery] = React.useState("");
+
     const capacity = 49;
 
-    const today = new Date();
+    const today = React.useMemo(() => new Date(), []);
     const showNavigateButton = today > new Date("2025-05-12");
     const isRegistrationOpen = today >= new Date("2025-01-01T13:30:00");
     const isPayOpen = today >= new Date("2025-03-01");
@@ -49,43 +49,38 @@ export default function HeroSection() {
                 const responseAmount = await fetch("/data/vybrano.json");
                 const dataAmount = await responseAmount.json();
                 setRaisedAmount(dataAmount.amount);
-    
+
                 const responseParticipants = await fetch("/data/racers.json");
-                const dataParticipants: Participant[] = await responseParticipants.json(); // Použití `const`
-    
-                // Konstanty pro kontrolu data
+                const dataParticipants: Participant[] = await responseParticipants.json();
+
                 const priorityEndDate = new Date("2025-02-28T23:59:59");
-    
+
                 let mainParticipants: Participant[] = [];
                 let registeredParticipants: Participant[] = [];
-    
+
                 if (today <= priorityEndDate) {
-                    // Před 28.2. -> Pouze loňští závodníci na startovce, ostatní registrovaní
                     mainParticipants = dataParticipants.filter(p => p.isOnStartList);
                     registeredParticipants = dataParticipants.filter(p => !p.isOnStartList);
                 } else {
-                    // Po 1.3. -> Doplníme startovku nejrychlejšími registrovanými
                     mainParticipants = dataParticipants.filter(p => p.isOnStartList);
                     registeredParticipants = dataParticipants.filter(p => !p.isOnStartList);
-    
-                    // Seřadíme registrované podle času registrace
+
                     registeredParticipants.sort((a, b) => {
                         const dateA = new Date(a.registration_date.split(" ").reverse().join("T"));
                         const dateB = new Date(b.registration_date.split(" ").reverse().join("T"));
                         return dateA.getTime() - dateB.getTime();
                     });
-    
-                    // Doplnění startovky, pokud je místo
+
                     const freeSlots = capacity - mainParticipants.length;
                     if (freeSlots > 0) {
                         const toMove = registeredParticipants.slice(0, freeSlots);
                         toMove.forEach(p => (p.isOnStartList = true));
-    
+
                         mainParticipants = [...mainParticipants, ...toMove];
                         registeredParticipants = registeredParticipants.slice(freeSlots);
                     }
                 }
-    
+
                 setParticipants(mainParticipants);
                 setRegistered(registeredParticipants);
                 setIsRegistrationFull(mainParticipants.length >= capacity);
@@ -93,13 +88,12 @@ export default function HeroSection() {
                 console.error("Chyba při načítání dat:", error);
             }
         };
+
         fetchData();
-    }, [today]); // Přidání `today` do dependency array
-    
+    }, []); // ← fetchData se spustí jen jednou
 
     const handleOpenSupportDialog = () => setOpenSupportDialog(true);
     const handleCloseSupportDialog = () => setOpenSupportDialog(false);
-
     const handleOpenParticipantsDialog = () => setOpenParticipantsDialog(true);
     const handleCloseParticipantsDialog = () => setOpenParticipantsDialog(false);
 
@@ -261,9 +255,9 @@ export default function HeroSection() {
                                     flex: "1 1 calc(50% - 16px)",
                                     backgroundColor: isPayOpen
                                         ? participant.paid
-                                            ? "#e8f5e9" // Zelená pro uhrazené
-                                            : "#ffebee" // Červená pro neuhrazené
-                                        : "#f9f9f9", // Šedá před spuštěním plateb
+                                            ? "#e8f5e9"
+                                            : "#ffebee"
+                                        : "#f9f9f9",
                                     borderRadius: 2,
                                     padding: 2,
                                 }}
