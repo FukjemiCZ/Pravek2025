@@ -17,7 +17,6 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { useDarkMode, createCustomTheme, ThemeProvider, CssBaseline } from "./theme";
-// import sponsorsData from "./data/sponsors"; // původní import odstraněn
 import DrawerContent from "./components/drawer-content";
 import HeroSection from "./components/hero-section";
 import PrologSection from "./components/prolog-section";
