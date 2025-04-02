@@ -172,7 +172,7 @@ const sponsors = [
         logo: '/sponsors/dek-logo.webp', // Sem můžeš nahrát logo
         description: 'Stavebniny s kompletním sortimentem pro stavbu domu od základů po střechu.',
         link: 'https://www.dek.cz/',
-        years: [2024],
+        years: [2024,2025],
         position: 200,
       },
       {
