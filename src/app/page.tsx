@@ -12,11 +12,12 @@ import {
   Divider,
   useMediaQuery,
   useTheme,
+  CircularProgress,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { useDarkMode, createCustomTheme, ThemeProvider, CssBaseline } from "./theme";
-import sponsorsData from "./data/sponsors";
+// import sponsorsData from "./data/sponsors"; // původní import odstraněn
 import DrawerContent from "./components/drawer-content";
 import HeroSection from "./components/hero-section";
 import PrologSection from "./components/prolog-section";
@@ -28,7 +29,7 @@ import PersonSection from "./components/person-section";
 import SponsorsSection from "./components/sponsors-section";
 import SponsorDialog, { Sponsor } from "./components/sponsor-dialog";
 import SummarySection from "./components/sumary-section";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
 
 const drawerWidth = 240;
 const CURRENT_YEAR = 2024;
@@ -37,9 +38,10 @@ export default function HomePage() {
   const { darkMode, toggleDarkMode } = useDarkMode();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [selectedSponsor, setSelectedSponsor] = React.useState<Sponsor | null>(null);
+  const [sponsors, setSponsors] = React.useState<Sponsor[]>([]);
+  const [loading, setLoading] = React.useState(true);
 
   const theme = createCustomTheme(darkMode);
-
   const muiTheme = useTheme();
   const isDesktop = useMediaQuery(muiTheme.breakpoints.up("md"));
 
@@ -47,14 +49,29 @@ export default function HomePage() {
   const handleSelectSponsor = (sponsor: Sponsor) => setSelectedSponsor(sponsor);
   const handleCloseSponsorDialog = () => setSelectedSponsor(null);
 
-  const sponsorsFilteredAndSorted = sponsorsData
+  React.useEffect(() => {
+    const fetchSponsors = async () => {
+      try {
+        const res = await fetch("/api/sponsors");
+        const data = await res.json();
+        setSponsors(data.sponsors || []);
+      } catch (error) {
+        console.error("Chyba při načítání sponzorů:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSponsors();
+  }, []);
+
+  const sponsorsFilteredAndSorted = sponsors
     .filter((s) => s.years.includes(CURRENT_YEAR))
     .map((sponsor) => ({ ...sponsor, position: sponsor.position ?? Infinity }))
     .sort((a, b) => a.position - b.position);
 
   return (
     <ThemeProvider theme={theme}>
-      <Analytics/>
+      <Analytics />
       <CssBaseline />
       <Box sx={{ display: "flex" }}>
         <AppBar
@@ -65,18 +82,16 @@ export default function HomePage() {
           }}
         >
           <Toolbar>
-            
-              
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               Pravěk v Ráji
             </Typography>
-            
             <IconButton color="inherit" edge="end" onClick={handleDrawerToggle}>
               <MenuIcon />
             </IconButton>
           </Toolbar>
         </AppBar>
 
+        {/* Stálý drawer pro desktop */}
         <Drawer
           variant="permanent"
           open
@@ -98,6 +113,7 @@ export default function HomePage() {
           />
         </Drawer>
 
+        {/* Mobilní drawer */}
         <Drawer
           variant="temporary"
           open={mobileOpen}
@@ -119,6 +135,7 @@ export default function HomePage() {
           />
         </Drawer>
 
+        {/* Hlavní obsah */}
         <Box
           component="main"
           sx={{
@@ -139,10 +156,19 @@ export default function HomePage() {
             <Divider sx={{ mb: 5 }} />
             <FacilitiesSection />
             <Divider sx={{ mb: 5 }} />
-            <SponsorsSection
-              sponsors={sponsorsFilteredAndSorted}
-              onSelectSponsor={handleSelectSponsor}
-            />
+
+            {loading ? (
+              <Box sx={{ textAlign: "center", py: 4 }}>
+                <CircularProgress />
+                <Typography sx={{ mt: 2 }}>Načítám sponzory...</Typography>
+              </Box>
+            ) : (
+              <SponsorsSection
+                sponsors={sponsorsFilteredAndSorted}
+                onSelectSponsor={handleSelectSponsor}
+              />
+            )}
+
             <Divider sx={{ mb: 5 }} />
             <ContactSection />
             <Divider sx={{ mb: 5 }} />
