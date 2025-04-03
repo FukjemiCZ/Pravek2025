@@ -86,7 +86,7 @@ export default function PeopleSection() {
   return (
     <Box id="people-lookup" sx={{ mb: 5 }}>
       <Typography variant="h4" gutterBottom>
-        Jsem na startovce?
+        Jsem na startovce a mám zaplaceno?
       </Typography>
 
       <Box display="flex" gap={2} mb={3}>
