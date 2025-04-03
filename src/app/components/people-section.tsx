@@ -170,7 +170,7 @@ export default function PeopleSection() {
                           Číslo účtu: <strong>2887773010/3030</strong>
                         </Typography>
                         <Typography variant="body2">
-                          Poznámka: <strong>Pravěk Pro Danika 2025 + {person.Jméno}</strong>
+                          Poznámka: <strong>Pravěk Pro Danika 2025 + {person.Jméno} {person.Přijmení}</strong>
                         </Typography>
                         <Typography variant="body2" mt={2}>
                           Startovné je stanoveno na minimálně <strong>500 Kč</strong>, ale velmi oceníme, pokud se rozhodnete přispět vyšší částkou.
@@ -227,7 +227,7 @@ export default function PeopleSection() {
                           <strong>Číslo účtu:</strong> 2887773010/3030
                         </Typography>
                         <Typography variant="body2">
-                          <strong>Poznámka:</strong> Pravěk Pro Danika 2025 + {person.Jméno}
+                          <strong>Poznámka:</strong> Pravěk Pro Danika 2025 + {person.Jméno} {person.Přijmení}
                         </Typography>
                         <Typography variant="body2" mt={2}>
                           V případě, že se na startovku nedostaneš, platbu považujeme za dobrovolnou podporu a nebudeme ji vracet.
