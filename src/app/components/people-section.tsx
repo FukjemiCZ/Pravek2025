@@ -244,11 +244,26 @@ export default function PeopleSection() {
       )}
 
       {!loading && hasSearched && results.length === 0 && !error && (
-        <Typography sx={{ mt: 3 }} align="center">
-          🐾 Tebe jsme tu nevyčmuchali, zkus použít telefonní číslo nebo e-mail.  
-          <br />
-          <strong>Prostě žádné výsledky.</strong>
+        <Box sx={{ mt: 4, textAlign: "center" }}>
+        <Typography gutterBottom>
+          🐾 Tebe jsme tu nevyčmuchali – zkus to znovu pomocí telefonu nebo e-mailu.
         </Typography>
+        <Typography gutterBottom>
+          Pokud se ti to ani na podruhé nedaří, je dost možné, že ses ještě nepřihlásil.
+        </Typography>
+        <Typography gutterBottom>
+          Klikni níže a zaregistruj se jako náhradník. Budeme tě kontaktovat, pokud se uvolní místo.
+        </Typography>
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ mt: 2 }}
+          onClick={() => window.open("https://prihlaseni.pravek-v-raji.cz/", "_blank")}
+        >
+          Přihlásit se jako náhradník
+        </Button>
+      </Box>
+      
       )}
     </Box>
   );
