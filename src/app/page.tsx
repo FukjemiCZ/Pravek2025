@@ -28,6 +28,7 @@ import PersonSection from "./components/person-section";
 import SponsorsSection from "./components/sponsors-section";
 import SponsorDialog, { Sponsor } from "./components/sponsor-dialog";
 import SummarySection from "./components/sumary-section";
+import PeopleSection from "./components/people-section"; 
 import { Analytics } from "@vercel/analytics/react";
 
 const drawerWidth = 240;
@@ -145,6 +146,8 @@ export default function HomePage() {
         >
           <HeroSection />
           <Container maxWidth="lg" sx={{ py: 5 }}>
+            <PeopleSection />
+            <Divider sx={{ mb: 5 }} />
             <PrologSection />
             <Divider sx={{ mb: 5 }} />
             <PersonSection />
