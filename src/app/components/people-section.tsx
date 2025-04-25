@@ -245,27 +245,32 @@ export default function PeopleSection() {
         </Grid>
       )}
 
-      {!loading && hasSearched && results.length === 0 && !error && nahradniciAktivni && (
-        <Box sx={{ mt: 4, textAlign: "center" }}>
-          <Typography gutterBottom>
-            🐾 Tebe jsme tu nevyčmuchali – zkus to znovu pomocí telefonu nebo e-mailu.
-          </Typography>
-          <Typography gutterBottom>
-            Pokud se ti to ani na podruhé nedaří, je dost možné, že ses ještě nepřihlásil.
-          </Typography>
-          <Typography gutterBottom>
-            Klikni níže a zaregistruj se jako náhradník. Budeme tě kontaktovat, pokud se uvolní místo.
-          </Typography>
-          <Button
-            variant="contained"
-            color="secondary"
-            sx={{ mt: 2 }}
-            onClick={() => window.open("https://prihlaseni.pravek-v-raji.cz/", "_blank")}
-          >
-            Přihlásit se jako náhradník
-          </Button>
-        </Box>
-      )}
+{!loading && hasSearched && results.length === 0 && !error && (
+  <Box sx={{ mt: 4, textAlign: "center" }}>
+    <Typography gutterBottom>
+      🐾 Tebe jsme tu nevyčmuchali – zkus to znovu pomocí telefonu nebo e-mailu.
+    </Typography>
+    <Typography gutterBottom>
+      Pokud se ti to ani na podruhé nedaří, je dost možné, že ses nepřihlásil.
+    </Typography>
+
+    {nahradniciAktivni && (
+      <>
+        <Typography gutterBottom>
+          Klikni níže a zaregistruj se jako náhradník. Budeme tě kontaktovat, pokud se uvolní místo.
+        </Typography>
+        <Button
+          variant="contained"
+          color="secondary"
+          sx={{ mt: 2 }}
+          onClick={() => window.open("https://prihlaseni.pravek-v-raji.cz/", "_blank")}
+        >
+          Přihlásit se jako náhradník
+        </Button>
+      </>
+    )}
+  </Box>
+)}
     </Box>
   );
 }
