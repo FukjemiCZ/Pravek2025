@@ -24,6 +24,7 @@ const articles = [
         image: "/img/1685012737662.webp",
         dialogImage: "/img/1685012737662.webp", // Fotka do dialogu
         excerpt: "Důvod je prostý. S partou přátel jsme se rozhodli uspořádat dogtrekking...",
+        showReadMoreButton: true,
         content: `
       <p>Důvod je prostý. S partou přátel jsme se rozhodli uspořádat dogtrekking, který povede srdcem Českého ráje. Protože je to akce benefiční, vteřiny nejsou to nejdůležitější, oč tady kráčí. Čas vůbec měřit nebudeme. Celá akce je koncipovaná tak, aby přinesla nějaké penízky tam, kde je to potřeba.</p>
       
@@ -38,6 +39,7 @@ const articles = [
         image: "/img/20220416_191043.webp",
         dialogImage: "/img/20220416_191043.webp", // Fotka do dialogu
         excerpt: "Od doby, co mám Jardu je Vyskeř v Českém ráji moje druhé doma. Krásná vesnička...",
+        showReadMoreButton: true,
         content: `
       <p>Od doby, co mám Jardu je Vyskeř v Českém ráji moje druhé doma. Krásná vesnička, jejíž dominantou je kaple Sv. Anny, která se nachází na vrcholku čedičového kopce.</p>
       <p>Jednou takhle v březnu byla vypsaná hasičská brigáda právě na kapličce. Poměrně nepopulární práce, vyřezávání křoví. Když jsem odpočívala a rozhlédla se do kraje, první co mi proletělo hlavou bylo...  "Tady by byl sakra krásnej trekk".. Věděla jsem ale, že po 5 letech pořádání dogtrekkingu Po stopách Toulovce v rámci MČR do toho už nechci jít. Důvodů bylo několik, ale ten hlavní byl asi ten, že se dle mého názoru dogtrekk ubírá úplně jiným směrem než byla jeho původní myšlenka. A pak jsem taky hodně přehodnotila, svoje životní priority.. Proto jsem se rozhodla udělat to jinak - neměřit čas, aby šly sportovní ambice a honba za vteřinami stranou. Myšlenka benefice přišla v podstatě hned vzápětí.</p>
@@ -48,10 +50,11 @@ const articles = [
     },
     {
         id: 3,
-        title: `Geloren stánek"?`,
-        image: "https://cdn.myshoptet.com/usr/www.geloren.cz/user/logos/geloren_2024_356.png",
-        dialogImage: "https://cdn.myshoptet.com/usr/www.geloren.cz/user/logos/geloren_2024_356.png", // Fotka do dialogu
+        title: `Geloren stánek`,
+        image: "https://cdn.myshoptet.com/usr/www.geloren.cz/user/shop/big/150-1_geloren-dog-xl-mockup-web.jpg?65c5dba6",
+        dialogImage: "https://cdn.myshoptet.com/usr/www.geloren.cz/user/shop/big/150-1_geloren-dog-xl-mockup-web.jpg?65c5dba6", // Fotka do dialogu
         excerpt: "V sobotu se můžeš těšit na geloren stánek, platba bude možná hotově, nebo přes QRcode",
+        showReadMoreButton: false,
         content: ``,
     },
 ];
@@ -88,13 +91,15 @@ export default function ArticleCards() {
                                 <Typography variant="body2" paragraph>
                                     {article.excerpt}
                                 </Typography>
-                                <Button
-                                    variant="outlined"
-                                    color="primary"
-                                    onClick={() => handleOpenDialog(article.id)}
-                                >
-                                    Číst více
-                                </Button>
+                                {article.showReadMoreButton && (
+                                    <Button
+                                        variant="outlined"
+                                        color="primary"
+                                        onClick={() => handleOpenDialog(article.id)}
+                                    >
+                                        Číst více
+                                    </Button>
+                                )}
                             </CardContent>
                         </Card>
                     </Grid>
