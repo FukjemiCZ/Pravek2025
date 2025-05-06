@@ -46,6 +46,14 @@ const articles = [
       S velkým odhodláním jsem oslovila kamarády, co nám pomáhali s Toulovcem. Vsadila jsem na ty nejlepší! Všichni, které jsem o pomoc požádala souhlasili a tak si troufám říct, že tento osvědčený dream team zvládne uspořádat boží dogtrekk! :)</p>
     `,
     },
+    {
+        id: 3,
+        title: `Geloren stánek"?`,
+        image: "https://cdn.myshoptet.com/usr/www.geloren.cz/user/logos/geloren_2024_356.png",
+        dialogImage: "https://cdn.myshoptet.com/usr/www.geloren.cz/user/logos/geloren_2024_356.png", // Fotka do dialogu
+        excerpt: "V sobotu se můžeš těšit na geloren stánek, platba bude možná hotově, nebo přes QRcode",
+        content: ``,
+    },
 ];
 
 export default function ArticleCards() {
