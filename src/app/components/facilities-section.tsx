@@ -146,7 +146,7 @@ export default function FacilitiesSection() {
                 {facilities?.onSite?.showers && (
                   <ListItem disablePadding>• Sprcha</ListItem>
                 )}
-                <ListItem disablePadding>Geloren stánek(Platba bude možná Hotově nebo přes QRCode)</ListItem>
+                <ListItem disablePadding>Geloren stánek v průběhu soboty (Platba bude možná hotově nebo přes QRCode)</ListItem>
               </List>
             </CardContent>
           </Card>

@@ -30,6 +30,8 @@ import SponsorDialog, { Sponsor } from "./components/sponsor-dialog";
 import SummarySection from "./components/sumary-section";
 import PeopleSection from "./components/people-section"; 
 import { Analytics } from "@vercel/analytics/react";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 const drawerWidth = 240;
 const CURRENT_YEAR = 2025;
@@ -187,6 +189,24 @@ export default function HomePage() {
             }}
           >
             <Typography variant="body2">Benefiční dogtrekking Pravěk v Ráji 2025</Typography>
+            <IconButton
+            component="a"
+            href="https://www.facebook.com/profile.php?id=61575857402058"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+          >
+            <FacebookIcon fontSize="large" />
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://www.instagram.com/pravekvraji"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <InstagramIcon fontSize="large" />
+          </IconButton>
           </Box>
         </Box>
       </Box>
