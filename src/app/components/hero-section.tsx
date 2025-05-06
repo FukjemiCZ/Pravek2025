@@ -15,6 +15,8 @@ import {
 import SupportDialog from "./support-dialog";
 import CloseIcon from "@mui/icons-material/Close";
 import NavigationIcon from "@mui/icons-material/Navigation";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import InstagramIcon from "@mui/icons-material/Instagram";
 
 interface Participant {
   name: string;
@@ -201,6 +203,26 @@ export default function HeroSection() {
               Navigovat
             </Button>
           )}
+        </Box>
+        <Box mt={4} display="flex" justifyContent="center" gap={2}>
+          <IconButton
+            component="a"
+            href="https://www.facebook.com/profile.php?id=61575857402058"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+          >
+            <FacebookIcon fontSize="large" />
+          </IconButton>
+          <IconButton
+            component="a"
+            href="https://www.instagram.com/pravekvraji"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <InstagramIcon fontSize="large" />
+          </IconButton>
         </Box>
       </Container>
 
