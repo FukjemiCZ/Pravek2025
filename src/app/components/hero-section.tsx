@@ -204,7 +204,7 @@ export default function HeroSection() {
             </Button>
           )}
         </Box>
-        <Box mt={4} display="flex" justifyContent="center" gap={2}>
+        <Box mt={4} >
           <IconButton
             component="a"
             href="https://www.facebook.com/profile.php?id=61575857402058"
