@@ -53,7 +53,7 @@ const articles = [
         title: `Geloren stánek`,
         image: "https://cdn.myshoptet.com/usr/www.geloren.cz/user/shop/big/150-1_geloren-dog-xl-mockup-web.jpg?65c5dba6",
         dialogImage: "https://cdn.myshoptet.com/usr/www.geloren.cz/user/shop/big/150-1_geloren-dog-xl-mockup-web.jpg?65c5dba6", // Fotka do dialogu
-        excerpt: "V sobotu se můžeš těšit na geloren stánek, platba bude možná hotově, nebo přes QRcode",
+        excerpt: "V sobotu se můžeš těšit na geloren stánek.",
         showReadMoreButton: false,
         content: ``,
     },
