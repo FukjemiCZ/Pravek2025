@@ -19,7 +19,7 @@ import CloseIcon from "@mui/icons-material/Close"; // Import ikony křížku
 // Data pro články
 const articles = [
     {
-        id: 1,
+        id: 2,
         title: `Proč zrovna "Pravěk v Ráji"?`,
         image: "/img/1685012737662.webp",
         dialogImage: "/img/1685012737662.webp", // Fotka do dialogu
@@ -34,7 +34,7 @@ const articles = [
     `,
     },
     {
-        id: 2,
+        id: 3,
         title: "Jak to celé vzniklo?",
         image: "/img/20220416_191043.webp",
         dialogImage: "/img/20220416_191043.webp", // Fotka do dialogu
@@ -49,13 +49,23 @@ const articles = [
     `,
     },
     {
-        id: 3,
+        id: 4,
         title: `Geloren stánek`,
         image: "https://cdn.myshoptet.com/usr/www.geloren.cz/user/shop/big/150-1_geloren-dog-xl-mockup-web.jpg?65c5dba6",
         dialogImage: "https://cdn.myshoptet.com/usr/www.geloren.cz/user/shop/big/150-1_geloren-dog-xl-mockup-web.jpg?65c5dba6", // Fotka do dialogu
         excerpt: "V sobotu se můžeš těšit na geloren stánek.",
         showReadMoreButton: false,
         content: ``,
+    },
+    {
+        id: 1,
+        title: `Poslední Mail`,
+        image: "https://t3.ftcdn.net/jpg/05/28/88/82/360_F_528888239_McOPggZGBdHru8vpQjuad3aez4yyNTJS.jpg",
+        dialogImage: "https://t3.ftcdn.net/jpg/05/28/88/82/360_F_528888239_McOPggZGBdHru8vpQjuad3aez4yyNTJS.jpg", // Fotka do dialogu
+        excerpt: "Ahoj poslali jsme vám přdzávodní mail, možná skončil v hromadných zprávách, ale můžeš si jej prohlédnout",
+        showReadMoreButton: false,
+        content: ``,
+        url: "https://g7ae5.r.ag.d.sendibm3.com/mk/mr/sh/OycXxko2a8zXOaToMOadeZGT/F7g0rQNf1YFH",
     },
 ];
 
@@ -98,6 +108,17 @@ export default function ArticleCards() {
                                         onClick={() => handleOpenDialog(article.id)}
                                     >
                                         Číst více
+                                    </Button>
+                                )}
+                                {article.url && article.url.trim() !== "" && (
+                                    <Button
+                                        variant="outlined"
+                                        color="secondary"
+                                        href={article.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Zjistit více
                                     </Button>
                                 )}
                             </CardContent>
