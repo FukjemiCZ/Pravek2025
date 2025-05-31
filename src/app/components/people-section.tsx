@@ -12,7 +12,7 @@ import {
   CircularProgress,
   CardMedia,
 } from "@mui/material";
-
+import DynamicButton from "@/app/components/dynamic-button";
 interface PersonResult {
   Platba: string;
   Stav: string;
@@ -259,14 +259,7 @@ export default function PeopleSection() {
         <Typography gutterBottom>
           Klikni níže a zaregistruj se jako náhradník. Budeme tě kontaktovat, pokud se uvolní místo.
         </Typography>
-        <Button
-          variant="contained"
-          color="secondary"
-          sx={{ mt: 2 }}
-          onClick={() => window.open("https://prihlaseni.pravek-v-raji.cz/", "_blank")}
-        >
-          Přihlásit se jako náhradník
-        </Button>
+        <DynamicButton buttonId="register" sx={{ mt: 2 }} />
       </>
     )}
   </Box>

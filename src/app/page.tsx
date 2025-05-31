@@ -15,6 +15,7 @@ import {
   CircularProgress,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import DynamicButton from "@/app/components/dynamic-button";
 
 import { useDarkMode, createCustomTheme, ThemeProvider, CssBaseline } from "./theme";
 import DrawerContent from "./components/drawer-content";
@@ -28,10 +29,8 @@ import PersonSection from "./components/person-section";
 import SponsorsSection from "./components/sponsors-section";
 import SponsorDialog, { Sponsor } from "./components/sponsor-dialog";
 import SummarySection from "./components/sumary-section";
-import PeopleSection from "./components/people-section"; 
+import PeopleSection from "./components/people-section";
 import { Analytics } from "@vercel/analytics/react";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
 
 const drawerWidth = 240;
 
@@ -185,24 +184,22 @@ export default function HomePage() {
             }}
           >
             <Typography variant="body2">Benefiční dogtrekking Pravěk v Ráji 2025</Typography>
-            <IconButton
-              component="a"
-              href="https://www.facebook.com/profile.php?id=61575857402058"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-            >
-              <FacebookIcon fontSize="large" />
-            </IconButton>
-            <IconButton
-              component="a"
-              href="https://www.instagram.com/pravekvraji"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-            >
-              <InstagramIcon fontSize="large" />
-            </IconButton>
+            <DynamicButton
+              buttonId="facebook"
+              variantType="iconButton"
+              iconButtonProps={{
+                size: "large",
+                "aria-label": "Facebook",
+              }}
+            />
+            <DynamicButton
+              buttonId="instagram"
+              variantType="iconButton"
+              iconButtonProps={{
+                size: "large",
+                "aria-label": "Instagram",
+              }}
+            />
           </Box>
         </Box>
       </Box>

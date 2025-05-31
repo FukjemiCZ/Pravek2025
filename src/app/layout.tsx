@@ -1,9 +1,15 @@
+// app/layout.tsx
+
+import "./globals.css";
+import { ButtonsProvider } from "@/app/lib/button-context";
+import { DialogProvider } from "@/app/lib/dialog-context";
+
 export const metadata = {
   title: "Pravěk v ráji",
   description: "Benefiční dogtrekking",
   openGraph: {
     title: "Pravěk v ráji",
-    description: "Benefiční dogtreking",
+    description: "Benefiční dogtrekking",
     url: "https://pravek-v-raji.cz",
     siteName: "Pravěk v ráji",
     images: [
@@ -32,7 +38,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="cs">
-      <body>{children}</body>
+      <body>
+        <ButtonsProvider>
+          <DialogProvider>
+            {children}
+          </DialogProvider>
+        </ButtonsProvider>
+      </body>
     </html>
   );
 }

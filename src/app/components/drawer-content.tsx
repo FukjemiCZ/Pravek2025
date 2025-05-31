@@ -23,7 +23,8 @@ const menuItems = [
   { text: "Zázemí", href: "#zazemi" },
   { text: "Sponzoři", href: "#sponzori" },
   { text: "Kontakt", href: "#kontakt" },
-  { text: "Ročník 2024", href: "#summary2024" },
+  { text: "Ročníky 2025", href: "#summary2025" },
+  { text: "Ročníky 2024", href: "#summary2024" },
 ];
 
 interface DrawerContentProps {
