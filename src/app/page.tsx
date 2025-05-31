@@ -34,7 +34,6 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
 
 const drawerWidth = 240;
-const CURRENT_YEAR = 2025;
 
 export default function HomePage() {
   const { darkMode, toggleDarkMode } = useDarkMode();
@@ -56,20 +55,17 @@ export default function HomePage() {
       try {
         const res = await fetch("/api/sponsors");
         const data = await res.json();
+        // API already returns only those sponsors matching the year from ROCNIK and sorted by position
         setSponsors(data.sponsors || []);
       } catch (error) {
         console.error("Chyba při načítání sponzorů:", error);
+        setSponsors([]);
       } finally {
         setLoading(false);
       }
     };
     fetchSponsors();
   }, []);
-
-  const sponsorsFilteredAndSorted = sponsors
-    .filter((s) => s.years.includes(CURRENT_YEAR))
-    .map((sponsor) => ({ ...sponsor, position: sponsor.position ?? Infinity }))
-    .sort((a, b) => a.position - b.position);
 
   return (
     <ThemeProvider theme={theme}>
@@ -168,7 +164,7 @@ export default function HomePage() {
               </Box>
             ) : (
               <SponsorsSection
-                sponsors={sponsorsFilteredAndSorted}
+                sponsors={sponsors}
                 onSelectSponsor={handleSelectSponsor}
               />
             )}
@@ -190,23 +186,23 @@ export default function HomePage() {
           >
             <Typography variant="body2">Benefiční dogtrekking Pravěk v Ráji 2025</Typography>
             <IconButton
-            component="a"
-            href="https://www.facebook.com/profile.php?id=61575857402058"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Facebook"
-          >
-            <FacebookIcon fontSize="large" />
-          </IconButton>
-          <IconButton
-            component="a"
-            href="https://www.instagram.com/pravekvraji"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-          >
-            <InstagramIcon fontSize="large" />
-          </IconButton>
+              component="a"
+              href="https://www.facebook.com/profile.php?id=61575857402058"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+            >
+              <FacebookIcon fontSize="large" />
+            </IconButton>
+            <IconButton
+              component="a"
+              href="https://www.instagram.com/pravekvraji"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+            >
+              <InstagramIcon fontSize="large" />
+            </IconButton>
           </Box>
         </Box>
       </Box>

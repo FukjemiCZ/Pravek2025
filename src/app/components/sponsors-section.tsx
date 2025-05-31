@@ -1,3 +1,4 @@
+// components/SponsorsSection.tsx
 "use client";
 
 import * as React from "react";
@@ -10,7 +11,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import type { Sponsor } from "./sponsor-dialog"; // Importujeme interface Sponsor
+import type { Sponsor } from "../types/sponsor"; // předpokládám společný typ
 
 interface SponsorsSectionProps {
   sponsors: Sponsor[];
@@ -21,18 +22,13 @@ export default function SponsorsSection({
   sponsors,
   onSelectSponsor,
 }: SponsorsSectionProps) {
-  // Filtrujeme pouze sponzory, kteří mají rok 2025
-  const sponsors2025 = sponsors.filter((sponsor) =>
-    sponsor.years.includes(2025)
-  );
-
   return (
     <Box id="sponzori" sx={{ mb: 5 }}>
       <Typography variant="h4" gutterBottom>
         Sponzoři akce
       </Typography>
       <Grid container spacing={3} alignItems="stretch">
-        {sponsors2025.map((sponsor) => (
+        {sponsors.map((sponsor) => (
           <Grid item xs={12} sm={6} md={4} key={sponsor.name}>
             <Card
               sx={{
@@ -56,13 +52,13 @@ export default function SponsorsSection({
                   alt={`Logo ${sponsor.name}`}
                   src={sponsor.logo}
                   sx={{
-                    objectFit: "contain", // Zachování poměru stran
+                    objectFit: "contain",
                     margin: "auto",
-                    maxHeight: 120, // Nastavení maximální výšky
-                    maxWidth: "90%", // Přidání maximální šířky
+                    maxHeight: 120,
+                    maxWidth: "90%",
                     width: "90%",
                     pt: 2,
-                    backgroundColor: "white", // Volitelné - bílý podklad pro lepší kontrast
+                    backgroundColor: "white",
                   }}
                 />
               </Box>
