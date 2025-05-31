@@ -40,10 +40,10 @@ export default function HeroSection() {
   const nahradniciAktivni = process.env.NEXT_PUBLIC_NAHRADNICI_AKTIVNI !== "false";
 
   const today = React.useMemo(() => new Date(), []);
-  const showNavigateButton = today > new Date("2025-05-12");
-  const isRegistrationOpen = today >= new Date("2025-01-01T13:30:00");
-  const isPayOpen = today >= new Date("2025-03-01");
-  const registrationCloseDate = new Date("2025-05-07T23:59:59");
+  const showNavigateButton = today > new Date("2026-05-12");
+  const isRegistrationOpen = today >= new Date("2026-01-01T13:30:00");
+  const isPayOpen = today >= new Date("2026-03-01");
+  const registrationCloseDate = new Date("2026-05-07T23:59:59");
   const isRegistrationClosed = today > registrationCloseDate;
 
   React.useEffect(() => {
