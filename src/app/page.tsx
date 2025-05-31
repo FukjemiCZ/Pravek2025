@@ -19,7 +19,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { useDarkMode, createCustomTheme, ThemeProvider, CssBaseline } from "./theme";
 import DrawerContent from "./components/drawer-content";
 import HeroSection from "./components/hero-section";
-import PrologSection from "./components/prolog-section";
+import ArticleCards from "./components/article-cards";
 import RulesSection from "./components/rules-section";
 import MapSection from "./components/map-section";
 import FacilitiesSection from "./components/facilities-section";
@@ -150,7 +150,7 @@ export default function HomePage() {
           <Container maxWidth="lg" sx={{ py: 5 }}>
             <PeopleSection />
             <Divider sx={{ mb: 5 }} />
-            <PrologSection />
+            <ArticleCards />
             <Divider sx={{ mb: 5 }} />
             <PersonSection />
             <Divider sx={{ mb: 5 }} />

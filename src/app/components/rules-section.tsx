@@ -22,14 +22,17 @@ interface Rules {
 }
 
 export default function RulesSection() {
-  const [rules, setRules] = useState<Rules | null>(null); // Přidán typ
+  const [rules, setRules] = useState<Rules | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchRules() {
       try {
-        const response = await fetch("/data/rules.json");
-        const data: Rules = await response.json(); // Explicitní typ
+        const response = await fetch("/api/rules");
+        if (!response.ok) {
+          throw new Error(`Server responded with status ${response.status}`);
+        }
+        const data: Rules = await response.json();
         setRules(data);
       } catch (error) {
         console.error("Error loading rules:", error);
