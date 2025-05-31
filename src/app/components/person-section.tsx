@@ -39,7 +39,6 @@ const PersonSection = () => {
   useEffect(() => {
     const fetchPersons = async () => {
       try {
-        // nyní voláme nově vytvořené API
         const response = await fetch("/api/persons");
         if (!response.ok) {
           throw new Error(`Chyba API: ${response.status}`);
@@ -71,6 +70,20 @@ const PersonSection = () => {
         }}
       >
         <CircularProgress />
+      </Container>
+    );
+  }
+
+  // Pokud není žádný hrdina pro tento ročník, zobrazíme informaci
+  if (persons.length === 0) {
+    return (
+      <Container sx={{ py: 4 }} id="koho-podporujeme">
+        <Typography variant="h4" gutterBottom>
+          Tento ročník podporujeme
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+        Právě hledáme hrdinu pro tento ročník. Zůstaňte s námi, brzy zveřejníme více informací!
+        </Typography>
       </Container>
     );
   }
