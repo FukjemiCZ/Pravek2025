@@ -161,7 +161,7 @@ export default function PeopleSection() {
                       <Box mt={3}>
                         <CardMedia
                           component="img"
-                          image="{process.env.NEXT_PUBLIC_QRPAY!}"
+                          image={process.env.NEXT_PUBLIC_QRPAY!}
                           alt="QR kód pro platbu"
                           sx={{ maxWidth: 200, mb: 2 }}
                         />
