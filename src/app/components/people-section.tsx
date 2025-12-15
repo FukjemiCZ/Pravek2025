@@ -86,7 +86,7 @@ export default function PeopleSection() {
   };
 
   return (
-    <Box id="people-lookup" sx={{ mb: 5 }}>
+    <Box id="startovka" sx={{ mb: 5 }}>
       <Typography variant="h4" gutterBottom>
         Jsem na startovce a mám zaplaceno?
       </Typography>
@@ -161,7 +161,7 @@ export default function PeopleSection() {
                       <Box mt={3}>
                         <CardMedia
                           component="img"
-                          image="/img/qr2025.jpeg"
+                          image="/img/qr2026.jpeg"
                           alt="QR kód pro platbu"
                           sx={{ maxWidth: 200, mb: 2 }}
                         />
@@ -172,11 +172,11 @@ export default function PeopleSection() {
                           Číslo účtu: <strong>2887773010/3030</strong>
                         </Typography>
                         <Typography variant="body2">
-                          Poznámka: <strong>Pravěk Pro Danika 2025 + {person.Jméno} {person.Přijmení}</strong>
+                          Poznámka: <strong>Pravěk Pro Elisku 2026 + {person.Jméno} {person.Přijmení}</strong>
                         </Typography>
                         <Typography variant="body2" mt={2}>
                           Startovné je stanoveno na minimálně <strong>500 Kč</strong>, ale velmi oceníme, pokud se rozhodnete přispět vyšší částkou.
-                          Vaše štědrost pomůže tam, kde je to nejvíce potřeba. Vybíráme Danečkovi na schodolez. <strong>Děkujeme za vaši podporu!</strong>
+                          Vaše štědrost pomůže Elišce tam, kde je to nejvíce potřeba. <strong>Děkujeme za vaši podporu!</strong>
                         </Typography>
                       </Box>
                     )}
@@ -220,7 +220,7 @@ export default function PeopleSection() {
 
                         <CardMedia
                           component="img"
-                          image="/img/qr2025.jpeg"
+                          image="/img/qr2026.jpeg"
                           alt="QR kód pro platbu"
                           sx={{ maxWidth: 200, my: 2 }}
                         />
@@ -229,7 +229,7 @@ export default function PeopleSection() {
                           <strong>Číslo účtu:</strong> 2887773010/3030
                         </Typography>
                         <Typography variant="body2">
-                          <strong>Poznámka:</strong> Pravěk Pro Danika 2025 + {person.Jméno} {person.Přijmení}
+                          <strong>Poznámka:</strong> Pravěk Pro Elišku 2026 + {person.Jméno} {person.Přijmení}
                         </Typography>
                         <Typography variant="body2" mt={2}>
                           V případě, že se na startovku nedostaneš, platbu považujeme za dobrovolnou podporu a nebudeme ji vracet.

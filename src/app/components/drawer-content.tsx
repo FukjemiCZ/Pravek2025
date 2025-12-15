@@ -3,135 +3,215 @@
 import * as React from "react";
 import {
   Box,
-  IconButton,
   List,
   ListItemButton,
   ListItemText,
+  Collapse,
+  IconButton,
+  alpha,
   useMediaQuery,
-  useTheme
+  useTheme,
 } from "@mui/material";
+
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+
 import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
 
-// Položky menu
-const menuItems = [
-  { text: "O akci", href: "#home" },
-  { text: "Koho podporujeme", href: "#koho-podporujeme" },
-  { text: "Pravidla závodu", href: "#pravidla" },
-  { text: "Mapa závodu", href: "#mapa" },
-  { text: "Zázemí", href: "#zazemi" },
-  { text: "Sponzoři", href: "#sponzori" },
-  { text: "Kontakt", href: "#kontakt" },
-  { text: "Ročníky 2025", href: "#summary2025" },
-  { text: "Ročníky 2024", href: "#summary2024" },
-];
+import { MENU_SECTIONS } from "@/app/menu-config";
 
-interface DrawerContentProps {
+type Props = {
+  menuType: "home" | "race" | "charity";
   isDesktop: boolean;
   handleDrawerToggle: () => void;
   darkMode: boolean;
   handleToggleDarkMode: () => void;
-}
+};
 
 export default function DrawerContent({
+  menuType,
   isDesktop,
   handleDrawerToggle,
   darkMode,
   handleToggleDarkMode,
-}: DrawerContentProps) {
+}: Props) {
+  const router = useRouter();
+  const pathname = usePathname();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  // Funkce pro hladký scroll po kliknutí na položku menu
-  const handleSmoothScroll = (anchor: string) => {
-    // Pokud jsme na mobilu, nejdříve zavřít Drawer
-    if (!isDesktop) {
-      handleDrawerToggle();
+  const highlight = theme.palette.primary.main;
+
+  /** AUTO-OPEN ACTIVE SECTION */
+  const [open, setOpen] = React.useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    MENU_SECTIONS.forEach((sec) => (initial[sec.key] = sec.key === menuType));
+    return initial;
+  });
+
+  const toggle = (key: string) => {
+    setOpen((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
+  /** NAVIGATION HANDLING */
+  const handleClickItem = (item: { href: string; page?: string }) => {
+    if (!isDesktop) handleDrawerToggle();
+
+    if (item.page && item.page !== pathname) {
+      router.push(item.page + item.href);
+      return;
     }
 
-    // Timeout malinko odsune spuštění scrollu,
-    // aby se Drawer stihl zavřít a neskákalo to
     setTimeout(() => {
-      const element = document.querySelector(anchor);
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 50);
+      const el = document.querySelector(item.href);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }, 80);
   };
 
   return (
     <Box
       sx={{
         height: "100%",
+        width: "100%",
+        py: 3,
+        px: 2,
         display: "flex",
         flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        p: 2,
+        overflowY: "auto",
       }}
     >
-      {/* Logo */}
+      {/* LOGO — čisté, bez bordelu */}
       <Box
         sx={{
-          mb: 1,
-          textAlign: "center",
-          display: "inline-block",
-          width: "150px",
-          height: "150px",
+          width: 150,
+          height: 150,
           borderRadius: "50%",
           overflow: "hidden",
-          justifyContent: "center",
-          alignItems: "center",
+          mx: "auto",
+          mb: 1,
         }}
       >
         <Image
-          src="/img/logo25.webp"
-          alt="Ruffian's Legend"
-          style={{
-            maxWidth: "100%",
-            maxHeight: "100%",
-            objectFit: "contain",
-            backgroundColor: "white",
-          }}
+          src={process.env.NEXT_PUBLIC_LOGO!}
+          alt="logo"
+          width={150}
+          height={150}
+          style={{ objectFit: "contain", background: "#fff" }}
         />
       </Box>
 
-      {/* Text pod logem */}
-      <Box
-        sx={{
-          fontFamily: "Life Savers, Life-Savers-Fallback, Noto Color Emoji, sans-serif",
-          fontSize: isDesktop ? "1.2rem" : "1rem",
-          textAlign: "center",
-          lineHeight: "1.5",
-          mb: 3,
-          display: isMobile ? "none" : "block",
-        }}
-      >
-        <strong>PRAVĚK V RÁJI</strong>
-        <br />
-        15.5.-18.5.2025 Vyskeř
-      </Box>
+      {/* NADPIS */}
+      {!isMobile && (
+        <Box
+          sx={{
+            textAlign: "center",
+            fontFamily:
+              "Life Savers, Life-Savers-Fallback, Noto Color Emoji, sans-serif",
+            fontSize: "1.15rem",
+            fontWeight: 600,
+            lineHeight: 1.35,
+            mb: 3,
+            userSelect: "none",
+          }}
+        >
+          PRAVĚK V RÁJI
+          <br />
+          <span style={{ fontSize: "0.95rem", opacity: 0.8 }}>
+            14.5.–17.5.2026
+          </span>
+        </Box>
+      )}
 
-      {/* Menu */}
-      <List sx={{ textAlign: "center" }}>
-        {menuItems.map((item) => (
-          <ListItemButton
-            key={item.text}
-            // Odstraníme component="a" i href a přidáme onClick:
-            onClick={() => handleSmoothScroll(item.href)}
-          >
-            <ListItemText primary={item.text} />
-          </ListItemButton>
-        ))}
+      {/* ULTRA-MINIMAL NAVIGATION */}
+      <List sx={{ width: "100%" }}>
+        {MENU_SECTIONS.map((section) => {
+          const isOpen = open[section.key];
+
+          return (
+            <Box key={section.key} sx={{ mb: 1 }}>
+              {/* SECTION HEADER — Apple style */}
+              <ListItemButton
+                onClick={() => toggle(section.key)}
+                sx={{
+                  px: 1,
+                  py: 1,
+                  borderLeft: isOpen
+                    ? `4px solid ${highlight}`
+                    : "4px solid transparent",
+                  borderRadius: 0,
+                  transition: "border-color 0.25s ease",
+                  "&:hover": {
+                    backgroundColor: alpha(highlight, 0.05),
+                  },
+                }}
+              >
+                <ListItemText
+                  primary={section.label}
+                  primaryTypographyProps={{
+                    fontWeight: 600,
+                    fontSize: "0.95rem",
+                  }}
+                />
+                {isOpen ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+
+              {/* SUBITEMS */}
+              <Collapse in={isOpen} unmountOnExit timeout={200}>
+                {section.items.map((item) => {
+                  const isActive =
+                    pathname === item.page &&
+                    typeof window !== "undefined" &&
+                    window.location.hash === item.href;
+
+                  return (
+                    <ListItemButton
+                      key={item.text}
+                      onClick={() => handleClickItem(item)}
+                      sx={{
+                        pl: 4,
+                        py: 0.9,
+                        borderRadius: "12px",
+                        mx: 0.5,
+                        mb: 0.3,
+                        backgroundColor: isActive
+                          ? alpha(highlight, 0.12)
+                          : "transparent",
+                        transition: "background-color 0.15s ease",
+                        "&:hover": {
+                          backgroundColor: alpha(highlight, 0.08),
+                        },
+                      }}
+                    >
+                      <ListItemText
+                        primary={item.text}
+                        primaryTypographyProps={{
+                          fontSize: "0.9rem",
+                        }}
+                      />
+                    </ListItemButton>
+                  );
+                })}
+              </Collapse>
+            </Box>
+          );
+        })}
       </List>
 
-      {/* Přepínač Dark/Light */}
-      <Box sx={{ textAlign: "center", mt: 3 }}>
-        <IconButton color="primary" onClick={handleToggleDarkMode}>
-          {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
-        </IconButton>
-      </Box>
+      {/* DARK MODE — minimalisticky u dna */}
+      <IconButton
+        onClick={handleToggleDarkMode}
+        sx={{
+          mt: "auto",
+          mx: "auto",
+          opacity: 0.6,
+          "&:hover": { opacity: 1 },
+        }}
+      >
+        {darkMode ? <LightModeIcon /> : <DarkModeIcon />}
+      </IconButton>
     </Box>
   );
 }

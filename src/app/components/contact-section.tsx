@@ -50,7 +50,7 @@ export default function ContactSection() {
             }}
           >
             <Image
-              src="/img/logo25.webp"
+              src={process.env.NEXT_PUBLIC_LOGO!}
               alt="Profilová fotka"
               style={{
                 maxWidth: "100%",
@@ -88,11 +88,6 @@ export default function ContactSection() {
             loading="lazy"
           ></iframe>
         </Box>
-      </Box>
-      <Box sx={{ mt: 4, textAlign: "center" }}>
-        <Typography variant="body1" paragraph>
-        Na organizaci akce se podílí mnoho dalších skvělých lidí. Tímto bych jim chtěla poděkovat. Takže jmenovitě: Jaroslav Zemánek, Honza Prášil, Jana Kalinová, Petr Dvořák, Hannnz, Jana Raczová a pomoc nabídl i spřátelený DT Košťálov a Helča Bayerová. Akce zároveň probíhá ve spolupráci se Sportovní klub ČSV & spol. Děkuji všem! :-)
-        </Typography>
       </Box>
     </Box>
   );

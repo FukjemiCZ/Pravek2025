@@ -16,7 +16,7 @@ export default function HeroSection() {
       id="home"
       sx={{
         backgroundColor: (theme) =>
-          theme.palette.mode === "light" ? "#E6F7FF" : "#2C3E50",
+          theme.palette.mode === "light" ? "#F7F3EE" : "#2C3E50",
         textAlign: "center",
         py: 5,
         px: 2,
@@ -24,10 +24,10 @@ export default function HeroSection() {
     >
       <Container maxWidth="md">
         <Typography variant="h3" component="h1" gutterBottom>
-          Benefiční dogtrekking Pravěk v Ráji 2025
+          Benefiční dogtrekking Pravěk v Ráji 2026
         </Typography>
         <Typography variant="h6" gutterBottom>
-          15. - 18. května 2025 &nbsp;|&nbsp; Fotbalové hřiště Vyskeř
+          14. - 17. května 2026 &nbsp;|&nbsp; Fotbalové hřiště Vyskeř
         </Typography>
         <Typography variant="h6" gutterBottom>
           ve spolupráci se Sportovní klub ČSV & spol.

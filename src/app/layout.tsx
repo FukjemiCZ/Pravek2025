@@ -1,34 +1,14 @@
-// app/layout.tsx
-
+// src/app/layout.tsx
 import "./globals.css";
-import { ButtonsProvider } from "@/app/lib/button-context";
-import { DialogProvider } from "@/app/lib/dialog-context";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import BottomNavBar from "@/app/components/bottom-navbar";
 
-export const metadata = {
-  title: "Pravěk v ráji",
-  description: "Benefiční dogtrekking",
-  openGraph: {
-    title: "Pravěk v ráji",
-    description: "Benefiční dogtrekking",
-    url: "https://pravek-v-raji.cz",
-    siteName: "Pravěk v ráji",
-    images: [
-      {
-        url: "/img/image.jpeg", // Použití cesty z public/
-        width: 1200,
-        height: 630,
-        alt: "Pravěk v ráji - Benefiční dogtrekking",
-      },
-    ],
-    locale: "cs_CZ",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Pravěk v ráji",
-    description: "Benefiční dogtrekking",
-    images: ["/img/image.jpeg"], // Twitter také použije stejný obrázek
-  },
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Pravěk v Ráji 2026",
+  description: "Benefiční dogtrekkingový závod v Českém ráji.",
 };
 
 export default function RootLayout({
@@ -38,12 +18,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="cs">
-      <body>
-        <ButtonsProvider>
-          <DialogProvider>
-            {children}
-          </DialogProvider>
-        </ButtonsProvider>
+      <body className={inter.className}>
+        {children}
+
+        {/* 🔥 Sticky bottom bar pouze pro mobil */}
+        <BottomNavBar />
       </body>
     </html>
   );

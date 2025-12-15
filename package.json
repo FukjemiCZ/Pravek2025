@@ -1,6 +1,6 @@
 {
-  "name": "Pravek2025",
-  "version": "0.1.0",
+  "name": "Pravek",
+  "version": "2.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,7 +11,8 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^6.4.10",
+    "@heroicons/react": "^2.2.0",
+    "@mui/icons-material": "^6.5.0",
     "@mui/lab": "^6.0.0-beta.21",
     "@mui/material": "^6.4.10",
     "@vercel/analytics": "^1.4.1",
@@ -19,6 +20,7 @@
     "next": "^15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
     "react-swipeable": "^7.0.2"
   },
   "devDependencies": {

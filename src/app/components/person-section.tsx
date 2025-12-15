@@ -78,11 +78,8 @@ const PersonSection = () => {
   if (persons.length === 0) {
     return (
       <Container sx={{ py: 4 }} id="koho-podporujeme">
-        <Typography variant="h4" gutterBottom>
-          Tento ročník podporujeme
-        </Typography>
         <Typography variant="body1" color="text.secondary">
-        Právě hledáme hrdinu pro tento ročník. Zůstaňte s námi, brzy zveřejníme více informací!
+        Zůstaňte s námi, brzy zveřejníme hrdinu pro tento ročník!
         </Typography>
       </Container>
     );
@@ -90,9 +87,6 @@ const PersonSection = () => {
 
   return (
     <Container sx={{ py: 4 }} id="koho-podporujeme">
-      <Typography variant="h4" gutterBottom>
-        Tento ročník podporujeme
-      </Typography>
       <Grid container spacing={4} justifyContent="center">
         {persons.map((person, index) => (
           <Grid item xs={12} md={8} key={index}>
