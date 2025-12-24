@@ -175,7 +175,7 @@ export default function PeopleSection() {
                           Poznámka: <strong>Pravěk Pro Elisku 2026 + {person.Jméno} {person.Přijmení}</strong>
                         </Typography>
                         <Typography variant="body2" mt={2}>
-                          Startovné je stanoveno na minimálně <strong>500 Kč</strong>, ale velmi oceníme, pokud se rozhodnete přispět vyšší částkou.
+                          Startovné je stanoveno na minimálně <strong>600 Kč</strong>, ale velmi oceníme, pokud se rozhodnete přispět vyšší částkou.
                           Vaše štědrost pomůže Elišce tam, kde je to nejvíce potřeba. <strong>Děkujeme za vaši podporu!</strong>
                         </Typography>
                       </Box>
