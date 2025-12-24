@@ -2,7 +2,7 @@
 
 import FlagIcon from "@mui/icons-material/Flag";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import MapIcon from "@mui/icons-material/Map";
+import MapIcon from "@mui/icons-material/Home";
 
 export const MENU_SECTIONS = [
   {
@@ -48,8 +48,8 @@ export const BOTTOM_MENU = [
   },
   {
     key: "navigate",
-    label: "Dorazit na místo",
-    href: "https://maps.google.com/?q=Vyskeř",
+    label: "Home",
+    href: "https://pravek-v-raji.cz",
     icon: MapIcon,
     isFab: true,
   },
