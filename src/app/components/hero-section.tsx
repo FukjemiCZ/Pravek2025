@@ -59,7 +59,7 @@ export default function HeroSection() {
             sx={{ m: 1 }}
             onClick={handleRegister}
           >
-            Registrace
+            Přihlásit se jako náhradník
           </Button>
 
           <Button
