@@ -42,6 +42,11 @@ function getErrorMessage(err: unknown): string {
   }
 }
 
+// ✅ Remote URL (https://...) chceme načítat přímo (bez /_next/image), aby to fungovalo bez configu.
+function isRemoteSrc(src: string): boolean {
+  return /^https?:\/\//i.test((src || "").trim());
+}
+
 export type GalleryProps = {
   /**
    * Filtr nad sloupcem `gallery` v Sheets.
@@ -299,6 +304,7 @@ export default function Gallery({
               fill
               sizes="(max-width: 600px) 50vw, (max-width: 900px) 33vw, 25vw"
               style={{ objectFit: thumbObjectFit }}
+              unoptimized={isRemoteSrc(img.src)}
             />
           </ImageListItem>
         ))}
@@ -374,6 +380,7 @@ export default function Gallery({
                 sizes="100vw"
                 style={{ objectFit: "contain" }}
                 priority
+                unoptimized={isRemoteSrc(images[activeIndex].src)}
               />
             </Box>
           )}
