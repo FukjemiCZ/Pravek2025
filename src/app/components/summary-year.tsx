@@ -1,24 +1,17 @@
 "use client";
 
 import * as React from "react";
-import {
-  Box,
-  Typography,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  IconButton,
-  ImageList,
-  ImageListItem,
-} from "@mui/material";
+import { Box, Typography, Button, Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Image from "next/image";
 import { SummaryData } from "../types/summary";
+import Gallery from "../components/gallery";
 
 export default function SummaryYear({ summary }: { summary: SummaryData }) {
   const [openBeneficiary, setOpenBeneficiary] = React.useState<string | null>(null);
-  const [openMap, setOpenMap] = React.useState<string | null>(null);
+
+  // ✅ Dynamický filtr na gallery v Sheets: "Pravek-{rok}"
+  const galleryKey = `Pravek-${summary.year}`;
 
   return (
     <Box sx={{ mb: 6 }}>
@@ -56,18 +49,11 @@ export default function SummaryYear({ summary }: { summary: SummaryData }) {
               <Typography variant="h6">{ben.subtitle}</Typography>
               <Typography sx={{ mt: 2 }}>{ben.description}</Typography>
 
-              <Button
-                variant="contained"
-                sx={{ mt: 2 }}
-                onClick={() => setOpenBeneficiary(key)}
-              >
+              <Button variant="contained" sx={{ mt: 2 }} onClick={() => setOpenBeneficiary(key)}>
                 Více o {ben.name}
               </Button>
 
-              <Dialog
-                open={openBeneficiary === key}
-                onClose={() => setOpenBeneficiary(null)}
-              >
+              <Dialog open={openBeneficiary === key} onClose={() => setOpenBeneficiary(null)}>
                 <DialogTitle>
                   {ben.name}
                   <IconButton
@@ -85,9 +71,7 @@ export default function SummaryYear({ summary }: { summary: SummaryData }) {
                     height={250}
                     style={{ width: "100%", borderRadius: 12 }}
                   />
-                  <Typography sx={{ mt: 2, whiteSpace: "pre-line" }}>
-                    {ben.dialogText}
-                  </Typography>
+                  <Typography sx={{ mt: 2, whiteSpace: "pre-line" }}>{ben.dialogText}</Typography>
                 </DialogContent>
               </Dialog>
             </Box>
@@ -95,59 +79,12 @@ export default function SummaryYear({ summary }: { summary: SummaryData }) {
         );
       })}
 
-      {summary.mapImages.length > 0 && (
-        <>
-          <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
-            Mapa trasy
-          </Typography>
+      {/* ✅ Galerie místo sekce "Mapa trasy" */}
+      <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
+        Galerie ročníku
+      </Typography>
 
-          <ImageList cols={2} gap={12}>
-            {summary.mapImages.map((src, idx) => {
-              const key = `${summary.year}-m-${idx}`;
-
-              return (
-                <ImageListItem key={key}>
-                  <Image
-                    src={src}
-                    alt={`Mapa ${idx}`}
-                    width={300}
-                    height={200}
-                    style={{ borderRadius: 12, cursor: "pointer" }}
-                    onClick={() => setOpenMap(key)}
-                  />
-
-                  <Dialog
-                    open={openMap === key}
-                    onClose={() => setOpenMap(null)}
-                    maxWidth="md"
-                    fullWidth
-                  >
-                    <DialogTitle>
-                      Mapa – {summary.year}
-                      <IconButton
-                        onClick={() => setOpenMap(null)}
-                        sx={{ position: "absolute", right: 10, top: 10 }}
-                      >
-                        <CloseIcon />
-                      </IconButton>
-                    </DialogTitle>
-
-                    <DialogContent>
-                      <Image
-                        src={src}
-                        alt="Mapa detail"
-                        width={900}
-                        height={600}
-                        style={{ width: "100%", borderRadius: 12 }}
-                      />
-                    </DialogContent>
-                  </Dialog>
-                </ImageListItem>
-              );
-            })}
-          </ImageList>
-        </>
-      )}
+      <Gallery galleries={galleryKey} />
     </Box>
   );
 }

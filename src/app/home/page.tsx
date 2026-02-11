@@ -8,6 +8,7 @@ import ArticleCards from "../components/article-cards";
 import HeroSection from "../components/hero-section";
 import ContactSection from "../components/contact-section";
 import CharityTeaser from "../components/charity-teaser";
+import Gallery from "../components/gallery";
 
 export default function HomePage() {
 
@@ -32,7 +33,8 @@ export default function HomePage() {
                 <ArticleCards />
                 <Divider sx={{ my: 5 }} />
                 <CharityTeaser />
-
+                <Divider sx={{ my: 5 }} />
+                <Gallery galleries="home" />
                 <Divider sx={{ my: 5 }} />
 
                 <ContactSection />

@@ -5,7 +5,7 @@ import { Container, Divider, CircularProgress, Box } from "@mui/material";
 
 import AppShell from "../app-shell";
 import CharityPageComponent from "../components/charity-page";
-// import PaymentOptionsSection from "../components/payment-section";
+import PaymentOptionsSection from "../components/payment-section";
 import SponsorsSection from "../components/sponsors-section";
 import SponsorDialog, { Sponsor } from "../components/sponsor-dialog";
 
@@ -56,7 +56,6 @@ export default function CharityPage() {
                     <CharityPageComponent />
                 </div>
                 <Divider sx={{ my: 5 }} />
-                {/* Odkomentovat se spuštěním platby
                     <div id="Payment">
                     <PaymentOptionsSection
                         nadpis="Podpořte Elišku finančním darem."
@@ -66,7 +65,6 @@ export default function CharityPage() {
                         message="Pravěk Pro Elisku 2026 + jmeno a příjmení"
                     />
                 </div>
-                */}
                 <div id="sponzori">
                     {loading ? (
                         <Box sx={{ textAlign: "center", py: 4 }}>
