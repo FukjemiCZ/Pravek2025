@@ -68,7 +68,6 @@ export default function BottomNavBar() {
               <Fab
                 color="primary"
                 href={item.href}
-                target="_blank"
                 rel="noopener noreferrer"
                 onClick={haptic}
                 sx={{
