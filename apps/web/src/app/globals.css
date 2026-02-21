@@ -1,0 +1,9 @@
+html[data-theme="dark"] {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+html[data-theme="light"] {
+  background-color: #ffffff;
+  color: #000000;
+}
