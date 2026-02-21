@@ -14,7 +14,7 @@ export type OpenApiRouteDef = {
 export async function loadOpenApiRouteDefsFor(app: "web" | "architecture-ui"): Promise<OpenApiRouteDef[]> {
   const pattern =
     app === "web"
-      ? "apps/web/app/api/**/openapi.ts"
+      ? "apps/web/src/app/api/**/openapi.ts"
       : "apps/architecture-ui/app/api/**/openapi.ts";
 
   const files = await fg([pattern], { onlyFiles: true });
