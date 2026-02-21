@@ -7,6 +7,8 @@ import { emitGraphvizDot } from "./emit-dot";
 import { emitMermaidRelations } from "./emit-mermaid-graph";
 import { emitMermaidC4Context, emitMermaidC4Container } from "./emit-mermaid-c4";
 import { emitHeatmap } from "./emit-heatmap";
+import fs from "node:fs";
+import path from "node:path";
 
 function failOnErrors(issues: { level: "error" | "warn"; message: string }[]) {
   const errors = issues.filter((i) => i.level === "error");
@@ -61,7 +63,19 @@ async function main() {
   writeText(abs(outDir, "graph/relations.mmd"), emitMermaidRelations(model));
   writeText(abs(outDir, "graph/c4-context.mmd"), emitMermaidC4Context(model));
   writeText(abs(outDir, "graph/c4-container.mmd"), emitMermaidC4Container(model));
+  
+  // 7) publish view (optional): product-model/view/index.html -> dist/product-model/index.html
+  const viewIndex = abs("product-model/view/index.html");
+  if (fs.existsSync(viewIndex)) {
+    const target = abs(outDir, "index.html");
+    fs.copyFileSync(viewIndex, target);
+  }
 
+  // also copy DOT for convenience to Pages root
+  const dotPath = abs(outDir, "graph/relations.dot");
+  const dotTarget = abs(outDir, "graph/relations.dot"); // already there, keep
+  void dotTarget;
+  
   console.log(`[product-model] OK -> ${outDir}`);
 }
 

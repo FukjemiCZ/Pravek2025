@@ -7,6 +7,12 @@ on:
 
 permissions:
   contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: product-model-pages
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -57,11 +63,6 @@ jobs:
     needs: build
     if: github.ref == 'refs/heads/main'
 
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -76,13 +77,12 @@ jobs:
           name: product-model-dist
           path: dist/product-model
 
-      # Připravíme statický web do ./public-pages
       - name: Prepare Pages content
         run: |
           mkdir -p public-pages/product-model
           cp -r dist/product-model/* public-pages/product-model/
 
-          # Optional: přidej jednoduchý index.html, pokud ho nemáš
+          # Fallback index.html pouze pokud pm:build nevygeneroval dist/product-model/index.html
           if [ ! -f public-pages/product-model/index.html ]; then
             cat > public-pages/product-model/index.html << 'EOF'
           <!doctype html>

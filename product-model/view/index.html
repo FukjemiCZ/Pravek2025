@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product Model – Pravěk v Ráji</title>
+  <style>
+    :root{
+      --bg:#ffffff; --fg:#111827; --muted:#6b7280; --b:#e5e7eb; --card:#f9fafb; --link:#0b5fff;
+      --ok:#16a34a; --warn:#f59e0b;
+    }
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--fg);margin:0}
+    header{padding:20px 24px;border-bottom:1px solid var(--b);position:sticky;top:0;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);z-index:10}
+    header h1{margin:0;font-size:18px}
+    header .sub{margin-top:4px;color:var(--muted);font-size:13px}
+    main{padding:20px 24px;max-width:1200px;margin:0 auto}
+    a{color:var(--link);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
+    .card{border:1px solid var(--b);border-radius:14px;background:var(--card);padding:16px}
+    .card h2{margin:0 0 10px 0;font-size:16px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+    .pill{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--b);background:#fff;border-radius:999px;padding:4px 10px;font-size:12px;color:#111}
+    .pill b{font-weight:600}
+    .muted{color:var(--muted)}
+    .small{font-size:12px;color:var(--muted)}
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width: 980px){ .split{grid-template-columns:1fr} }
+
+    table{border-collapse:collapse;width:100%;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--b)}
+    th,td{border-bottom:1px solid var(--b);padding:10px 10px;vertical-align:top}
+    th{background:#f3f4f6;text-align:left;font-size:12px;color:#111827;position:sticky;top:64px;z-index:5}
+    td{font-size:13px}
+    td.cell{cursor:pointer;text-align:center;font-variant-numeric:tabular-nums}
+    td.cell[data-count="0"]{background:#fff;color:#9ca3af}
+    td.cell[data-count]:not([data-count="0"]){background:#eef5ff}
+
+    .kpi{display:flex;justify-content:space-between;gap:10px;border-top:1px dashed var(--b);padding-top:10px;margin-top:10px}
+    pre{background:#fff;border:1px solid var(--b);border-radius:12px;padding:12px;overflow:auto}
+    .btn{border:1px solid var(--b);background:#fff;border-radius:10px;padding:8px 10px;cursor:pointer;font-size:12px}
+    .btn:hover{background:#f3f4f6}
+    .btn.primary{border-color:#c7d2fe;background:#eef2ff}
+    .badge{display:inline-block;border-radius:999px;padding:2px 8px;font-size:11px;border:1px solid var(--b);background:#fff}
+    .badge.ok{border-color:#86efac;background:#f0fdf4;color:#14532d}
+    .badge.warn{border-color:#fde68a;background:#fffbeb;color:#92400e}
+
+    .list{display:flex;flex-direction:column;gap:8px}
+    .item{border:1px solid var(--b);background:#fff;border-radius:12px;padding:10px}
+    .item .title{font-weight:600}
+    .item .meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+  </style>
+</head>
+<body>
+<header>
+  <h1 id="title">Product Model</h1>
+  <div class="sub">
+    Auto-generated from <code>product-model/*.yaml</code> → <code>dist/product-model</code>.
+    <span class="muted">Klikni na buňky heatmapy pro detail.</span>
+  </div>
+</header>
+
+<main>
+  <div class="grid">
+    <div class="card">
+      <h2>Heatmap: Domains × Epics</h2>
+      <div class="small">Číslo = počet capabilities v daném epicu v dané doméně.</div>
+      <div id="heatmap">Loading…</div>
+      <div id="cellDetails"></div>
+    </div>
+
+    <div class="card">
+      <h2>Overview</h2>
+      <div class="row" id="overviewPills"></div>
+
+      <div class="split" style="margin-top:12px">
+        <div>
+          <h3 style="margin:8px 0;font-size:14px">Feature flags</h3>
+          <div class="list" id="flags"></div>
+        </div>
+        <div>
+          <h3 style="margin:8px 0;font-size:14px">Years</h3>
+          <div class="list" id="years"></div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <h3 style="margin:8px 0;font-size:14px">Graph</h3>
+        <div class="small">
+          <a href="./graph/relations.svg">relations.svg</a> ·
+          <a href="./graph/relations.png">relations.png</a> ·
+          <a href="./graph/relations.dot">relations.dot</a>
+        </div>
+        <div style="margin-top:10px">
+          <img src="./graph/relations.svg" alt="relations graph" style="max-width:100%;height:auto;border:1px solid var(--b);border-radius:12px;background:#fff"/>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <h3 style="margin:8px 0;font-size:14px">Artifacts</h3>
+        <div class="small">
+          <a href="./catalog.json">catalog.json</a> ·
+          <a href="./runtime.json">runtime.json</a> ·
+          <a href="./roadmap.json">roadmap.json</a> ·
+          <a href="./ownership.json">ownership.json</a> ·
+          <a href="./heatmap.json">heatmap.json</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h2>Roadmap epics</h2>
+    <div class="small">Klikni na epic pro detail (capabilities + flows).</div>
+    <div id="epics" class="list" style="margin-top:10px"></div>
+    <div id="epicDetails" style="margin-top:12px"></div>
+  </div>
+</main>
+
+<script>
+async function loadJson(path){
+  const r = await fetch(path, { cache: "no-store" });
+  if(!r.ok) throw new Error(`Failed to load ${path}: ${r.status}`);
+  return r.json();
+}
+
+function esc(s){ return String(s ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;"); }
+
+function renderPills(product, runtime){
+  const el = document.getElementById("overviewPills");
+  const pills = [];
+  pills.push(`<span class="pill"><b>${esc(product.name)}</b><span class="muted">${esc(product.type||"")}</span></span>`);
+  if(product.homepage) pills.push(`<a class="pill" href="${esc(product.homepage)}" target="_blank" rel="noreferrer">Homepage</a>`);
+  if(product.repo) pills.push(`<a class="pill" href="${esc(product.repo)}" target="_blank" rel="noreferrer">Repo</a>`);
+  pills.push(`<span class="pill"><b>Years</b> ${esc((runtime.years||[]).length)}</span>`);
+  el.innerHTML = pills.join(" ");
+}
+
+function renderFlags(flags){
+  const el = document.getElementById("flags");
+  const keys = Object.keys(flags||{}).sort();
+  el.innerHTML = keys.length ? keys.map(k=>{
+    const v = !!flags[k];
+    return `<div class="item"><div class="title">${esc(k)} <span class="badge ${v?"ok":"warn"}">${v?"on":"off"}</span></div></div>`;
+  }).join("") : `<div class="small muted">No feature flags</div>`;
+}
+
+function renderYears(years){
+  const el = document.getElementById("years");
+  const list = (years||[]).slice().sort((a,b)=>String(b.id).localeCompare(String(a.id)));
+  el.innerHTML = list.length ? list.map(y=>{
+    const status = y.status || "unknown";
+    const badge = status === "active" || status === "finished" ? "ok" : "warn";
+    const date = y.eventDate?.from ? `${y.eventDate.from}${y.eventDate.to?(" → "+y.eventDate.to):""}` : "";
+    return `
+      <div class="item">
+        <div class="title">${esc(y.id)} ${y.label?`<span class="muted">— ${esc(y.label)}</span>`:""}</div>
+        <div class="meta">
+          <span class="badge ${badge}">${esc(status)}</span>
+          ${date?`<span class="badge">${esc(date)}</span>`:""}
+          ${y.gallery?.enabled?`<span class="badge">gallery</span>`:""}
+        </div>
+      </div>`;
+  }).join("") : `<div class="small muted">No years configured</div>`;
+}
+
+function renderEpics(epics, heatmap){
+  const el = document.getElementById("epics");
+  const byHorizon = (epics||[]).slice();
+  byHorizon.sort((a,b)=>(String(a.horizon||"") + a.id).localeCompare(String(b.horizon||"")+b.id));
+
+  el.innerHTML = byHorizon.map(e=>{
+    const total = heatmap.matrix
+      .filter(x=>x.epicId===e.id)
+      .reduce((acc,x)=>acc + (x.count||0), 0);
+
+    return `
+      <div class="item" style="cursor:pointer" onclick='window.__showEpic("${esc(e.id)}")'>
+        <div class="title">${esc(e.id)} ${e.name?`<span class="muted">— ${esc(e.name)}</span>`:""}</div>
+        <div class="meta">
+          ${e.horizon?`<span class="badge">${esc(e.horizon)}</span>`:""}
+          <span class="badge">capabilities: ${esc(total)}</span>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+function buildHeatmap(domains, epics, matrix){
+  const map = new Map(matrix.map(x=>[`${x.domainId}::${x.epicId}`, x]));
+  const el = document.getElementById("heatmap");
+
+  let html = `<table><thead><tr><th>Domain \\ Epic</th>`;
+  for(const e of epics){
+    html += `<th>${esc(e.id)}<div class="small">${esc(e.name||"")}</div></th>`;
+  }
+  html += `</tr></thead><tbody>`;
+
+  for(const d of domains){
+    html += `<tr><th>${esc(d.id)}<div class="small">${esc(d.name||"")}</div></th>`;
+    for(const e of epics){
+      const cell = map.get(`${d.id}::${e.id}`) || { domainId:d.id, epicId:e.id, count:0, capabilities:[] };
+      html += `<td class="cell" data-count="${cell.count}" onclick='window.__showCell("${esc(d.id)}","${esc(e.id)}")'>${cell.count}</td>`;
+    }
+    html += `</tr>`;
+  }
+  html += `</tbody></table>`;
+  el.innerHTML = html;
+
+  return map;
+}
+
+function renderCellDetails(cell, catalog){
+  const el = document.getElementById("cellDetails");
+  if(!cell || !cell.count){
+    el.innerHTML = `<div class="small muted" style="margin-top:10px">Vyber buňku, nebo vyber epic níže.</div>`;
+    return;
+  }
+
+  // flows that use these capabilities
+  const capSet = new Set(cell.capabilities || []);
+  const flows = (catalog.flows||[]).filter(f => (f.capabilities||[]).some(c=>capSet.has(c)));
+
+  el.innerHTML = `
+    <div style="margin-top:12px" class="card" style="background:#fff">
+      <h3 style="margin:0 0 8px 0;font-size:14px">Detail buňky</h3>
+      <div class="row">
+        <span class="pill"><b>domain</b> ${esc(cell.domainId)}</span>
+        <span class="pill"><b>epic</b> ${esc(cell.epicId)}</span>
+        <span class="pill"><b>count</b> ${esc(cell.count)}</span>
+      </div>
+
+      <div style="margin-top:10px">
+        <div class="small muted">Capabilities</div>
+        <pre>${esc((cell.capabilities||[]).join("\n"))}</pre>
+      </div>
+
+      <div style="margin-top:10px">
+        <div class="small muted">Flows (derived)</div>
+        <pre>${esc(flows.map(f=>`${f.id} (actor: ${f.actor})`).join("\n") || "—")}</pre>
+      </div>
+    </div>`;
+}
+
+function renderEpicDetails(epic, catalog){
+  const el = document.getElementById("epicDetails");
+  if(!epic){ el.innerHTML = ""; return; }
+
+  const caps = epic.capabilities || [];
+  const flows = epic.flows || [];
+  el.innerHTML = `
+    <div class="card" style="background:#fff">
+      <div class="row" style="justify-content:space-between">
+        <div>
+          <div style="font-weight:700">${esc(epic.id)} ${epic.name?`<span class="muted">— ${esc(epic.name)}</span>`:""}</div>
+          <div class="small muted">${esc(epic.outcome||"")}</div>
+        </div>
+        <div class="row">
+          ${epic.horizon?`<span class="badge">${esc(epic.horizon)}</span>`:""}
+          <span class="badge">capabilities: ${esc(caps.length)}</span>
+          <span class="badge">flows: ${esc(flows.length)}</span>
+        </div>
+      </div>
+
+      <div class="split" style="margin-top:10px">
+        <div>
+          <div class="small muted">Capabilities</div>
+          <pre>${esc(caps.join("\n") || "—")}</pre>
+        </div>
+        <div>
+          <div class="small muted">Flows</div>
+          <pre>${esc(flows.join("\n") || "—")}</pre>
+        </div>
+      </div>
+
+      ${(epic.deliverables && epic.deliverables.length) ? `
+        <div style="margin-top:10px">
+          <div class="small muted">Deliverables</div>
+          <pre>${esc(epic.deliverables.join("\n"))}</pre>
+        </div>` : ""}
+
+      ${(epic.kpis && epic.kpis.length) ? `
+        <div style="margin-top:10px">
+          <div class="small muted">KPIs</div>
+          <pre>${esc(epic.kpis.map(k=>`${k.id||""} ${k.metric||""} ${k.target||""}`.trim()).join("\n"))}</pre>
+        </div>` : ""}
+    </div>`;
+}
+
+(async function init(){
+  try{
+    const [catalog, heatmap, runtime, roadmap] = await Promise.all([
+      loadJson("./catalog.json"),
+      loadJson("./heatmap.json"),
+      loadJson("./runtime.json"),
+      loadJson("./roadmap.json"),
+    ]);
+
+    document.getElementById("title").textContent = (catalog.product?.name || "Product Model") + " — Product Model";
+
+    renderPills(catalog.product || {}, runtime || {});
+    renderFlags((runtime.featureFlags || {}));
+    renderYears((runtime.years || []));
+
+    const domains = heatmap.domains || [];
+    const epics = heatmap.epics || [];
+    const matrix = heatmap.matrix || [];
+
+    const map = buildHeatmap(domains, epics, matrix);
+
+    window.__showCell = (domainId, epicId) => {
+      const cell = map.get(`${domainId}::${epicId}`) || { domainId, epicId, count:0, capabilities:[] };
+      renderCellDetails(cell, catalog);
+    };
+
+    const epicIndex = new Map((roadmap.epics||[]).map(e=>[e.id, e]));
+    window.__showEpic = (epicId) => {
+      renderEpicDetails(epicIndex.get(epicId), catalog);
+    };
+
+    renderCellDetails(null, catalog);
+    renderEpics((roadmap.epics||[]), heatmap);
+
+  }catch(e){
+    document.getElementById("heatmap").innerHTML = `<pre>${esc(e?.stack || e?.message || String(e))}</pre>`;
+  }
+})();
+</script>
+</body>
+</html>
