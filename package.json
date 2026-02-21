@@ -5,15 +5,19 @@
   "scripts": {
     "pm:build": "tsx scripts/product-model/compile.ts",
     "pm:watch": "tsx watch scripts/product-model/compile.ts",
+    "openapi:build": "tsx openapi/generate.ts",
+    "docs:build": "pnpm pm:build && pnpm openapi:build",
     "dev:web": "pnpm --filter web dev",
     "build:web": "pnpm --filter web build"
   },
   "devDependencies": {
+    "@asteasolutions/zod-to-openapi": "^8.4.1",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.10.7",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "js-yaml": "^4.1.1",
+    "swagger-ui-dist": "^5.31.2",
     "tsx": "^4.19.2",
     "typescript": "^5.9.3",
     "zod": "^3.24.1"

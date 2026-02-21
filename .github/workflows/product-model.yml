@@ -16,14 +16,14 @@ concurrency:
 
 jobs:
   build:
-    name: Build dist/product-model
+    name: Build dist/product-model + dist/openapi
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 1) PNPM musí být nainstalované dřív, než ho setup-node použije pro cache
+      # PNPM musí být nainstalované dřív, než ho setup-node použije pro cache
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -42,6 +42,7 @@ jobs:
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
 
+      # --- PRODUCT MODEL ---
       - name: Build product model (dist)
         run: pnpm pm:build
 
@@ -51,11 +52,23 @@ jobs:
           dot -Tsvg dist/product-model/graph/relations.dot -o dist/product-model/graph/relations.svg
           dot -Tpng dist/product-model/graph/relations.dot -o dist/product-model/graph/relations.png
 
-      - name: Upload dist as artifact
+      - name: Upload product-model dist as artifact
         uses: actions/upload-artifact@v4
         with:
           name: product-model-dist
           path: dist/product-model
+          if-no-files-found: error
+          retention-days: 14
+
+      # --- OPENAPI / SWAGGER ---
+      - name: Build OpenAPI + Swagger UI (dist/openapi)
+        run: pnpm openapi:build
+
+      - name: Upload openapi dist as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openapi-dist
+          path: dist/openapi
           if-no-files-found: error
           retention-days: 14
 
@@ -73,18 +86,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Download dist artifact
+      - name: Download product-model artifact
         uses: actions/download-artifact@v4
         with:
           name: product-model-dist
           path: dist/product-model
+
+      - name: Download openapi artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: openapi-dist
+          path: dist/openapi
 
       - name: Prepare Pages content
         run: |
           mkdir -p public-pages/product-model
           cp -r dist/product-model/* public-pages/product-model/
 
-          # Fallback index.html pouze pokud pm:build nevygeneroval dist/product-model/index.html
+          mkdir -p public-pages/openapi
+          cp -r dist/openapi/* public-pages/openapi/
+
+          # Fallback index.html pro product-model pouze pokud pm:build nevygeneroval dist/product-model/index.html
           if [ ! -f public-pages/product-model/index.html ]; then
             cat > public-pages/product-model/index.html << 'EOF'
           <!doctype html>
@@ -127,8 +149,23 @@ jobs:
                   </ul>
                 </div>
               </div>
+
+              <hr />
+              <p><a href="../openapi/">API docs (Swagger)</a></p>
             </body>
           </html>
+          EOF
+          fi
+
+          # Fallback index.html pro OpenAPI, pokud by generátor nevytvořil (nemělo by nastat)
+          if [ ! -f public-pages/openapi/index.html ]; then
+            cat > public-pages/openapi/index.html << 'EOF'
+          <!doctype html>
+          <html><body>
+            <h1>OpenAPI</h1>
+            <p>Missing Swagger UI build. Check dist/openapi generation.</p>
+            <p><a href="./openapi.json">openapi.json</a></p>
+          </body></html>
           EOF
           fi
 
