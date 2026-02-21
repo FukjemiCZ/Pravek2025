@@ -16,32 +16,68 @@ rules:
     capabilityIds: ["operations.openapi"]
 
   - id: release-mgmt
-    match: ["apps/architecture-ui/app/releases/**", "apps/architecture-ui/app/api/changes/**", "apps/architecture-ui/app/api/deployments/**", "apps/architecture-ui/app/api/impact/**"]
+    match:
+      - "apps/architecture-ui/app/releases/**"
+      - "apps/architecture-ui/app/api/changes/**"
+      - "apps/architecture-ui/app/api/deployments/**"
+      - "apps/architecture-ui/app/api/impact/**"
+      - "apps/architecture-ui/components/operations/Release*"
+      - "apps/architecture-ui/components/operations/Impact*"
     domainId: operations
     capabilityIds: ["operations.release-management"]
 
   - id: observability
-    match: ["apps/architecture-ui/app/api/status/**", "apps/architecture-ui/components/operations/**"]
+    match:
+      - "apps/architecture-ui/app/api/status/**"
+      - "apps/architecture-ui/components/operations/**"
     domainId: operations
     capabilityIds: ["operations.observability"]
 
-  # --- Web (map to your existing domains/capabilities by paths) ---
-  - id: web-content
-    match: ["apps/web/src/app/**", "apps/web/src/components/**"]
-    domainId: content
-    capabilityIds: ["publish-homepage", "publish-race-info", "publish-history", "publish-faq"]
+  # --- Web (specific first; avoid "content catches all") ---
 
-  - id: web-gallery
-    match: ["apps/web/src/**/gallery/**", "apps/web/src/app/api/**gallery**"]
-    domainId: gallery
-    capabilityIds: ["publish-gallery-strip", "import-gallery-from-sheet", "publish-year-albums"]
+  - id: web-registration
+    match:
+      - "apps/web/src/app/**/register/**"
+      - "apps/web/src/app/**/registration/**"
+      - "apps/web/src/app/api/**/register/**"
+      - "apps/web/src/app/api/**/registration/**"
+      - "apps/web/src/**/register/**"
+      - "apps/web/src/**/registration/**"
+    domainId: registration
+    capabilityIds: ["register-substitute", "capture-participant-intent"]
 
   - id: web-payments
-    match: ["apps/web/src/**/payment/**", "apps/web/src/app/api/**payment**"]
+    match:
+      - "apps/web/src/app/**/payment/**"
+      - "apps/web/src/app/**/payments/**"
+      - "apps/web/src/app/api/**/payment/**"
+      - "apps/web/src/app/api/**/payments/**"
+      - "apps/web/src/**/payment/**"
+      - "apps/web/src/**/payments/**"
+      - "apps/web/src/**/donation/**"
     domainId: payments
     capabilityIds: ["collect-entry-fee", "collect-donation", "show-payment-instructions", "confirm-payment"]
 
-  - id: web-registration
-    match: ["apps/web/src/**/register/**", "apps/web/src/app/api/**register**"]
-    domainId: registration
-    capabilityIds: ["register-substitute", "capture-participant-intent"]
+  - id: web-gallery
+    match:
+      - "apps/web/src/app/**/gallery/**"
+      - "apps/web/src/app/api/**/gallery/**"
+      - "apps/web/src/**/gallery/**"
+      - "apps/web/src/**/photos/**"
+    domainId: gallery
+    capabilityIds: ["publish-gallery-strip", "import-gallery-from-sheet", "publish-year-albums"]
+
+  # --- Content last (only content-ish areas) ---
+  - id: web-content
+    match:
+      - "apps/web/src/app/**/page.tsx"
+      - "apps/web/src/app/**/layout.tsx"
+      - "apps/web/src/app/**/content/**"
+      - "apps/web/src/app/**/faq/**"
+      - "apps/web/src/app/**/history/**"
+      - "apps/web/src/app/**/race/**"
+      - "apps/web/src/components/content/**"
+      - "apps/web/src/components/markdown/**"
+      - "apps/web/src/**/md/**"
+    domainId: content
+    capabilityIds: ["publish-homepage", "publish-race-info", "publish-history", "publish-faq"]
