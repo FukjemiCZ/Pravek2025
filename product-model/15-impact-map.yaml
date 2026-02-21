@@ -1,47 +1,47 @@
-version: 1
-
-# Pravidla se aplikují shora dolů.
-# Každé pravidlo může mapovat na domainId + capabilityIds.
-# Glob syntax: micromatch (podobné bash globům).
-
 rules:
-  # --- Web app ---
-  - id: web-api
-    match:
-      - "apps/web/src/app/api/**"
-    domainId: web
-    capabilityIds:
-      - web.api
-
-  - id: web-pages
-    match:
-      - "apps/web/src/app/**"
-      - "apps/web/src/components/**"
-    domainId: web
-    capabilityIds:
-      - web.ui
-
-  # --- Architecture UI ---
+  # --- Product intelligence / tooling ---
   - id: arch-ui
-    match:
-      - "apps/architecture-ui/**"
+    match: ["apps/architecture-ui/**"]
     domainId: operations
-    capabilityIds:
-      - operations.architecture-ui
+    capabilityIds: ["operations.architecture-ui"]
 
-  # --- Product model & generators ---
   - id: product-model
-    match:
-      - "product-model/**"
-      - "scripts/product-model/**"
+    match: ["product-model/**", "scripts/product-model/**"]
     domainId: operations
-    capabilityIds:
-      - operations.product-model
+    capabilityIds: ["operations.product-model"]
 
-  # --- OpenAPI generator ---
   - id: openapi
-    match:
-      - "openapi/**"
+    match: ["openapi/**"]
     domainId: operations
-    capabilityIds:
-      - operations.openapi
+    capabilityIds: ["operations.openapi"]
+
+  - id: release-mgmt
+    match: ["apps/architecture-ui/app/releases/**", "apps/architecture-ui/app/api/changes/**", "apps/architecture-ui/app/api/deployments/**", "apps/architecture-ui/app/api/impact/**"]
+    domainId: operations
+    capabilityIds: ["operations.release-management"]
+
+  - id: observability
+    match: ["apps/architecture-ui/app/api/status/**", "apps/architecture-ui/components/operations/**"]
+    domainId: operations
+    capabilityIds: ["operations.observability"]
+
+  # --- Web (map to your existing domains/capabilities by paths) ---
+  - id: web-content
+    match: ["apps/web/src/app/**", "apps/web/src/components/**"]
+    domainId: content
+    capabilityIds: ["publish-homepage", "publish-race-info", "publish-history", "publish-faq"]
+
+  - id: web-gallery
+    match: ["apps/web/src/**/gallery/**", "apps/web/src/app/api/**gallery**"]
+    domainId: gallery
+    capabilityIds: ["publish-gallery-strip", "import-gallery-from-sheet", "publish-year-albums"]
+
+  - id: web-payments
+    match: ["apps/web/src/**/payment/**", "apps/web/src/app/api/**payment**"]
+    domainId: payments
+    capabilityIds: ["collect-entry-fee", "collect-donation", "show-payment-instructions", "confirm-payment"]
+
+  - id: web-registration
+    match: ["apps/web/src/**/register/**", "apps/web/src/app/api/**register**"]
+    domainId: registration
+    capabilityIds: ["register-substitute", "capture-participant-intent"]

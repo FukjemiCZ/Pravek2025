@@ -19,6 +19,7 @@
     "@types/react-dom": "^19.2.3",
     "fast-glob": "^3.3.3",
     "js-yaml": "^4.1.1",
+    "micromatch": "^4.0.8",
     "swagger-ui-dist": "^5.31.2",
     "tsx": "^4.19.2",
     "typescript": "^5.9.3",

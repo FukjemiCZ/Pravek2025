@@ -97,3 +97,24 @@ capabilities:
   - id: privacy-cookie-minimum
     domain: security
     description: "Minimalizovat cookies / mít přehled"
+
+  # OPERATIONS (Product intelligence & tooling)
+  - id: operations.architecture-ui
+    domain: operations
+    description: "Architecture UI portal pro Product Ownera (health, roadmap, ownership, operations)"
+
+  - id: operations.product-model
+    domain: operations
+    description: "Správa a kompilace product modelu (YAML → dist JSON, grafy, heatmap)"
+
+  - id: operations.openapi
+    domain: operations
+    description: "Generování a publikace OpenAPI/Swagger dokumentace z kódu"
+
+  - id: operations.release-management
+    domain: operations
+    description: "Release & change management (release notes, compare, last known good, impact map)"
+
+  - id: operations.observability
+    domain: operations
+    description: "Monitoring dostupnosti a incidentů (UptimeRobot/UptimeKuma/Site24x7), status widgety"

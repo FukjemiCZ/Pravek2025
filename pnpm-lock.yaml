@@ -33,6 +33,9 @@ importers:
       js-yaml:
         specifier: ^4.1.1
         version: 4.1.1
+      micromatch:
+        specifier: ^4.0.8
+        version: 4.0.8
       swagger-ui-dist:
         specifier: ^5.31.2
         version: 5.31.2
