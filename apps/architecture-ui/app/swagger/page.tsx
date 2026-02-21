@@ -1,12 +1,12 @@
 import Shell from "@/app/components/layout/Shell";
-import SwaggerView from "@/app/components/swagger/SwaggerView";
+import OpenApiExplorer from "@/app/components/swagger/OpenApiExplorer";
 
 export const dynamic = "force-dynamic";
 
 export default function SwaggerPage() {
   return (
     <Shell>
-      <SwaggerView />
+      <OpenApiExplorer />
     </Shell>
   );
 }
