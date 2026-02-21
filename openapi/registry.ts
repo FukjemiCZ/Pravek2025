@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { OpenAPIRegistry } from "@asteasolutions/zod-to-openapi";
+import { OpenAPIRegistry, extendZodWithOpenApi } from "@asteasolutions/zod-to-openapi";
 
-// 1) Registry
+extendZodWithOpenApi(z);
+
 export const registry = new OpenAPIRegistry();
 
-// 2) Shared schemas
 export const ErrorSchema = registry.register(
   "Error",
   z.object({

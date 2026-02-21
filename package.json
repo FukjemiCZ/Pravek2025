@@ -11,7 +11,7 @@
     "build:web": "pnpm --filter web build"
   },
   "devDependencies": {
-    "@asteasolutions/zod-to-openapi": "^8.4.1",
+    "@asteasolutions/zod-to-openapi": "^7.3.4",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.10.7",
     "@types/react": "^19.2.14",
