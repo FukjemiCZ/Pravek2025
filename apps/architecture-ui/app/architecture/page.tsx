@@ -5,6 +5,7 @@ import OwnershipMap from "@/app/components/ownership/OwnershipMap";
 import GraphView from "@/app/components/graph/GraphView";
 import { getProductModel } from "@/app/lib/getProductModel";
 
+export const dynamic = "force-dynamic";
 export default async function ArchitecturePage() {
   const data = await getProductModel();
 
@@ -12,7 +13,7 @@ export default async function ArchitecturePage() {
     <Shell>
       <h1>Architecture</h1>
 
-      <GraphView relations={data.catalog.relations} />
+      <GraphView relations={data.catalog?.relations ?? { nodes: [], edges: [] }} />
 
       <Heatmap heatmap={data.heatmap} />
 

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 const BASE =
-  "https://raw.githubusercontent.com/FukjemiCZ/Pravek2025/main/dist/product-model";
+  "https://fukjemicz.github.io/Pravek2025/product-model";
 
 export async function GET() {
   const files = [
