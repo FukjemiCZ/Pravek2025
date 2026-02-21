@@ -1,14 +1,21 @@
 "use client";
 
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material";
+import StatusBadge from "./StatusBadge";
+import ModeToggle from "./ModeToggle";
 
-export default function Topbar() {
+export default function TopBar() {
   return (
-    <AppBar position="static" color="default" elevation={0}>
-      <Toolbar>
-        <Typography variant="h6">
-          Pravěk v Ráji — Architecture Portal
+    <AppBar position="fixed" elevation={0} color="default">
+      <Toolbar sx={{ display: "flex", gap: 2 }}>
+        <Typography variant="h6" sx={{ fontWeight: 800, flexGrow: 1 }}>
+          Pravěk — Architecture
         </Typography>
+
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+          <StatusBadge />
+          <ModeToggle />
+        </Box>
       </Toolbar>
     </AppBar>
   );

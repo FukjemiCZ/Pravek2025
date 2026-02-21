@@ -1,12 +1,11 @@
 import Shell from "@/app/components/layout/Shell";
-import { getProductModel } from "@/app/lib/getProductModel";
+import { Box, Typography } from "@mui/material";
+import { getProductModel } from "@/lib/getProductModel";
 
-import DomainsSection from "@/app/components/sections/DomainsSection";
-import CapabilitiesSection from "@/app/components/sections/CapabilitiesSection";
-import ServicesSection from "@/app/components/sections/ServicesSection";
-import EventsSection from "@/app/components/sections/EventsSection";
-import RoadmapSection from "@/app/components/sections/RoadmapSection";
-import GraphSection from "@/app/components/sections/GraphSection";
+// Technical widgets (předpokládám, že existují)
+import GraphCanvas from "@/app/components/architecture/GraphCanvas";
+import C4Viewer from "@/app/components/architecture/C4Viewer";
+import ServiceMatrix from "@/app/components/architecture/ServiceMatrix";
 
 export const dynamic = "force-dynamic";
 
@@ -15,12 +14,32 @@ export default async function ArchitecturePage() {
 
   return (
     <Shell>
-      <DomainsSection domains={data.catalog?.domains} />
-      <CapabilitiesSection capabilities={data.catalog?.capabilities} />
-      <ServicesSection services={data.catalog?.services} />
-      <EventsSection events={data.catalog?.events} />
-      <RoadmapSection roadmap={data.roadmap} />
-      <GraphSection relations={data.catalog?.relations} />
+      <Box sx={{ display: "flex", alignItems: "baseline", gap: 2, mb: 3 }}>
+        <Typography variant="h4" sx={{ fontWeight: 800 }}>
+          Architecture
+        </Typography>
+        <Typography variant="body2" sx={{ opacity: 0.75 }}>
+          Graph + C4 + service/capability topology.
+        </Typography>
+      </Box>
+
+      <GraphCanvas catalog={data.catalog} roadmap={data.roadmap} ownership={data.ownership} />
+
+      <Box sx={{ mt: 3 }}>
+        <C4Viewer
+          contextUrl="https://fukjemicz.github.io/Pravek2025/product-model/graph/c4-context.mmd"
+          containerUrl="https://fukjemicz.github.io/Pravek2025/product-model/graph/c4-container.mmd"
+        />
+      </Box>
+
+      <Box sx={{ mt: 3 }}>
+        <ServiceMatrix
+          services={data.catalog?.services ?? []}
+          capabilities={data.catalog?.capabilities ?? []}
+          apis={data.catalog?.apis ?? []}
+          events={data.catalog?.events ?? []}
+        />
+      </Box>
     </Shell>
   );
 }

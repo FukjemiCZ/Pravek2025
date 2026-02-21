@@ -1,27 +1,79 @@
-// components/layout/SideNav.tsx
 "use client";
 
-import { List, ListItemButton, ListItemText } from "@mui/material";
+import { Divider, List, ListItemButton, ListItemText, ListSubheader } from "@mui/material";
 import { usePathname, useRouter } from "next/navigation";
 
-export default function SideNav() {
+type NavItem = { label: string; path: string };
+
+export default function SideNav({ onNavigate }: { onNavigate?: () => void }) {
   const router = useRouter();
   const pathname = usePathname();
 
-  const items = [
+  const go = (p: string) => {
+    router.push(p);
+    onNavigate?.();
+  };
+
+  const group1: NavItem[] = [
     { label: "Overview", path: "/" },
     { label: "Architecture", path: "/architecture" },
   ];
 
+  const group2: NavItem[] = [
+    { label: "Roadmap", path: "/roadmap" },
+    { label: "Ownership", path: "/ownership" },
+  ];
+
+  const group3: NavItem[] = [{ label: "Operations", path: "/operations" }];
+
   return (
-    <List>
-      {items.map((item) => (
+    <List
+      subheader={
+        <ListSubheader component="div" sx={{ fontWeight: 700 }}>
+          Portal
+        </ListSubheader>
+      }
+      sx={{ width: 260 }}
+    >
+      {group1.map((i) => (
         <ListItemButton
-          key={item.path}
-          selected={pathname === item.path}
-          onClick={() => router.push(item.path)}
+          key={i.path}
+          selected={pathname === i.path}
+          onClick={() => go(i.path)}
         >
-          <ListItemText primary={item.label} />
+          <ListItemText primary={i.label} />
+        </ListItemButton>
+      ))}
+
+      <Divider sx={{ my: 1 }} />
+
+      <ListSubheader component="div" sx={{ fontWeight: 700 }}>
+        Governance
+      </ListSubheader>
+
+      {group2.map((i) => (
+        <ListItemButton
+          key={i.path}
+          selected={pathname === i.path}
+          onClick={() => go(i.path)}
+        >
+          <ListItemText primary={i.label} />
+        </ListItemButton>
+      ))}
+
+      <Divider sx={{ my: 1 }} />
+
+      <ListSubheader component="div" sx={{ fontWeight: 700 }}>
+        Operations
+      </ListSubheader>
+
+      {group3.map((i) => (
+        <ListItemButton
+          key={i.path}
+          selected={pathname === i.path}
+          onClick={() => go(i.path)}
+        >
+          <ListItemText primary={i.label} />
         </ListItemButton>
       ))}
     </List>

@@ -1,74 +1,106 @@
-// components/layout/Shell.tsx
 "use client";
 
-import { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import {
-    Box,
-    AppBar,
-    Toolbar,
-    Typography,
-    IconButton,
-    Drawer,
-    useMediaQuery,
+  Box,
+  Drawer,
+  IconButton,
+  Toolbar,
+  useMediaQuery,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
+import TopBar from "./TopBar";
 import SideNav from "./SideNav";
-import StatusBadge from "@/app/components/status/StatusBadge";
 
-const drawerWidth = 240;
+const DRAWER_WIDTH = 260;
 
-export default function Shell({ children }: { children: ReactNode }) {
-    const theme = useTheme();
-    const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
-    const [open, setOpen] = useState(false);
+export default function Shell({ children }: { children: React.ReactNode }) {
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-    return (
-        <Box sx={{ display: "flex", minHeight: "100vh" }}>
-            {/* Top bar */}
-            <AppBar position="fixed" elevation={0} color="default">
-                <Toolbar>
-                    {!isDesktop && (
-                        <IconButton onClick={() => setOpen(true)}>
-                            <MenuIcon />
-                        </IconButton>
-                    )}
-                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                        Pravek Architecture
-                    </Typography>
+  const drawer = (
+    <Box sx={{ width: DRAWER_WIDTH }}>
+      <Toolbar />
+      <SideNav onNavigate={() => setMobileOpen(false)} />
+    </Box>
+  );
 
-                    <StatusBadge />
-                </Toolbar>
-            </AppBar>
+  return (
+    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+      <TopBar />
 
-            {/* Sidebar */}
-            <Drawer
-                variant={isDesktop ? "permanent" : "temporary"}
-                open={isDesktop || open}
-                onClose={() => setOpen(false)}
-                sx={{
-                    width: drawerWidth,
-                    "& .MuiDrawer-paper": {
-                        width: drawerWidth,
-                        boxSizing: "border-box",
-                    },
-                }}
-            >
-                <Toolbar />
-                <SideNav />
-            </Drawer>
+      {/* Hamburger only on mobile (overlay button in corner) */}
+      {!isDesktop && (
+        <IconButton
+          onClick={() => setMobileOpen(true)}
+          sx={{
+            position: "fixed",
+            top: 10,
+            left: 10,
+            zIndex: (t) => t.zIndex.appBar + 1,
+            bgcolor: "background.paper",
+            border: "1px solid",
+            borderColor: "divider",
+          }}
+          aria-label="Open navigation"
+        >
+          <MenuIcon />
+        </IconButton>
+      )}
 
-            {/* Content */}
-            <Box
-                component="main"
-                sx={{
-                    flexGrow: 1,
-                    p: { xs: 2, md: 4 },
-                    mt: 8,
-                }}
-            >
-                {children}
-            </Box>
-        </Box>
-    );
+      {/* Desktop drawer */}
+      {isDesktop && (
+        <Drawer
+          variant="permanent"
+          sx={{
+            width: DRAWER_WIDTH,
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: DRAWER_WIDTH,
+              boxSizing: "border-box",
+            },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      )}
+
+      {/* Mobile drawer */}
+      {!isDesktop && (
+        <Drawer
+          variant="temporary"
+          open={mobileOpen}
+          onClose={() => setMobileOpen(false)}
+          ModalProps={{ keepMounted: true }}
+          sx={{
+            "& .MuiDrawer-paper": {
+              width: DRAWER_WIDTH,
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      )}
+
+      {/* Main content */}
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          // Space for TopBar
+          pt: 10,
+          px: { xs: 2, md: 3 },
+          pb: 4,
+          // Space for desktop drawer
+          ml: isDesktop ? `${DRAWER_WIDTH}px` : 0,
+          width: isDesktop ? `calc(100% - ${DRAWER_WIDTH}px)` : "100%",
+        }}
+      >
+        {children}
+      </Box>
+    </Box>
+  );
 }
