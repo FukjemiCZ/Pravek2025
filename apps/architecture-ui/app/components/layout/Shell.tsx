@@ -11,7 +11,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
 import SideNav from "@/app/components/layout/SideNav";
-import TopBar from "@/app/components/layout/TopBar";
+import TopBar from "@/app/components/layout/Topbar";
 
 const DRAWER_WIDTH = 260;
 
