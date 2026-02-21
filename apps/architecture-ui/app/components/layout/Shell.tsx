@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
-import SideNav from "@/app/components/layout/SideNav";
 import TopBar from "@/app/components/layout/Topbar";
+import SideNav from "@/app/components/layout/SideNav";
 
 const DRAWER_WIDTH = 260;
 
@@ -20,18 +20,26 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   const isDesktop = useMediaQuery(theme.breakpoints.up("md"));
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const drawer = (
+  const drawerContent = (
     <Box sx={{ width: DRAWER_WIDTH }}>
+      {/* odsazení pod TopBar */}
       <Toolbar />
       <SideNav onNavigate={() => setMobileOpen(false)} />
     </Box>
   );
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        minHeight: "100vh",
+        // klíčové: zabrání horizontálnímu overflow při kombinaci Drawer + content
+        overflowX: "hidden",
+      }}
+    >
       <TopBar />
 
-      {/* Hamburger only on mobile (overlay button in corner) */}
+      {/* Mobile hamburger */}
       {!isDesktop && (
         <IconButton
           onClick={() => setMobileOpen(true)}
@@ -50,10 +58,11 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         </IconButton>
       )}
 
-      {/* Desktop drawer */}
+      {/* Desktop permanent drawer: součást flex layoutu */}
       {isDesktop && (
         <Drawer
           variant="permanent"
+          open
           sx={{
             width: DRAWER_WIDTH,
             flexShrink: 0,
@@ -62,13 +71,12 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               boxSizing: "border-box",
             },
           }}
-          open
         >
-          {drawer}
+          {drawerContent}
         </Drawer>
       )}
 
-      {/* Mobile drawer */}
+      {/* Mobile temporary drawer: overlay */}
       {!isDesktop && (
         <Drawer
           variant="temporary"
@@ -78,25 +86,24 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           sx={{
             "& .MuiDrawer-paper": {
               width: DRAWER_WIDTH,
+              boxSizing: "border-box",
             },
           }}
         >
-          {drawer}
+          {drawerContent}
         </Drawer>
       )}
 
-      {/* Main content */}
+      {/* Main content: NEDÁVÁME ml ani width calc — flex to vyřeší */}
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          // Space for TopBar
+          minWidth: 0, // klíčové pro zabránění overflow v flex containeru
+          // top offset pro fixed TopBar
           pt: 10,
           px: { xs: 2, md: 3 },
           pb: 4,
-          // Space for desktop drawer
-          ml: isDesktop ? `${DRAWER_WIDTH}px` : 0,
-          width: isDesktop ? `calc(100% - ${DRAWER_WIDTH}px)` : "100%",
         }}
       >
         {children}
