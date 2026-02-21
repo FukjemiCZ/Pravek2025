@@ -190,7 +190,7 @@ runtime:
       provider: "google-sheets"
       apiBaseUrl: "internal:/api/gallery"     # internal: Next.js route
       sheet:
-        spreadsheetId: "${SHEETS_GALLERY_ID}"
+        spreadsheetId: "${SPREADSHEET_ID}"
         range: "gallery!A:E"                 # příklad: name, position, gallery, zobrazovat, src
         cacheSeconds: 3600
 
