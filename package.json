@@ -3,6 +3,7 @@
   "version": "2.1.0",
   "private": true,
   "scripts": {
+    "openapi:stubs:web": "tsx openapi/gen-stubs.ts",
     "pm:build": "tsx scripts/product-model/compile.ts",
     "pm:watch": "tsx watch scripts/product-model/compile.ts",
     "openapi:build": "tsx openapi/generate.ts",
