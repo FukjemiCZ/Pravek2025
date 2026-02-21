@@ -1,0 +1,143 @@
+name: Product Model
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build dist/product-model
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "10"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Build product model (dist)
+        run: pnpm pm:build
+
+      - name: Render Graphviz SVG/PNG
+        run: |
+          mkdir -p dist/product-model/graph
+          dot -Tsvg dist/product-model/graph/relations.dot -o dist/product-model/graph/relations.svg
+          dot -Tpng dist/product-model/graph/relations.dot -o dist/product-model/graph/relations.png
+
+      - name: Upload dist as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: product-model-dist
+          path: dist/product-model
+          if-no-files-found: error
+          retention-days: 14
+
+  pages:
+    name: Publish visualizations to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download dist artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: product-model-dist
+          path: dist/product-model
+
+      # Připravíme statický web do ./public-pages
+      - name: Prepare Pages content
+        run: |
+          mkdir -p public-pages/product-model
+          cp -r dist/product-model/* public-pages/product-model/
+
+          # Optional: přidej jednoduchý index.html, pokud ho nemáš
+          if [ ! -f public-pages/product-model/index.html ]; then
+            cat > public-pages/product-model/index.html << 'EOF'
+          <!doctype html>
+          <html>
+            <head>
+              <meta charset="utf-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <title>Product Model</title>
+              <style>
+                body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;padding:24px;max-width:1100px;margin:0 auto}
+                a{color:#0b5fff}
+                code,pre{background:#f6f8fa;padding:2px 6px;border-radius:6px}
+                .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+                img{max-width:100%;height:auto;border:1px solid #e5e7eb;border-radius:12px}
+                .card{border:1px solid #e5e7eb;border-radius:12px;padding:16px}
+              </style>
+            </head>
+            <body>
+              <h1>Product Model</h1>
+              <p>Auto-generated from <code>product-model/*.yaml</code>.</p>
+
+              <div class="grid">
+                <div class="card">
+                  <h2>Relations graph</h2>
+                  <p><a href="./graph/relations.svg">relations.svg</a> · <a href="./graph/relations.png">relations.png</a></p>
+                  <img src="./graph/relations.svg" alt="relations graph" />
+                </div>
+
+                <div class="card">
+                  <h2>Artifacts</h2>
+                  <ul>
+                    <li><a href="./catalog.json">catalog.json</a></li>
+                    <li><a href="./runtime.json">runtime.json</a></li>
+                    <li><a href="./roadmap.json">roadmap.json</a></li>
+                    <li><a href="./ownership.json">ownership.json</a></li>
+                    <li><a href="./heatmap.json">heatmap.json</a></li>
+                    <li><a href="./graph/relations.mmd">relations.mmd</a></li>
+                    <li><a href="./graph/c4-context.mmd">c4-context.mmd</a></li>
+                    <li><a href="./graph/c4-container.mmd">c4-container.mmd</a></li>
+                  </ul>
+                </div>
+              </div>
+            </body>
+          </html>
+          EOF
+          fi
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public-pages
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
