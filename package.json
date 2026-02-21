@@ -9,11 +9,13 @@
     "build:web": "pnpm --filter web build"
   },
   "devDependencies": {
-    "tsx": "^4.19.2",
-    "typescript": "^5.6.3",
-    "zod": "^3.24.1",
-    "js-yaml": "^4.1.1",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^22.10.7"
+    "@types/node": "^22.10.7",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "js-yaml": "^4.1.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.3",
+    "zod": "^3.24.1"
   }
 }
