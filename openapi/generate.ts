@@ -73,7 +73,7 @@ function writeRootIndex(outRoot: string) {
     <div class="card">
       <h2>Web</h2>
       <p><a href="./web/">Swagger UI</a> · <a href="./web/openapi.json">openapi.json</a></p>
-      <p>Sources: <code>apps/web/app/api/**/openapi.ts</code></p>
+      <p>Sources: <code>apps/web/src/app/api/**/openapi.ts</code></p>
     </div>
 
     <div class="card">
