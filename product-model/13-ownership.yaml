@@ -1,0 +1,77 @@
+ownership:
+  version: 1
+
+  teams:
+    - id: org-core
+      name: "Organizace / Core"
+      contacts:
+        - type: email
+          value: "${ORG_CONTACT_EMAIL}"
+      responsibilities:
+        - "obsah akce"
+        - "operativa závodu"
+        - "komunikace a sponzoři"
+
+    - id: web-maintainer
+      name: "Web Maintainer"
+      contacts:
+        - type: email
+          value: "${WEB_MAINTAINER_EMAIL}"
+      responsibilities:
+        - "vývoj a provoz webu"
+        - "deploy, incidenty, security"
+        - "integrace (sheet, platby, analytics)"
+
+  domains:
+    - id: content
+      owner: org-core
+      backupOwner: web-maintainer
+      slaClass: P2
+    - id: charity
+      owner: org-core
+      backupOwner: web-maintainer
+      slaClass: P2
+    - id: registration
+      owner: org-core
+      backupOwner: web-maintainer
+      slaClass: P2
+    - id: payments
+      owner: org-core
+      backupOwner: web-maintainer
+      slaClass: P1
+    - id: gallery
+      owner: org-core
+      backupOwner: web-maintainer
+      slaClass: P3
+    - id: operations
+      owner: web-maintainer
+      backupOwner: org-core
+      slaClass: P1
+    - id: security
+      owner: web-maintainer
+      backupOwner: org-core
+      slaClass: P1
+    - id: analytics
+      owner: web-maintainer
+      backupOwner: org-core
+      slaClass: P3
+
+  capabilities:
+    # Explicitně u kritických věcí — ostatní mohou defaultovat přes domain owner
+    - id: collect-entry-fee
+      owner: org-core
+      backupOwner: web-maintainer
+      slaClass: P1
+      notes: "Konverze startovného je klíčová v kampani."
+    - id: collect-donation
+      owner: org-core
+      backupOwner: web-maintainer
+      slaClass: P1
+    - id: import-gallery-from-sheet
+      owner: web-maintainer
+      backupOwner: org-core
+      slaClass: P3
+    - id: deploy-static-dynamic-site
+      owner: web-maintainer
+      backupOwner: org-core
+      slaClass: P1

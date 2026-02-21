@@ -1,0 +1,22 @@
+sla:
+
+  system-availability:
+    target: 99.9
+    period: monthly
+    notes: "Akce je sezónní, ale v době kampaně cílit na vysokou dostupnost"
+
+  performance:
+    homepage_ttfb_ms_p95: 600
+    notes: "Zaměřit se na rychlý první dojem (konverze)"
+
+  incident:
+    supportWindow: "best-effort (organizátor / maintainer)"
+    responseTargets:
+      p1: "4h (během kampaně)"
+      p2: "1 business day"
+      p3: "best-effort"
+
+  security:
+    https_required: true
+    secrets_management: "env + hosting secrets"
+    data_minimization: true

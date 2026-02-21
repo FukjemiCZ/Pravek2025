@@ -1,0 +1,42 @@
+services:
+
+  - id: nextjs-runtime
+    implements:
+      - deploy-static-dynamic-site
+    providedBy: ["vercel-hosting"]
+
+  - id: vercel-hosting
+    implements:
+      - deploy-static-dynamic-site
+    notes: "Levný a jednoduchý hosting pro Next.js"
+
+  - id: content-git
+    implements:
+      - publish-homepage
+      - publish-race-info
+      - publish-history
+      - publish-beneficiary-story
+      - publish-contact
+      - publish-sponsors
+    notes: "Obsah držet v Gitu jako zdroj pravdy"
+
+  - id: google-sheets-gallery
+    implements:
+      - import-gallery-from-sheet
+      - content-update-without-dev
+    notes: "Ne-vývojářsky editovatelný seznam fotek"
+
+  - id: email-service
+    implements:
+      - publish-contact
+      - sponsor-inquiry
+      - capture-participant-intent
+    notes: "Kontakt + notifikace organizátorům"
+
+  - id: payment-provider
+    implements:
+      - collect-entry-fee
+      - collect-donation
+      - show-payment-instructions
+      - confirm-payment
+    notes: "QR/bankovní platba; potvrzení může být manuální nebo callback"

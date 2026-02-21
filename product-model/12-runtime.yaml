@@ -1,0 +1,166 @@
+runtime:
+  version: 1
+
+  featureFlags:
+    enableGallery: true
+    enableHistory: true
+    enableSponsors: true
+    enablePaymentsConfirm: false        # pokud nemáš webhook/confirm endpoint
+    enableSubstituteRegistration: true
+    enableAnalytics: true
+    enableCookieBanner: false           # preferuj minimal cookies
+
+  locales:
+    default: cs-CZ
+    supported:
+      - cs-CZ
+
+  navigation:
+    primary:
+      - id: nav.home
+        label: "Domů"
+        href: "/"
+        enabled: true
+      - id: nav.race
+        label: "Závodit"
+        href: "/zavodit"
+        enabled: true
+      - id: nav.support
+        label: "Podpořit"
+        href: "/podporit"
+        enabled: true
+      - id: nav.beneficiary
+        label: "Beneficient"
+        href: "/beneficient"
+        enabled: true
+      - id: nav.history
+        label: "Historie"
+        href: "/historie"
+        enabled: true
+      - id: nav.contact
+        label: "Kontakt"
+        href: "/kontakt"
+        enabled: true
+
+  years:
+    # Ročníky a jejich “runtime” nastavení (co se ukazuje v UI, kde je galerie, kde jsou výsledky)
+    - id: "2026"
+      label: "Pravěk v Ráji 2026"
+      status: upcoming                 # upcoming | active | finished | archived
+      eventDate:
+        from: "2026-05-01"
+        to: "2026-05-03"
+      location:
+        name: "Český ráj"
+        gps: null
+      pages:
+        raceInfoPath: "/zavodit"
+        supportPath: "/podporit"
+        historyPath: "/historie/2026"
+      gallery:
+        enabled: true
+        source: sheet                   # sheet | repo | remote
+        galleryKey: "2026"              # parametr pro /api/gallery?year=2026
+      results:
+        enabled: false
+        url: null
+      registration:
+        substituteEnabled: true
+        url: null                       # pokud bude externí registrace, dej sem link
+      sponsorship:
+        enabled: true
+        kitUrl: null
+
+    - id: "2025"
+      label: "Pravěk v Ráji 2025"
+      status: finished
+      eventDate:
+        from: "2025-05-01"
+        to: "2025-05-03"
+      pages:
+        historyPath: "/historie/2025"
+      gallery:
+        enabled: true
+        source: sheet
+        galleryKey: "2025"
+      results:
+        enabled: true
+        url: null
+      registration:
+        substituteEnabled: false
+      sponsorship:
+        enabled: true
+
+  cta:
+    # Konfigurace CTA v UI — z toho lze generovat tlačítka, hero actions i tracking
+    primary:
+      - id: cta.pay.entry
+        label: "Zaplatit startovné"
+        kind: link
+        href: "/podporit#startovne"
+        enabled: true
+        track:
+          event: "cta.click"
+          props:
+            cta: "pay-entry"
+            placement: "hero"
+      - id: cta.donate
+        label: "Poslat dar"
+        kind: link
+        href: "/podporit#dar"
+        enabled: true
+        track:
+          event: "cta.click"
+          props:
+            cta: "donate"
+            placement: "hero"
+
+    secondary:
+      - id: cta.substitute
+        label: "Být náhradník"
+        kind: link
+        href: "/zavodit#nahradnik"
+        enabled: true
+        track:
+          event: "cta.click"
+          props:
+            cta: "substitute"
+            placement: "race"
+      - id: cta.gallery
+        label: "Fotky ročníků"
+        kind: link
+        href: "/historie"
+        enabled: true
+        track:
+          event: "cta.click"
+          props:
+            cta: "gallery"
+            placement: "nav"
+
+  externalEndpoints:
+    # Všechny externí endpointy sem → runtime compiler z toho udělá typed config
+    gallery:
+      provider: "google-sheets"
+      apiBaseUrl: "internal:/api/gallery"     # internal: Next.js route
+      sheet:
+        spreadsheetId: "${SHEETS_GALLERY_ID}"
+        range: "gallery!A:E"                 # příklad: name, position, gallery, zobrazovat, src
+        cacheSeconds: 3600
+
+    registration:
+      apiBaseUrl: "internal:/api/registration/substitute"
+      notificationEmail: "${REGISTRATION_NOTIFY_EMAIL}"
+
+    payments:
+      instructionsApi: "internal:/api/payments/instructions"
+      confirmApi: "internal:/api/payments/confirm"
+      bank:
+        iban: "${PAYMENT_IBAN}"
+        accountName: "${PAYMENT_ACCOUNT_NAME}"
+      qr:
+        enabled: true
+
+    analytics:
+      provider: "plausible"                  # plausible | ga4 | none
+      siteId: "${ANALYTICS_SITE_ID}"
+      enabled: true

@@ -1,0 +1,22 @@
+events:
+
+  # Registration
+  - id: registration.substitute_requested
+    producer: registration-api
+    consumers: [email-service]
+
+  # Payments
+  - id: payment.instructions_viewed
+    producer: payments-api
+    consumers: [measure-conversion]
+  - id: payment.confirmed
+    producer: payments-api
+    consumers: [email-service]
+
+  # Content/Gallery
+  - id: gallery.updated
+    producer: google-sheets-gallery
+    consumers: [gallery-api]
+  - id: year.published
+    producer: content-git
+    consumers: [public-web]

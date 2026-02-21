@@ -1,0 +1,38 @@
+environments:
+  - id: prod
+    domain: "pravek-v-raji.cz"
+    hosting: vercel-hosting
+  - id: preview
+    hosting: vercel-hosting
+    notes: "Preview deployments pro PR"
+
+dns:
+  provider: "TBD"
+  records:
+    - type: A/ALIAS
+      name: "@"
+      target: "vercel"
+    - type: CNAME
+      name: "www"
+      target: "vercel"
+
+runtime:
+  - id: nodejs
+    usedBy: [nextjs-runtime]
+
+externalIntegrations:
+  - id: sheets
+    system: google-sheets-gallery
+    auth: "service account / API key (server-side)"
+  - id: email
+    system: email-service
+    auth: "smtp / provider api"
+  - id: payments
+    system: payment-provider
+    auth: "bank/provider specific"
+
+observability:
+  - id: basic-uptime
+    notes: "minimálně uptime + error logging"
+  - id: analytics
+    notes: "měření CTA a kampaní"

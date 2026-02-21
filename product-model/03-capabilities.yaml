@@ -1,0 +1,99 @@
+capabilities:
+
+  # CONTENT
+  - id: publish-homepage
+    domain: content
+    description: "Publikovat úvodní stránku s hlavními CTA"
+  - id: publish-race-info
+    domain: content
+    description: "Zobrazit informace o závodě (termín, místo, propozice)"
+  - id: publish-history
+    domain: content
+    description: "Strukturovaný přehled ročníků (archiv)"
+  - id: publish-faq
+    domain: content
+    description: "FAQ a praktické informace"
+
+  # CHARITY / STORY
+  - id: publish-beneficiary-story
+    domain: charity
+    description: "Zobrazit příběh beneficienta (storytelling)"
+  - id: publish-impact
+    domain: charity
+    description: "Zobrazit dopad (výsledek sbírky, komu pomohlo)"
+
+  # REGISTRATION
+  - id: register-substitute
+    domain: registration
+    description: "Přihlášení jako náhradník"
+  - id: capture-participant-intent
+    domain: registration
+    description: "Zachytit zájem o účast (lead) pro organizátory"
+
+  # PAYMENTS
+  - id: collect-entry-fee
+    domain: payments
+    description: "Platba startovného"
+  - id: collect-donation
+    domain: payments
+    description: "Jednorázový dar"
+  - id: show-payment-instructions
+    domain: payments
+    description: "Zobrazit instrukce pro platbu (QR / bankovní údaje)"
+  - id: confirm-payment
+    domain: payments
+    description: "Zachytit potvrzení platby (manuálně nebo callbackem)"
+
+  # GALLERY
+  - id: publish-gallery-strip
+    domain: gallery
+    description: "Galerie jako proužek/strip + lightbox"
+  - id: import-gallery-from-sheet
+    domain: gallery
+    description: "Načítání seznamu fotek z externího zdroje (např. Google Sheets)"
+  - id: publish-year-albums
+    domain: gallery
+    description: "Galerie ročníků (album per year)"
+
+  # COMMUNICATIONS
+  - id: publish-contact
+    domain: communications
+    description: "Zobrazit kontakt na organizátory"
+  - id: provide-cta-links
+    domain: communications
+    description: "CTA odkazy: zaplatit / přihlásit / podpořit"
+
+  # SPONSORSHIP
+  - id: publish-sponsors
+    domain: sponsorship
+    description: "Zobrazit sponzory a partnery"
+  - id: sponsor-inquiry
+    domain: sponsorship
+    description: "Umožnit sponzorům kontakt / poptávku"
+
+  # OPERATIONS
+  - id: deploy-static-dynamic-site
+    domain: operations
+    description: "Build+deploy webu (CD)"
+  - id: manage-env-secrets
+    domain: operations
+    description: "Správa secretů a integrací"
+  - id: content-update-without-dev
+    domain: operations
+    description: "Změny obsahu bez zásahu do kódu"
+
+  # ANALYTICS
+  - id: measure-conversion
+    domain: analytics
+    description: "Měřit konverze CTA a návštěvnost"
+  - id: track-campaign
+    domain: analytics
+    description: "Kampaně (UTM), funnel"
+
+  # SECURITY
+  - id: enforce-https
+    domain: security
+    description: "Vynutit HTTPS"
+  - id: privacy-cookie-minimum
+    domain: security
+    description: "Minimalizovat cookies / mít přehled"

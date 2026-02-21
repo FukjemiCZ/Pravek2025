@@ -1,0 +1,41 @@
+apis:
+
+  - id: public-web
+    type: http
+    audience: public
+    endpoints:
+      - GET /
+      - GET /podporit
+      - GET /zavodit
+      - GET /historie
+      - GET /kontakt
+      - GET /beneficient
+
+  - id: gallery-api
+    type: http
+    audience: public
+    endpoints:
+      - GET /api/gallery?year=YYYY
+      - GET /api/gallery/years
+    notes: "Čte veřejná data z externího zdroje (sheet) přes server-side proxy"
+
+  - id: registration-api
+    type: http
+    audience: public
+    endpoints:
+      - POST /api/registration/substitute
+    data:
+      required:
+        - name
+        - email
+      optional:
+        - phone
+        - note
+
+  - id: payments-api
+    type: http
+    audience: public
+    endpoints:
+      - GET /api/payments/instructions?type=entry|donation
+      - POST /api/payments/confirm
+    notes: "Confirm může být interní endpoint pro ruční potvrzení / webhook"

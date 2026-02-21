@@ -1,0 +1,73 @@
+relations:
+
+  # Capabilities -> Services
+  - from: deploy-static-dynamic-site
+    to: vercel-hosting
+    type: IMPLEMENTED_BY
+
+  - from: import-gallery-from-sheet
+    to: google-sheets-gallery
+    type: IMPLEMENTED_BY
+
+  - from: capture-participant-intent
+    to: email-service
+    type: IMPLEMENTED_BY
+
+  - from: collect-entry-fee
+    to: payment-provider
+    type: IMPLEMENTED_BY
+
+  - from: collect-donation
+    to: payment-provider
+    type: IMPLEMENTED_BY
+
+  # Components -> Services
+  - from: web-portal
+    to: nextjs-runtime
+    type: RUNS_ON
+
+  - from: api-gallery
+    to: google-sheets-gallery
+    type: DEPENDS_ON
+
+  - from: api-registration
+    to: email-service
+    type: EMITS_TO
+
+  - from: api-payments
+    to: payment-provider
+    type: DEPENDS_ON
+
+  # APIs -> Components
+  - from: gallery-api
+    to: api-gallery
+    type: SERVED_BY
+
+  - from: registration-api
+    to: api-registration
+    type: SERVED_BY
+
+  - from: payments-api
+    to: api-payments
+    type: SERVED_BY
+
+  # Pages -> Capabilities
+  - from: page-home
+    to: publish-homepage
+    type: ENABLES
+
+  - from: page-beneficiary
+    to: publish-beneficiary-story
+    type: ENABLES
+
+  - from: page-support
+    to: collect-donation
+    type: ENABLES
+
+  - from: page-race
+    to: collect-entry-fee
+    type: ENABLES
+
+  - from: gallery-strip
+    to: publish-gallery-strip
+    type: ENABLES

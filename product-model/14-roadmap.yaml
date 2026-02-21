@@ -1,0 +1,94 @@
+roadmap:
+  version: 1
+
+  horizons:
+    - id: now
+      name: "Now (0–4 týdny)"
+    - id: next
+      name: "Next (1–3 měsíce)"
+    - id: later
+      name: "Later (3–12 měsíců)"
+
+  epics:
+    - id: e1-conversion-basics
+      horizon: now
+      name: "Konverze: jasné CTA a platby"
+      outcome: "Návštěvník rychle pochopí akci a provede platbu/dar."
+      capabilities:
+        - publish-homepage
+        - provide-cta-links
+        - collect-entry-fee
+        - collect-donation
+        - show-payment-instructions
+      flows:
+        - visitor-understands-and-acts
+        - donor-donates
+        - racer-pays-entry-fee
+      kpis:
+        - id: kpi-cta
+          metric: "CTA click-through rate"
+          target: ">= 8%"
+        - id: kpi-payments
+          metric: "Payment instructions viewed -> confirmed (proxy)"
+          target: ">= 30%"
+      deliverables:
+        - "Runtime CTA config (12-runtime.yaml)"
+        - "Podpořit: sekce startovné/dar + QR"
+        - "Tracking event 'cta.click'"
+
+    - id: e2-gallery-and-history
+      horizon: next
+      name: "Historie a galerie ročníků"
+      outcome: "Důvěryhodnost skrze fotky a archiv ročníků."
+      capabilities:
+        - publish-history
+        - publish-year-albums
+        - publish-gallery-strip
+        - import-gallery-from-sheet
+      flows:
+        - visitor-browses-gallery
+      kpis:
+        - id: kpi-gallery
+          metric: "Avg. time on history pages"
+          target: ">= 60s"
+      deliverables:
+        - "Gallery strip + lightbox"
+        - "Cache + fallback režim pro gallery API"
+
+    - id: e3-substitute-registration
+      horizon: next
+      name: "Náhradníci / zájemci"
+      outcome: "Organizátor sbírá zájemce bez ruční komunikace."
+      capabilities:
+        - register-substitute
+        - capture-participant-intent
+        - publish-race-info
+      flows:
+        - racer-substitute
+      kpis:
+        - id: kpi-substitute
+          metric: "Substitute form submit rate"
+          target: ">= 5%"
+      deliverables:
+        - "Form + email notifikace"
+        - "Anti-spam (honeypot / rate limit)"
+
+    - id: e4-operations-hardening
+      horizon: later
+      name: "Zpevnění provozu + bezpečnost"
+      outcome: "Stabilní provoz během kampaně, méně incidentů."
+      capabilities:
+        - enforce-https
+        - manage-env-secrets
+        - deploy-static-dynamic-site
+        - measure-conversion
+      flows:
+        - organizer-updates-content
+      kpis:
+        - id: kpi-uptime
+          metric: "Uptime"
+          target: ">= 99.9%"
+      deliverables:
+        - "Uptime monitoring"
+        - "Error logging"
+        - "Security headers baseline"

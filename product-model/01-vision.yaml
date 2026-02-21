@@ -1,0 +1,52 @@
+product:
+  id: pravek-v-raji
+  name: "Pravěk v Ráji"
+  type: "event-portal"
+  homepage: "https://www.pravek-v-raji.cz/"
+  repo: "https://github.com/FukjemiCZ/Pravek2025"
+  versioning:
+    model: "git"
+    runtimeCompilation: true
+
+valueProposition:
+  - "Benefiční dogtrekking – jednoduchý web pro podporu a účast"
+  - "Rychlá orientace: proč akce existuje, komu pomáhá, jak se přihlásit / zaplatit"
+  - "Transparentní call-to-action: startovné, podpora, náhradník"
+  - "Obsah + galerie ročníků jako důkaz a emoce (storytelling)"
+
+goals:
+  product:
+    - id: g1
+      text: "Zvýšit konverzi: návštěvník → platba startovného / dar"
+    - id: g2
+      text: "Snížit organizační režii: změny obsahu bez vývojáře (content-first)"
+    - id: g3
+      text: "Udržovat dlouhodobé portfolio: ročníky + příběhy + výsledky"
+  technical:
+    - id: t1
+      text: "Model-driven: YAML → katalog/portfolio/diagramy/runtime"
+    - id: t2
+      text: "Low-cost hosting, jednoduchý provoz, bezpečné integrace"
+
+targetCustomers:
+  - "závodníci (dogtrekkeři)"
+  - "dárci a podporovatelé"
+  - "sponzoři"
+  - "organizátoři"
+
+personas:
+  - id: visitor
+    name: "Návštěvník"
+    intent: "Pochopit akci, příběh a co mám udělat dál"
+  - id: racer
+    name: "Závodník"
+    intent: "Zjistit podmínky, přihlásit se / být náhradník, zaplatit"
+  - id: donor
+    name: "Dárce"
+    intent: "Podpořit, ideálně rychle a bez tření"
+  - id: sponsor
+    name: "Sponzor"
+    intent: "Vidět dopad, zviditelnění, kontakt na organizátory"
+  - id: organizer
+    name: "Organizátor"
+    intent: "Správa obsahu, ročníků, informací, galerie a komunikace"

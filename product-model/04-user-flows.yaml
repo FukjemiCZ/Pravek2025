@@ -1,0 +1,64 @@
+flows:
+
+  - id: visitor-understands-and-acts
+    actor: visitor
+    steps:
+      - "Příchod na homepage"
+      - "Pochopení benefice a termínu"
+      - "Klik na Podpořit / Zaplatit / Závodit"
+    capabilities:
+      - publish-homepage
+      - publish-beneficiary-story
+      - provide-cta-links
+
+  - id: donor-donates
+    actor: donor
+    steps:
+      - "Přejde na Podpořit"
+      - "Zvolí dar / instrukce"
+      - "Provede platbu"
+    capabilities:
+      - collect-donation
+      - show-payment-instructions
+      - confirm-payment
+
+  - id: racer-pays-entry-fee
+    actor: racer
+    steps:
+      - "Přejde na Závodit"
+      - "Zjistí podmínky"
+      - "Zaplatí startovné"
+    capabilities:
+      - publish-race-info
+      - collect-entry-fee
+      - show-payment-instructions
+
+  - id: racer-substitute
+    actor: racer
+    steps:
+      - "Klikne Přihlásit se jako náhradník"
+      - "Vyplní základní údaje"
+      - "Organizátor dostane záznam"
+    capabilities:
+      - register-substitute
+      - capture-participant-intent
+
+  - id: visitor-browses-gallery
+    actor: visitor
+    steps:
+      - "Otevře ročník / galerii"
+      - "Prohlíží strip"
+      - "Otevře detail fotky (lightbox)"
+    capabilities:
+      - publish-gallery-strip
+      - publish-year-albums
+      - import-gallery-from-sheet
+
+  - id: organizer-updates-content
+    actor: organizer
+    steps:
+      - "Změna textu / odkazu / CTA"
+      - "Publikace"
+    capabilities:
+      - content-update-without-dev
+      - deploy-static-dynamic-site

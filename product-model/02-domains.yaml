@@ -1,0 +1,21 @@
+domains:
+  - id: content
+    name: "Obsah a informace"
+  - id: charity
+    name: "Benefice a příběh"
+  - id: registration
+    name: "Registrace / účast"
+  - id: payments
+    name: "Platby a dary"
+  - id: gallery
+    name: "Galerie a ročníky"
+  - id: communications
+    name: "Kontakt a komunikace"
+  - id: sponsorship
+    name: "Sponzoři"
+  - id: operations
+    name: "Provoz webu"
+  - id: analytics
+    name: "Měření a konverze"
+  - id: security
+    name: "Bezpečnost a compliance"

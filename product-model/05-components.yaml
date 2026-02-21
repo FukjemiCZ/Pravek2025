@@ -1,0 +1,60 @@
+components:
+
+  # UI
+  - id: web-portal
+    name: "Pravěk v Ráji Web"
+    type: ui
+    tech: ["Next.js", "React"]
+    notes: "Hlavní web pro návštěvníky a akci"
+
+  - id: page-home
+    type: ui-page
+    parent: web-portal
+  - id: page-support
+    type: ui-page
+    parent: web-portal
+  - id: page-race
+    type: ui-page
+    parent: web-portal
+  - id: page-history
+    type: ui-page
+    parent: web-portal
+  - id: page-contact
+    type: ui-page
+    parent: web-portal
+  - id: page-beneficiary
+    type: ui-page
+    parent: web-portal
+
+  # UI widgets
+  - id: cta-buttons
+    type: ui-widget
+    parent: web-portal
+  - id: gallery-strip
+    type: ui-widget
+    parent: web-portal
+  - id: lightbox-viewer
+    type: ui-widget
+    parent: web-portal
+
+  # Backend (Next.js route handlers / server actions)
+  - id: api-gallery
+    type: backend-module
+    notes: "Proxy/adapter pro načtení galerie z externího zdroje"
+  - id: api-registration
+    type: backend-module
+    notes: "Zápis náhradníků / leadů"
+  - id: api-payments
+    type: backend-module
+    notes: "Instrukce platby + případný callback/confirm"
+
+  # Content sources
+  - id: content-repo
+    type: content-store
+    notes: "Obsah v repozitáři (MD/MDX, config)"
+  - id: sheet-gallery
+    type: external-system
+    notes: "Tabulka pro řízení galerie (např. Google Sheets)"
+  - id: mail-contact
+    type: external-system
+    notes: "E-mailová schránka pro kontakt/organizátory"
