@@ -1,6 +1,6 @@
 import Shell from "@/app/components/layout/Shell";
 import { Box, Typography } from "@mui/material";
-import { getProductModel } from "@/lib/getProductModel";
+import { getProductModel } from "@/app/lib/getProductModel";
 
 // Technical widgets (předpokládám, že existují)
 import GraphCanvas from "@/app/components/architecture/GraphCanvas";

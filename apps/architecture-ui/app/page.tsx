@@ -1,6 +1,6 @@
 import Shell from "@/app/components/layout/Shell";
 import { Box, Grid, Typography } from "@mui/material";
-import { getProductModel } from "@/lib/getProductModel";
+import { getProductModel } from "@/app/lib/getProductModel";
 
 // Dashboard widgets (předpokládám, že existují; pokud ne, napiš a dodám je)
 import KPICards from "@/app/components/dashboard/KPICards";
