@@ -2,7 +2,7 @@
 
 import React, { useMemo } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useMode } from "./ModeContext";
+import { useMode } from "@/app/components/layout/ModeContext";
 
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
   const { mode } = useMode();

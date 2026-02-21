@@ -1,8 +1,8 @@
 "use client";
 
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { useMode } from "./ModeContext";
-import type { Mode } from "./ModeContext";
+import { useMode } from "@/app/components/layout/ModeContext";
+import type { Mode } from "@/app/components/layout/ModeContext";
 
 export default function ModeToggle() {
   const { mode, setMode } = useMode();

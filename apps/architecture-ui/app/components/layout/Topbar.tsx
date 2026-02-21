@@ -1,8 +1,8 @@
 "use client";
 
 import { AppBar, Box, Toolbar, Typography } from "@mui/material";
-import StatusBadge from "./StatusBadge";
-import ModeToggle from "./ModeToggle";
+import StatusBadge from "@/app/components/layout/StatusBadge";
+import ModeToggle from "@/app/components/layout/ModeToggle";
 
 export default function TopBar() {
   return (
