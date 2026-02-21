@@ -1,7 +1,7 @@
-export async function getProductModel() {
-  const base =
-    "https://raw.githubusercontent.com/FukjemiCZ/Pravek2025/main/dist/product-model";
+const BASE =
+  "https://fukjemicz.github.io/Pravek2025/product-model";
 
+export async function getProductModel() {
   const files = [
     "catalog.json",
     "runtime.json",
@@ -13,8 +13,8 @@ export async function getProductModel() {
   const data: any = {};
 
   for (const file of files) {
-    const res = await fetch(`${base}/${file}`, {
-      cache: "no-store",
+    const res = await fetch(`${BASE}/${file}`, {
+      next: { revalidate: 60 },
     });
 
     if (!res.ok) {
