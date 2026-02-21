@@ -33,14 +33,113 @@ async function vercel(path: string, token: string) {
 }
 
 function pickLastKnownGood(deployments: any[]) {
-  // Vercel: "READY" znamená úspěšný deploy; error je v "ERROR"
   const ready = deployments.filter((d) => d?.state === "READY" && d?.url);
-  // prefer production (target === "production"), otherwise any
   const prod = ready.find((d) => d?.target === "production") ?? null;
   return {
     production: prod,
     any: ready[0] ?? null,
   };
+}
+
+function buildGitHubRunIndex(runs: any[]) {
+  // sha -> best run info (prefer success, prefer newer run_started_at)
+  const bySha = new Map<string, any>();
+
+  for (const r of runs) {
+    const sha = String(r?.head_sha ?? "").toLowerCase();
+    if (!sha) continue;
+
+    const existing = bySha.get(sha);
+
+    const cand = {
+      id: r?.id,
+      name: r?.name,
+      conclusion: r?.conclusion ?? null, // success | failure | cancelled | null
+      status: r?.status ?? null, // completed | in_progress | queued
+      html_url: r?.html_url ?? null,
+      run_started_at: r?.run_started_at ?? null,
+      updated_at: r?.updated_at ?? null,
+    };
+
+    if (!existing) {
+      bySha.set(sha, cand);
+      continue;
+    }
+
+    // Prefer success over non-success
+    const existingIsSuccess = existing?.conclusion === "success";
+    const candIsSuccess = cand?.conclusion === "success";
+    if (candIsSuccess && !existingIsSuccess) {
+      bySha.set(sha, cand);
+      continue;
+    }
+    if (!candIsSuccess && existingIsSuccess) continue;
+
+    // Otherwise prefer newer run_started_at
+    const exT = existing?.run_started_at ? Date.parse(existing.run_started_at) : 0;
+    const caT = cand?.run_started_at ? Date.parse(cand.run_started_at) : 0;
+    if (caT > exT) bySha.set(sha, cand);
+  }
+
+  return bySha;
+}
+
+function getDeploySha(d: any): string | null {
+  // Vercel deployments often include meta.githubCommitSha
+  const sha =
+    d?.meta?.githubCommitSha ??
+    d?.meta?.githubCommitSha1 ?? // just in case
+    d?.meta?.commitSha ??
+    null;
+
+  if (!sha) return null;
+  return String(sha).toLowerCase();
+}
+
+function pickLastKnownGoodPaired(deployments: any[], ghBySha: Map<string, any>) {
+  // production READY deployments with commit sha that has success run
+  const candidates = deployments
+    .filter((d) => d?.target === "production" && d?.state === "READY" && d?.url)
+    .map((d) => ({ d, sha: getDeploySha(d) }))
+    .filter((x) => !!x.sha);
+
+  // deployments are already newest first from Vercel; but keep explicit sort:
+  candidates.sort((a, b) => (b.d?.createdAt ?? 0) - (a.d?.createdAt ?? 0));
+
+  const prodPaired =
+    candidates.find((x) => {
+      const run = ghBySha.get(String(x.sha));
+      return run?.conclusion === "success";
+    }) ?? null;
+
+  const anyPaired =
+    deployments
+      .filter((d) => d?.state === "READY" && d?.url)
+      .map((d) => ({ d, sha: getDeploySha(d) }))
+      .filter((x) => !!x.sha)
+      .sort((a, b) => (b.d?.createdAt ?? 0) - (a.d?.createdAt ?? 0))
+      .find((x) => {
+        const run = ghBySha.get(String(x.sha));
+        return run?.conclusion === "success";
+      }) ?? null;
+
+  return {
+    production: prodPaired ? prodPaired.d : null,
+    any: anyPaired ? anyPaired.d : null,
+  };
+}
+
+function attachRunToDeployments(deployments: any[], ghBySha: Map<string, any>) {
+  // add deploy.ghRun = {conclusion, html_url, ...} if sha present
+  return deployments.map((d) => {
+    const sha = getDeploySha(d);
+    const run = sha ? ghBySha.get(sha) : null;
+    return {
+      ...d,
+      ghCommitSha: sha,
+      ghRun: run ?? null,
+    };
+  });
 }
 
 export async function GET() {
@@ -55,48 +154,58 @@ export async function GET() {
     const projectWeb = requireEnv("VERCEL_PROJECT_ID_WEB");
     const projectArch = requireEnv("VERCEL_PROJECT_ID_ARCH");
 
-    // --- GitHub: poslední workflow runy (napříč repo) ---
-    // list workflow runs for a repo (REST Actions) :contentReference[oaicite:3]{index=3}
-    const runs = await gh(
-      `/repos/${owner}/${repo}/actions/runs?per_page=20`,
+    // GitHub workflow runs (latest)
+    const runsResp = await gh(
+      `/repos/${owner}/${repo}/actions/runs?per_page=30`,
       ghToken
     );
+    const runs = Array.isArray(runsResp?.workflow_runs) ? runsResp.workflow_runs : [];
+    const ghBySha = buildGitHubRunIndex(runs);
 
-    // --- Vercel: deployments pro web + arch ---
-    // list deployments endpoint :contentReference[oaicite:4]{index=4}
+    // Vercel deployments (web + arch)
     const qs = (projectId: string) => {
       const params = new URLSearchParams();
       params.set("projectId", projectId);
-      params.set("limit", "20");
+      params.set("limit", "25");
       if (teamId) params.set("teamId", teamId);
       return `?${params.toString()}`;
     };
 
-    const webDeploys = await vercel(`/v6/deployments${qs(projectWeb)}`, vercelToken);
-    const archDeploys = await vercel(`/v6/deployments${qs(projectArch)}`, vercelToken);
+    const [webDeploys, archDeploys] = await Promise.all([
+      vercel(`/v6/deployments${qs(projectWeb)}`, vercelToken),
+      vercel(`/v6/deployments${qs(projectArch)}`, vercelToken),
+    ]);
 
-    const webList = Array.isArray(webDeploys?.deployments) ? webDeploys.deployments : [];
-    const archList = Array.isArray(archDeploys?.deployments) ? archDeploys.deployments : [];
+    const webListRaw = Array.isArray(webDeploys?.deployments) ? webDeploys.deployments : [];
+    const archListRaw = Array.isArray(archDeploys?.deployments) ? archDeploys.deployments : [];
 
-    const lkgWeb = pickLastKnownGood(webList);
-    const lkgArch = pickLastKnownGood(archList);
+    const webList = attachRunToDeployments(webListRaw, ghBySha);
+    const archList = attachRunToDeployments(archListRaw, ghBySha);
+
+    const lkgWeb = pickLastKnownGood(webListRaw);
+    const lkgArch = pickLastKnownGood(archListRaw);
+
+    const lkgWebPaired = pickLastKnownGoodPaired(webListRaw, ghBySha);
+    const lkgArchPaired = pickLastKnownGoodPaired(archListRaw, ghBySha);
 
     return NextResponse.json(
       {
         github: {
           repo: `${owner}/${repo}`,
-          runs: runs?.workflow_runs ?? [],
+          runs,
         },
         vercel: {
           web: {
             projectId: projectWeb,
-            deployments: webList,
+            deployments: webList, // includes ghCommitSha + ghRun
             lastKnownGood: lkgWeb,
+            lastKnownGoodPaired: lkgWebPaired,
           },
           architectureUi: {
             projectId: projectArch,
-            deployments: archList,
+            deployments: archList, // includes ghCommitSha + ghRun
             lastKnownGood: lkgArch,
+            lastKnownGoodPaired: lkgArchPaired,
           },
         },
       },

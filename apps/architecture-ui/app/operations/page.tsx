@@ -7,6 +7,7 @@ import FeatureMatrix from "@/app/components/operations/FeatureMatrix";
 import EndpointInventory from "@/app/components/operations/EndpointInventory";
 import OperationsStatusPanel from "@/app/components/operations/OperationsStatusPanel";
 import DeploymentFeed from "../components/operations/DeploymentFeeds";
+import ReleaseChangePanelWithLKG from "../components/operations/ReleaseChangePanelWithLKG";
 
 export const dynamic = "force-dynamic";
 
@@ -25,6 +26,8 @@ export default async function OperationsPage() {
             </Box>
 
             <OperationsStatusPanel />
+
+            <ReleaseChangePanelWithLKG />
 
             <DeploymentFeed />
             <Box sx={{ mt: 3 }}>

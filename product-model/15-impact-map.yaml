@@ -1,0 +1,47 @@
+version: 1
+
+# Pravidla se aplikují shora dolů.
+# Každé pravidlo může mapovat na domainId + capabilityIds.
+# Glob syntax: micromatch (podobné bash globům).
+
+rules:
+  # --- Web app ---
+  - id: web-api
+    match:
+      - "apps/web/src/app/api/**"
+    domainId: web
+    capabilityIds:
+      - web.api
+
+  - id: web-pages
+    match:
+      - "apps/web/src/app/**"
+      - "apps/web/src/components/**"
+    domainId: web
+    capabilityIds:
+      - web.ui
+
+  # --- Architecture UI ---
+  - id: arch-ui
+    match:
+      - "apps/architecture-ui/**"
+    domainId: operations
+    capabilityIds:
+      - operations.architecture-ui
+
+  # --- Product model & generators ---
+  - id: product-model
+    match:
+      - "product-model/**"
+      - "scripts/product-model/**"
+    domainId: operations
+    capabilityIds:
+      - operations.product-model
+
+  # --- OpenAPI generator ---
+  - id: openapi
+    match:
+      - "openapi/**"
+    domainId: operations
+    capabilityIds:
+      - operations.openapi
