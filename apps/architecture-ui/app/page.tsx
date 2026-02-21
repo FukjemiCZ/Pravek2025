@@ -2,7 +2,6 @@ import Shell from "@/app/components/layout/Shell";
 import { Box, Grid, Typography } from "@mui/material";
 import { getProductModel } from "@/app/lib/getProductModel";
 
-// Dashboard widgets (předpokládám, že existují; pokud ne, napiš a dodám je)
 import KPICards from "@/app/components/dashboard/KPICards";
 import HeatmapOverview from "@/app/components/dashboard/HeatmapOverview";
 import RuntimeSummary from "@/app/components/dashboard/RuntimeSummary";
@@ -25,7 +24,6 @@ export default async function OverviewPage() {
         </Typography>
       </Box>
 
-      {/* KPI row */}
       <KPICards data={data} />
 
       <Grid container spacing={3} sx={{ mt: 0 }}>
@@ -38,11 +36,16 @@ export default async function OverviewPage() {
         </Grid>
 
         <Grid item xs={12} lg={8}>
-          <RoadmapSnapshot roadmap={data.roadmap} heatmap={data.heatmap} />
+          {/* FIX: Timeline/RoadmapSnapshot bere zatím pouze roadmap */}
+          <RoadmapSnapshot roadmap={data.roadmap} />
         </Grid>
 
         <Grid item xs={12} lg={4}>
-          <OwnershipRiskPanel ownership={data.ownership} catalog={data.catalog} roadmap={data.roadmap} />
+          <OwnershipRiskPanel
+            ownership={data.ownership}
+            catalog={data.catalog}
+            roadmap={data.roadmap}
+          />
         </Grid>
       </Grid>
     </Shell>

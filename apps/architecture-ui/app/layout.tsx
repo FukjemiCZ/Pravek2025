@@ -2,11 +2,8 @@ import type { ReactNode } from "react";
 import "./globals.css";
 import { CssBaseline } from "@mui/material";
 
-// Očekávám, že tohle existuje:
-// - ThemeRegistry: MUI ThemeProvider + (volitelně) mode-aware theme
-// - ModeProvider: Business/Technical toggle context (client)
-import ThemeRegistry from "@/app/components/layout/ThemeRegistry";
 import { ModeProvider } from "@/app/components/layout/ModeContext";
+import ThemeRegistry from "@/app/components/layout/ThemeRegistry";
 
 export const metadata = {
   title: "Pravěk v Ráji — Architecture Portal",
@@ -17,12 +14,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="cs">
       <body>
-        <ThemeRegistry>
-          <ModeProvider>
+        {/* ModeProvider MUSÍ být vně ThemeRegistry, protože ThemeRegistry používá useMode() */}
+        <ModeProvider>
+          <ThemeRegistry>
             <CssBaseline />
             {children}
-          </ModeProvider>
-        </ThemeRegistry>
+          </ThemeRegistry>
+        </ModeProvider>
       </body>
     </html>
   );

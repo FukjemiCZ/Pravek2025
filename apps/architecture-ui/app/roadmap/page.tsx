@@ -2,7 +2,6 @@ import Shell from "@/app/components/layout/Shell";
 import { Box, Typography } from "@mui/material";
 import { getProductModel } from "@/app/lib/getProductModel";
 
-// Roadmap widgets (předpokládám, že existují)
 import Timeline from "@/app/components/roadmap/Timeline";
 import CoverageBars from "@/app/components/roadmap/CoverageBars";
 
@@ -23,8 +22,10 @@ export default async function RoadmapPage() {
       </Box>
 
       <CoverageBars roadmap={data.roadmap} heatmap={data.heatmap} />
+
       <Box sx={{ mt: 3 }}>
-        <Timeline roadmap={data.roadmap} catalog={data.catalog} />
+        {/* FIX: Timeline zatím bere jen roadmap */}
+        <Timeline roadmap={data.roadmap} />
       </Box>
     </Shell>
   );

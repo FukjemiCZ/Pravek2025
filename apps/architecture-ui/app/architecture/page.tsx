@@ -2,7 +2,8 @@ import Shell from "@/app/components/layout/Shell";
 import { Box, Typography } from "@mui/material";
 import { getProductModel } from "@/app/lib/getProductModel";
 
-// Technical widgets (předpokládám, že existují)
+// Pokud tyto komponenty máš pod app/components, uprav importy podle tvé struktury.
+// Podle posledních importů používáš "@/app/components/..."
 import GraphCanvas from "@/app/components/architecture/GraphCanvas";
 import C4Viewer from "@/app/components/architecture/C4Viewer";
 import ServiceMatrix from "@/app/components/architecture/ServiceMatrix";
@@ -23,7 +24,8 @@ export default async function ArchitecturePage() {
         </Typography>
       </Box>
 
-      <GraphCanvas catalog={data.catalog} roadmap={data.roadmap} ownership={data.ownership} />
+      {/* FIX: GraphCanvas zatím bere jen catalog */}
+      <GraphCanvas catalog={data.catalog} />
 
       <Box sx={{ mt: 3 }}>
         <C4Viewer
