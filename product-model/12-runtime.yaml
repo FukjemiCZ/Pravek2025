@@ -100,7 +100,7 @@ runtime:
 
     - id: "2025"
       label: "Pravěk v Ráji 2025"
-      status: finished
+      status: archived
       eventDate:
         from: "2025-05-15"
         to: "2025-05-18"
@@ -120,7 +120,7 @@ runtime:
     
     - id: "2024"
       label: "Pravěk v Ráji 2024"
-      status: finished
+      status: archived
       eventDate:
         from: "2024-05-15"
         to: "2024-05-18"

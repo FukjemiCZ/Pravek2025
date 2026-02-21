@@ -29,6 +29,7 @@ export default function SideNav({ onNavigate }: { onNavigate?: () => void }) {
         { label: "Operations", path: "/operations" },
         { label: "Releases", path: "/releases" },
         { label: "Readiness", path: "/readiness" },
+        { label: "Issues", path: "/issues" },
     ];
 
     return (
