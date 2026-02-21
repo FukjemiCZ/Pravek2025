@@ -28,6 +28,7 @@ export default function SideNav({ onNavigate }: { onNavigate?: () => void }) {
     const group3: NavItem[] = [
         { label: "Operations", path: "/operations" },
         { label: "Releases", path: "/releases" },
+        { label: "Readiness", path: "/readiness" },
     ];
 
     return (

@@ -44,12 +44,39 @@ runtime:
 
   years:
     # Ročníky a jejich “runtime” nastavení (co se ukazuje v UI, kde je galerie, kde jsou výsledky)
-    - id: "2026"
-      label: "Pravěk v Ráji 2026"
+    - id: "2027"
+      label: "Pravěk v Ráji 2027"
       status: upcoming                 # upcoming | active | finished | archived
       eventDate:
-        from: "2026-05-01"
-        to: "2026-05-03"
+        from: ""
+        to: ""
+      location:
+        name: "Český ráj"
+        gps: null
+      pages:
+        raceInfoPath: "/zavodit"
+        supportPath: "/podporit"
+        historyPath: "/historie/2027"
+      gallery:
+        enabled: true
+        source: sheet                   # sheet | repo | remote
+        galleryKey: "2027"              # parametr pro /api/gallery?year=2026
+      results:
+        enabled: false
+        url: null
+      registration:
+        substituteEnabled: false
+        url: https://prihlaseni.pravek-v-raji.cz                       # pokud bude externí registrace, dej sem link
+      sponsorship:
+        enabled: true
+        kitUrl: null
+
+    - id: "2026"
+      label: "Pravěk v Ráji 2026"
+      status: active                 # upcoming | active | finished | archived
+      eventDate:
+        from: "2026-05-14"
+        to: "2026-05-17"
       location:
         name: "Český ráj"
         gps: null
@@ -66,7 +93,7 @@ runtime:
         url: null
       registration:
         substituteEnabled: true
-        url: null                       # pokud bude externí registrace, dej sem link
+        url: https://prihlaseni.pravek-v-raji.cz                       # pokud bude externí registrace, dej sem link
       sponsorship:
         enabled: true
         kitUrl: null
@@ -75,14 +102,34 @@ runtime:
       label: "Pravěk v Ráji 2025"
       status: finished
       eventDate:
-        from: "2025-05-01"
-        to: "2025-05-03"
+        from: "2025-05-15"
+        to: "2025-05-18"
       pages:
         historyPath: "/historie/2025"
       gallery:
         enabled: true
         source: sheet
         galleryKey: "2025"
+      results:
+        enabled: true
+        url: null
+      registration:
+        substituteEnabled: false
+      sponsorship:
+        enabled: true
+    
+    - id: "2024"
+      label: "Pravěk v Ráji 2024"
+      status: finished
+      eventDate:
+        from: "2024-05-15"
+        to: "2024-05-18"
+      pages:
+        historyPath: "/historie/2024"
+      gallery:
+        enabled: true
+        source: sheet
+        galleryKey: "2024"
       results:
         enabled: true
         url: null
