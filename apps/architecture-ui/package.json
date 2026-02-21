@@ -2,16 +2,16 @@
   "name": "architecture-ui",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "next": "14.2.5",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "@mui/material": "^5.15.0",
-    "@mui/icons-material": "^5.15.0",
+    "next": "15.5.9",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "@mui/material": "^6.4.10",
+    "@mui/icons-material": "^6.5.0",
     "reactflow": "^11.10.0",
     "d3": "^7.9.0"
   }

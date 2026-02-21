@@ -12,12 +12,12 @@ export async function GET() {
     "ownership.json"
   ];
 
-  const result: any = {};
+  const data: any = {};
 
-  for (const f of files) {
-    const r = await fetch(`${BASE}/${f}`, { cache: "no-store" });
-    result[f.replace(".json", "")] = await r.json();
+  for (const file of files) {
+    const res = await fetch(`${BASE}/${file}`, { cache: "no-store" });
+    data[file.replace(".json", "")] = await res.json();
   }
 
-  return NextResponse.json(result);
+  return NextResponse.json(data);
 }
