@@ -21,6 +21,7 @@ import ErrorState from "@/app/components/shared/ErrorState";
 import IssueBodyDialog from "@/app/components/issues/IssueBodyDialog";
 import ReactionsChips from "@/app/components/issues/ReactionsChips";
 
+
 type IssueItem = any;
 
 function extractChildIssueNumbersFromBody(body?: string | null): number[] {
@@ -86,11 +87,12 @@ export default function IssuesHub() {
   }>({ open: false, title: "" });
 
   const url = useMemo(() => {
-    const u = new URL("/api/issues", window.location.origin);
-    if (q.trim()) u.searchParams.set("q", q.trim());
-    u.searchParams.set("limit", "60");
-    return u.toString();
-  }, [q]);
+  const params = new URLSearchParams();
+  if (q.trim()) params.set("q", q.trim());
+  params.set("limit", "60");
+  const qs = params.toString();
+  return qs ? `/api/issues?${qs}` : "/api/issues";
+}, [q]);
 
   useEffect(() => {
     let alive = true;
