@@ -8,7 +8,7 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
     "seed": "prisma generate && tsx prisma/seed.ts",
-    "build": "prisma generate --schema=prisma/schema.prisma && prisma migrate deploy --schema=prisma/schema.prisma && next build",
+    "build": "prisma generate --schema=prisma/schema.prisma && prisma db push --schema=prisma/schema.prisma && tsx prisma/seed.ts && next build"
     "start": "next start -p 3001"
   },
   "dependencies": {
