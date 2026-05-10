@@ -5,7 +5,7 @@ import { guarded, jsonError } from "@/lib/http";
 import { prisma } from "@/lib/prisma";
 import { createPublicAccessToken, normalizeEmail, normalizePhone } from "@/lib/crypto";
 
-const schema = z.object({ raceId: z.string().uuid(), startNumber: z.string().optional(), firstName: z.string().min(1), lastName: z.string().optional(), email: z.string().optional(), phone: z.string().optional(), routeName: z.string().optional() });
+const schema = z.object({ raceId: z.string().uuid(), startNumber: z.string().optional(), firstName: z.string().min(1), lastName: z.string().min(1).optional(), email: z.string().optional(), phone: z.string().optional(), routeName: z.string().optional() });
 
 export async function GET(request: Request) {
   return guarded(async () => {
