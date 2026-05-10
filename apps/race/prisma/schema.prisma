@@ -1,17 +1,65 @@
-generator client { provider = "prisma-client-js" }
+generator client {
+  provider = "prisma-client-js"
+}
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-enum RacerStatus { NOT_STARTED ON_ROUTE FINISHED DNF }
-enum RaceEventType { RACER_IMPORTED RACER_STARTED CHECKPOINT_REACHED PHOTO_UPLOADED RACER_FINISHED RACER_DNF SMS_SENT SMS_FAILED ADMIN_NOTE INCIDENT_CREATED INCIDENT_UPDATED }
-enum PhotoType { CHECKPOINT FREE }
-enum SmsProvider { MOCK BULKGATE }
-enum IncidentType { INJURY LOST DOG_ISSUE TRANSPORT_NEEDED TIMEOUT MANUAL_NOTE OTHER }
-enum IncidentSeverity { LOW MEDIUM HIGH CRITICAL }
-enum IncidentStatus { OPEN IN_PROGRESS RESOLVED }
+enum RacerStatus {
+  NOT_STARTED
+  ON_ROUTE
+  FINISHED
+  DNF
+}
+
+enum RaceEventType {
+  RACER_IMPORTED
+  RACER_STARTED
+  CHECKPOINT_REACHED
+  PHOTO_UPLOADED
+  RACER_FINISHED
+  RACER_DNF
+  SMS_SENT
+  SMS_FAILED
+  ADMIN_NOTE
+  INCIDENT_CREATED
+  INCIDENT_UPDATED
+}
+
+enum PhotoType {
+  CHECKPOINT
+  FREE
+}
+
+enum SmsProvider {
+  MOCK
+  BULKGATE
+}
+
+enum IncidentType {
+  INJURY
+  LOST
+  DOG_ISSUE
+  TRANSPORT_NEEDED
+  TIMEOUT
+  MANUAL_NOTE
+  OTHER
+}
+
+enum IncidentSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum IncidentStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+}
 
 model AdminUser {
   id           String   @id @default(uuid()) @db.Uuid
@@ -29,11 +77,13 @@ model Race {
   isActive    Boolean      @default(true)
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
+
   racers      Racer[]
   checkpoints Checkpoint[]
   events      RaceEvent[]
   photos      RacerPhoto[]
   incidents   Incident[]
+
   @@unique([year, name])
 }
 
@@ -41,14 +91,17 @@ model Racer {
   id                 String   @id @default(uuid()) @db.Uuid
   raceId             String   @db.Uuid
   race               Race     @relation(fields: [raceId], references: [id], onDelete: Cascade)
+
   startNumber        String?
   firstName          String
   lastName           String
   email              String?
   phone              String?
   routeName          String?
+
   paymentStatus      String?
   registrationStatus String?
+
   dog1Name           String?
   dog1BirthDate      String?
   dog1Breed          String?
@@ -58,16 +111,20 @@ model Racer {
   dog3Name           String?
   dog3BirthDate      String?
   dog3Breed          String?
+
   publicAccessToken  String   @unique
   importedFrom       String?
   importedSourceKey  String?
+
   createdAt          DateTime @default(now())
   updatedAt          DateTime @updatedAt
+
   state              RacerRaceState?
   events             RaceEvent[]
   photos             RacerPhoto[]
   smsMessages        SmsMessage[]
   incidents          Incident[]
+
   @@index([raceId])
   @@index([raceId, email])
   @@index([raceId, phone])
@@ -77,13 +134,17 @@ model Checkpoint {
   id         String   @id @default(uuid()) @db.Uuid
   raceId     String   @db.Uuid
   race       Race     @relation(fields: [raceId], references: [id], onDelete: Cascade)
+
   name       String
   order      Int
   distanceKm Float
+
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
   events     RaceEvent[]
   photos     RacerPhoto[]
+
   @@unique([raceId, order])
   @@index([raceId])
 }
@@ -92,31 +153,39 @@ model RaceEvent {
   id           String        @id @default(uuid()) @db.Uuid
   raceId       String        @db.Uuid
   race         Race          @relation(fields: [raceId], references: [id], onDelete: Cascade)
+
   racerId      String?       @db.Uuid
   racer        Racer?        @relation(fields: [racerId], references: [id], onDelete: Cascade)
+
   checkpointId String?       @db.Uuid
   checkpoint   Checkpoint?   @relation(fields: [checkpointId], references: [id], onDelete: SetNull)
+
   type         RaceEventType
   payload      Json?
   createdAt    DateTime      @default(now())
+
   @@index([raceId, createdAt])
   @@index([racerId, createdAt])
   @@index([checkpointId, createdAt])
 }
 
 model RacerRaceState {
-  id                 String       @id @default(uuid()) @db.Uuid
-  raceId             String       @db.Uuid
-  racerId            String       @unique @db.Uuid
-  racer              Racer        @relation(fields: [racerId], references: [id], onDelete: Cascade)
-  status             RacerStatus  @default(NOT_STARTED)
-  lastCheckpointId   String?      @db.Uuid
+  id                 String      @id @default(uuid()) @db.Uuid
+  raceId             String      @db.Uuid
+  racerId            String      @unique @db.Uuid
+  racer              Racer       @relation(fields: [racerId], references: [id], onDelete: Cascade)
+
+  status             RacerStatus @default(NOT_STARTED)
+  lastCheckpointId   String?     @db.Uuid
   lastCheckpointKm   Float?
-  currentSegmentFrom String?      @db.Uuid
-  currentSegmentTo   String?      @db.Uuid
+
+  currentSegmentFrom String?     @db.Uuid
+  currentSegmentTo   String?     @db.Uuid
+
   lastActivityAt     DateTime?
-  photoCount         Int          @default(0)
-  updatedAt          DateTime     @updatedAt
+  photoCount         Int         @default(0)
+  updatedAt          DateTime    @updatedAt
+
   @@index([raceId, status])
   @@index([currentSegmentFrom, currentSegmentTo])
 }
@@ -125,54 +194,69 @@ model RacerPhoto {
   id               String      @id @default(uuid()) @db.Uuid
   raceId           String      @db.Uuid
   race             Race        @relation(fields: [raceId], references: [id], onDelete: Cascade)
+
   racerId          String      @db.Uuid
   racer            Racer       @relation(fields: [racerId], references: [id], onDelete: Cascade)
+
   checkpointId     String?     @db.Uuid
   checkpoint       Checkpoint? @relation(fields: [checkpointId], references: [id], onDelete: SetNull)
+
   type             PhotoType
+
   bucket           String
   objectKey        String
   originalFileName String?
   mimeType         String
   sizeBytes        Int
   caption          String?
-  isPublic         Boolean     @default(false)
+
   createdAt        DateTime    @default(now())
+
   @@index([raceId, createdAt])
   @@index([racerId, createdAt])
-  @@index([checkpointId, createdAt])
 }
 
 model SmsMessage {
   id         String      @id @default(uuid()) @db.Uuid
   raceId     String      @db.Uuid
+
   racerId    String?     @db.Uuid
   racer      Racer?      @relation(fields: [racerId], references: [id], onDelete: SetNull)
+
   provider   SmsProvider
   phone      String
   body       String
   status     String
   providerId String?
   error      String?
+
   createdAt  DateTime    @default(now())
+
   @@index([raceId, createdAt])
-  @@index([racerId, createdAt])
+  @@index([racerId])
 }
 
 model Incident {
   id          String           @id @default(uuid()) @db.Uuid
   raceId      String           @db.Uuid
   race        Race             @relation(fields: [raceId], references: [id], onDelete: Cascade)
+
   racerId     String?          @db.Uuid
   racer       Racer?           @relation(fields: [racerId], references: [id], onDelete: SetNull)
+
   type        IncidentType
   severity    IncidentSeverity @default(MEDIUM)
   status      IncidentStatus   @default(OPEN)
+
   title       String
   description String?
   assignedTo  String?
+
   createdAt   DateTime         @default(now())
   updatedAt   DateTime         @updatedAt
+  resolvedAt  DateTime?
+
   @@index([raceId, status])
   @@index([racerId])
+  @@index([createdAt])
 }
