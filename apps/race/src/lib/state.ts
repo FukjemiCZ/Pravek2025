@@ -3,8 +3,8 @@ import { prisma } from "./prisma";
 
 export async function appendRaceEvent(input: {
   raceId: string;
-  racerId?: string;
-  checkpointId?: string;
+  racerId?: string | null;
+  checkpointId?: string | null;
   type: RaceEventType;
   payload?: Prisma.InputJsonValue;
 }) {
@@ -14,13 +14,18 @@ export async function appendRaceEvent(input: {
 }
 
 export async function rebuildRacerState(racerId: string) {
-  const racer = await prisma.racer.findUniqueOrThrow({ where: { id: racerId }, include: { race: true } });
+  const racer = await prisma.racer.findUniqueOrThrow({ where: { id: racerId } });
+
   const events = await prisma.raceEvent.findMany({
     where: { racerId },
     orderBy: { createdAt: "asc" },
     include: { checkpoint: true }
   });
-  const checkpoints = await prisma.checkpoint.findMany({ where: { raceId: racer.raceId }, orderBy: { order: "asc" } });
+
+  const checkpoints = await prisma.checkpoint.findMany({
+    where: { raceId: racer.raceId },
+    orderBy: { order: "asc" }
+  });
 
   let status: RacerStatus = "NOT_STARTED";
   let lastCheckpointId: string | null = null;

@@ -1,38 +1,54 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../src/lib/prisma";
+import { createPublicAccessToken } from "../src/lib/crypto";
 
 async function main() {
-  const email = process.env.ADMIN_EMAIL || "admin@pravek.local";
-  const password = process.env.ADMIN_PASSWORD || "change-me";
+  const email = (process.env.ADMIN_EMAIL || "admin@pravek-v-raji.cz").trim().toLowerCase();
+  const password = process.env.ADMIN_PASSWORD || "admin";
   const passwordHash = await bcrypt.hash(password, 12);
 
   await prisma.adminUser.upsert({
     where: { email },
-    update: { passwordHash },
-    create: { email, passwordHash, name: "Administrátor závodu" }
+    update: { passwordHash, name: "Admin" },
+    create: { email, passwordHash, name: "Admin" }
   });
 
   const race = await prisma.race.upsert({
-    where: { year_name: { year: 2026, name: "Pravěk v ráji 2026" } },
-    update: {},
-    create: { year: 2026, name: "Pravěk v ráji 2026", isActive: true }
+    where: { year_name: { year: 2026, name: "Pravěk v Ráji 2026" } },
+    update: { isActive: true },
+    create: { year: 2026, name: "Pravěk v Ráji 2026", isActive: true }
   });
 
-  const checkpoints = [
-    ["Start", 0, 0],
-    ["CP1", 1, 8],
-    ["CP2", 2, 18],
-    ["CP3", 3, 31],
-    ["Cíl", 4, 50]
-  ] as const;
-
-  for (const [name, order, distanceKm] of checkpoints) {
-    await prisma.checkpoint.upsert({
-      where: { raceId_order: { raceId: race.id, order } },
-      update: { name, distanceKm },
-      create: { raceId: race.id, name, order, distanceKm }
+  if ((await prisma.checkpoint.count({ where: { raceId: race.id } })) === 0) {
+    await prisma.checkpoint.createMany({
+      data: [
+        { raceId: race.id, name: "Start", order: 0, distanceKm: 0 },
+        { raceId: race.id, name: "CP1", order: 1, distanceKm: 8 },
+        { raceId: race.id, name: "CP2", order: 2, distanceKm: 18 },
+        { raceId: race.id, name: "Cíl", order: 3, distanceKm: 30 }
+      ]
     });
   }
+
+  if ((await prisma.racer.count({ where: { raceId: race.id } })) === 0) {
+    await prisma.racer.create({
+      data: {
+        raceId: race.id,
+        startNumber: "1",
+        firstName: "Demo",
+        lastName: "Závodník",
+        email: "demo@example.com",
+        phone: "+420777000111",
+        paymentStatus: "zaplaceno",
+        registrationStatus: "potvrzeno",
+        dog1Name: "Rex",
+        dog1Breed: "Husky",
+        publicAccessToken: createPublicAccessToken()
+      }
+    });
+  }
+
+  console.log(`Admin ready: ${email}`);
 }
 
 main().finally(() => prisma.$disconnect());

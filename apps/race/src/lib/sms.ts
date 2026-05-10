@@ -1,23 +1,47 @@
 import { SmsProvider } from "@prisma/client";
 
-export async function sendSms(phone: string, body: string): Promise<{ provider: SmsProvider; status: string; providerId?: string; error?: string }> {
-  const provider = (process.env.SMS_PROVIDER || "mock").toLowerCase();
-  if (provider !== "bulkgate") {
-    console.log(`[MOCK SMS] ${phone}: ${body}`);
-    return { provider: "MOCK", status: "SENT", providerId: `mock-${Date.now()}` };
+export type SmsSendResult = {
+  status: "SENT" | "FAILED";
+  provider: SmsProvider;
+  providerId?: string;
+  error?: string;
+};
+
+export async function sendSms(phone: string, body: string): Promise<SmsSendResult> {
+  const provider = (process.env.SMS_PROVIDER || "MOCK").toUpperCase() as SmsProvider;
+
+  if (provider === "MOCK") {
+    console.log("[MOCK SMS]", phone, body);
+    return { status: "SENT", provider: "MOCK", providerId: `mock-${Date.now()}` };
   }
 
-  const applicationId = process.env.BULKGATE_APPLICATION_ID;
-  const applicationToken = process.env.BULKGATE_APPLICATION_TOKEN;
-  const senderId = process.env.BULKGATE_SENDER_ID || "Pravek";
-  if (!applicationId || !applicationToken) return { provider: "BULKGATE", status: "FAILED", error: "Missing BulkGate credentials." };
+  if (provider === "BULKGATE") {
+    const applicationId = process.env.BULKGATE_APPLICATION_ID;
+    const applicationToken = process.env.BULKGATE_APPLICATION_TOKEN;
+    const senderId = process.env.BULKGATE_SENDER_ID || "Pravek";
 
-  const response = await fetch("https://portal.bulkgate.com/api/1.0/simple/transactional", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ application_id: applicationId, application_token: applicationToken, number: phone, text: body, sender_id: senderId, sender_id_value: senderId })
-  });
-  const payload = await response.json().catch(() => ({}));
-  if (!response.ok) return { provider: "BULKGATE", status: "FAILED", error: JSON.stringify(payload) };
-  return { provider: "BULKGATE", status: "SENT", providerId: String(payload.sms_id || payload.id || "") };
+    if (!applicationId || !applicationToken) {
+      return { status: "FAILED", provider: "BULKGATE", error: "Missing BulkGate credentials." };
+    }
+
+    const response = await fetch("https://portal.bulkgate.com/api/1.0/simple/transactional", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        application_id: applicationId,
+        application_token: applicationToken,
+        number: phone,
+        text: body,
+        sender_id: "gText",
+        sender_id_value: senderId
+      })
+    });
+
+    if (!response.ok) return { status: "FAILED", provider: "BULKGATE", error: await response.text() };
+
+    const json = await response.json();
+    return { status: "SENT", provider: "BULKGATE", providerId: String(json.sms_id || json.id || "") };
+  }
+
+  return { status: "FAILED", provider, error: `Unsupported SMS provider ${provider}` };
 }
