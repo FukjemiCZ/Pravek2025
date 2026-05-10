@@ -1,0 +1,70 @@
+import { NextResponse } from "next/server";
+import { z } from "zod";
+import { requireAdmin } from "@/lib/auth";
+import { guarded, jsonError } from "@/lib/http";
+import { normalizeEmail, normalizePhone } from "@/lib/crypto";
+import { prisma } from "@/lib/prisma";
+
+const schema = z.object({
+  startNumber: z.string().optional().nullable(),
+  firstName: z.string().min(1).optional(),
+  lastName: z.string().min(1).optional(),
+  email: z.string().optional().nullable(),
+  phone: z.string().optional().nullable(),
+  routeName: z.string().optional().nullable(),
+  paymentStatus: z.string().optional().nullable(),
+  registrationStatus: z.string().optional().nullable(),
+  dog1Name: z.string().optional().nullable(),
+  dog1BirthDate: z.string().optional().nullable(),
+  dog1Breed: z.string().optional().nullable(),
+  dog2Name: z.string().optional().nullable(),
+  dog2BirthDate: z.string().optional().nullable(),
+  dog2Breed: z.string().optional().nullable(),
+  dog3Name: z.string().optional().nullable(),
+  dog3BirthDate: z.string().optional().nullable(),
+  dog3Breed: z.string().optional().nullable()
+});
+
+type Context = { params: Promise<{ id: string }> };
+
+export async function GET(_request: Request, context: Context) {
+  return guarded(async () => {
+    await requireAdmin();
+    const { id } = await context.params;
+    const racer = await prisma.racer.findUnique({
+      where: { id },
+      include: { state: true, events: { include: { checkpoint: true }, orderBy: { createdAt: "asc" } } }
+    });
+    if (!racer) return jsonError("Závodník neexistuje.", 404);
+    return NextResponse.json({ racer });
+  });
+}
+
+export async function PUT(request: Request, context: Context) {
+  return guarded(async () => {
+    await requireAdmin();
+    const { id } = await context.params;
+    const parsed = schema.safeParse(await request.json());
+    if (!parsed.success) return jsonError("Neplatná data závodníka.", 400);
+    const data = parsed.data;
+    const racer = await prisma.racer.update({
+      where: { id },
+      data: {
+        ...data,
+        email: data.email === undefined ? undefined : normalizeEmail(data.email),
+        phone: data.phone === undefined ? undefined : normalizePhone(data.phone)
+      },
+      include: { state: true }
+    });
+    return NextResponse.json({ racer });
+  });
+}
+
+export async function DELETE(_request: Request, context: Context) {
+  return guarded(async () => {
+    await requireAdmin();
+    const { id } = await context.params;
+    await prisma.racer.delete({ where: { id } });
+    return NextResponse.json({ ok: true });
+  });
+}
