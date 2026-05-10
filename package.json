@@ -9,7 +9,12 @@
     "openapi:build": "tsx openapi/generate.ts",
     "docs:build": "pnpm pm:build && pnpm openapi:build",
     "dev:web": "pnpm --filter web dev",
-    "build:web": "pnpm --filter web build"
+    "build:web": "pnpm --filter web build",
+    "dev:sms": "pnpm --filter sms dev",
+    "build:sms": "pnpm --filter sms build",
+    "start:sms": "pnpm --filter sms start",
+    "dev:race": "pnpm --filter race dev",
+    "build:race": "pnpm --filter race build"
   },
   "devDependencies": {
     "@asteasolutions/zod-to-openapi": "^7.3.4",
