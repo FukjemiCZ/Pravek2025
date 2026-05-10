@@ -61,24 +61,35 @@ model Race {
 }
 
 model Racer {
-  id                String           @id @default(uuid()) @db.Uuid
-  raceId            String           @db.Uuid
-  race              Race             @relation(fields: [raceId], references: [id], onDelete: Cascade)
-  startNumber       String?
-  firstName         String
-  lastName          String
-  email             String?
-  phone             String?
-  routeName         String?
-  publicAccessToken String           @unique
-  importedFrom      String?
-  importedSourceKey String?
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
-  state             RacerRaceState?
-  events            RaceEvent[]
-  photos            RacerPhoto[]
-  smsMessages       SmsMessage[]
+  id                 String           @id @default(uuid()) @db.Uuid
+  raceId             String           @db.Uuid
+  race               Race             @relation(fields: [raceId], references: [id], onDelete: Cascade)
+  startNumber        String?
+  firstName          String
+  lastName           String
+  email              String?
+  phone              String?
+  routeName          String?
+  paymentStatus      String?
+  registrationStatus String?
+  dog1Name           String?
+  dog1BirthDate      String?
+  dog1Breed          String?
+  dog2Name           String?
+  dog2BirthDate      String?
+  dog2Breed          String?
+  dog3Name           String?
+  dog3BirthDate      String?
+  dog3Breed          String?
+  publicAccessToken  String           @unique
+  importedFrom       String?
+  importedSourceKey  String?
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  state              RacerRaceState?
+  events             RaceEvent[]
+  photos             RacerPhoto[]
+  smsMessages        SmsMessage[]
 
   @@index([raceId])
   @@index([raceId, email])
@@ -115,6 +126,7 @@ model RaceEvent {
 
   @@index([raceId, createdAt])
   @@index([racerId, createdAt])
+  @@index([checkpointId, createdAt])
 }
 
 model RacerRaceState {
@@ -136,12 +148,12 @@ model RacerRaceState {
 }
 
 model RacerPhoto {
-  id               String     @id @default(uuid()) @db.Uuid
-  raceId           String     @db.Uuid
-  race             Race       @relation(fields: [raceId], references: [id], onDelete: Cascade)
-  racerId          String     @db.Uuid
-  racer            Racer      @relation(fields: [racerId], references: [id], onDelete: Cascade)
-  checkpointId     String?    @db.Uuid
+  id               String      @id @default(uuid()) @db.Uuid
+  raceId           String      @db.Uuid
+  race             Race        @relation(fields: [raceId], references: [id], onDelete: Cascade)
+  racerId          String      @db.Uuid
+  racer            Racer       @relation(fields: [racerId], references: [id], onDelete: Cascade)
+  checkpointId     String?     @db.Uuid
   checkpoint       Checkpoint? @relation(fields: [checkpointId], references: [id], onDelete: SetNull)
   type             PhotoType
   bucket           String
@@ -150,7 +162,7 @@ model RacerPhoto {
   mimeType         String
   sizeBytes        Int
   caption          String?
-  createdAt        DateTime   @default(now())
+  createdAt        DateTime    @default(now())
 
   @@index([raceId, createdAt])
   @@index([racerId, createdAt])
