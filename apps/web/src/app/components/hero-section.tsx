@@ -40,11 +40,11 @@ export default function HeroSection() {
     >
       <Container maxWidth="md">
         <Typography variant="h3" component="h1" gutterBottom>
-          Benefiční dogtrekking Pravěk v Ráji 2026
+          Benefiční dogtrekking Pravěk v Ráji 2027
         </Typography>
 
         <Typography variant="h6" gutterBottom>
-          14. – 17. května 2026 &nbsp;|&nbsp; Fotbalové hřiště Vyskeř
+          20. – 23. května 2027 &nbsp;|&nbsp; Fotbalové hřiště Vyskeř
         </Typography>
 
         <Typography variant="h6" gutterBottom>
@@ -59,7 +59,7 @@ export default function HeroSection() {
             sx={{ m: 1 }}
             onClick={handleRegister}
           >
-            Přihlásit se jako náhradník
+            Přihlásit se
           </Button>
 
           <Button
@@ -116,7 +116,7 @@ export default function HeroSection() {
           {/* QR KÓD */}
           <Box
             component="img"
-            src="https://www.pravek-v-raji.cz/img/qr2026.png"
+            src="https://www.pravek-v-raji.cz/img/qr2027.png"
             alt="QR kód – platba startovného"
             sx={{
               width: "100%",
@@ -146,7 +146,7 @@ export default function HeroSection() {
             <Typography variant="body2" sx={{ mt: 1 }}>
               <strong>Poznámka:</strong>
               <br />
-              Pravěk Pro Elišku 2026 + jméno příjmení
+              Pravěk Pro Elišku 2027 + jméno příjmení
             </Typography>
           </Box>
 
