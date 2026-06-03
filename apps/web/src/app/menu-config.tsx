@@ -18,7 +18,8 @@ export const MENU_SECTIONS = [
     label: "Podpořit",
     items: [
       { text: "Eliščin příběh", href: "#beneficient", page: "/charity" },
-      { text: "Sponzoři", href: "#sponzori", page: "/charity" },    ],
+      { text: "Sponzoři", href: "#sponzori", page: "/charity" },
+    ],
   },
   {
     key: "race",
@@ -29,10 +30,12 @@ export const MENU_SECTIONS = [
       { text: "Mapa závodu", href: "#mapa", page: "/race" },
       { text: "Zázemí", href: "#zazemi", page: "/race" },
     ],
-  },{
+  },
+  {
     key: "history",
     label: "Historie ročníků",
     items: [
+      { text: "2027", href: "#year-2027", page: "/history" },
       { text: "2025", href: "#year-2025", page: "/history" },
       { text: "2024", href: "#year-2024", page: "/history" },
     ],
