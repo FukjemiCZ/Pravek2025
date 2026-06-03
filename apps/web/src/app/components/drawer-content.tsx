@@ -22,6 +22,7 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 
 import { MENU_SECTIONS } from "@/app/menu-config";
+import { EVENT_CONFIG } from "@/app/event-config";
 
 type Props = {
   menuType: "home" | "race" | "charity";
@@ -120,7 +121,7 @@ export default function DrawerContent({
           PRAVĚK V RÁJI
           <br />
           <span style={{ fontSize: "0.95rem", opacity: 0.8 }}>
-            14.5.–17.5.2026
+            {EVENT_CONFIG.compactDateLabel}
           </span>
         </Box>
       )}
