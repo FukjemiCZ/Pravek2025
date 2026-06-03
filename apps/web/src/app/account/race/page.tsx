@@ -12,6 +12,7 @@ import {
 import AppShell from "../../app-shell";
 import RaceProgressSection from "@/app/components/race-progress-section";
 import WeatherSection from "@/app/components/weather-section";
+import { EVENT_CONFIG } from "@/app/event-config";
 
 
 // =============================================================
@@ -23,7 +24,7 @@ const user = {
   bibNumber: 101,
 };
 
-const RACE_START = new Date("2026-05-14T06:00:00");
+const RACE_START = new Date(EVENT_CONFIG.raceStartDateTimeIso);
 // =============================================================
 
 
