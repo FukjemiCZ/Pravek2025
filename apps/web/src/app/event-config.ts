@@ -2,6 +2,7 @@ export const EVENT_CONFIG = {
   year: "2027",
   name: "Benefiční dogtrekking Pravěk v Ráji",
   location: "Fotbalové hřiště Vyskeř",
+  logoPath: "/img/logo2027.svg",
   startDateIso: "2027-05-20",
   endDateIso: "2027-05-23",
   raceStartDateTimeIso: "2027-05-20T06:00:00+02:00",
