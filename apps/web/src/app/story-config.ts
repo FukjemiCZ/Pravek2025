@@ -18,11 +18,13 @@ const ELISKA_STORY: StoryDefinition = {
 const DANIK_STORY: StoryDefinition = {
   name: "Daneček",
   storyPath: "/danik-story.md",
+  gallery: "Danecek",
 };
 
 const ELEN_STORY: StoryDefinition = {
   name: "Elen",
   storyPath: "/elen-story.md",
+  gallery: "Elen",
 };
 
 const HISTORY_STORIES_BY_YEAR: Record<string, StoryDefinition> = {
