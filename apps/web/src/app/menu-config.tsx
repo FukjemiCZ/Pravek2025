@@ -17,8 +17,7 @@ export const MENU_SECTIONS = [
     key: "charity",
     label: "Podpořit",
     items: [
-      { text: "Příběh připravujeme", href: "#beneficient", page: "/charity" },
-      { text: "Eliščin příběh", href: "#eliscin-pribeh", page: "/charity" },
+      { text: "Příběh 2027", href: "#beneficient", page: "/charity" },
       { text: "Sponzoři", href: "#sponzori", page: "/charity" },
     ],
   },
