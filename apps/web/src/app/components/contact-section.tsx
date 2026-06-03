@@ -6,7 +6,8 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PersonIcon from "@mui/icons-material/Person";
-import Image from 'next/image';
+import Image from "next/image";
+import { EVENT_CONFIG } from "@/app/event-config";
 
 export default function ContactSection() {
   return (
@@ -50,8 +51,10 @@ export default function ContactSection() {
             }}
           >
             <Image
-              src={process.env.NEXT_PUBLIC_LOGO!}
-              alt="Profilová fotka"
+              src={EVENT_CONFIG.logoPath}
+              alt={`Logo Pravěk v Ráji ${EVENT_CONFIG.year}`}
+              width={150}
+              height={150}
               style={{
                 maxWidth: "100%",
                 maxHeight: "100%",
