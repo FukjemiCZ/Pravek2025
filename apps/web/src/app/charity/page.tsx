@@ -6,6 +6,8 @@ import {
     Divider,
     CircularProgress,
     Box,
+    Card,
+    CardContent,
     Typography,
 } from "@mui/material";
 
@@ -13,9 +15,7 @@ import AppShell from "../app-shell";
 import PaymentOptionsSection from "../components/payment-section";
 import SponsorsSection from "../components/sponsors-section";
 import SponsorDialog, { Sponsor } from "../components/sponsor-dialog";
-import StoryMarkdown from "../components/story-markdown";
 import { EVENT_CONFIG } from "@/app/event-config";
-import { CURRENT_BENEFICIARY_STORY } from "@/app/story-config";
 
 export default function CharityPage() {
 
@@ -58,27 +58,43 @@ export default function CharityPage() {
         <AppShell menuType="charity">
             <Container maxWidth="lg" sx={{ py: 5 }}>
 
-                {/* 🟣 AKTUÁLNÍ BENEFICIENT */}
+                {/* 🟣 AKTUÁLNÍ BENEFICIENT – připravujeme */}
                 <Box id="beneficient">
-                    <Typography variant="overline" color="primary" fontWeight={700}>
-                        Benefiční příběh {EVENT_CONFIG.year}
-                    </Typography>
+                    <Card
+                        elevation={1}
+                        sx={{
+                            borderRadius: 3,
+                            mb: 5,
+                            backgroundColor: "background.paper",
+                        }}
+                    >
+                        <CardContent sx={{ py: 5 }}>
+                            <Typography variant="overline" color="primary" fontWeight={700}>
+                                Benefiční příběh {EVENT_CONFIG.year}
+                            </Typography>
 
-                    <StoryMarkdown
-                        storyPath={CURRENT_BENEFICIARY_STORY.storyPath}
-                        gallery={CURRENT_BENEFICIARY_STORY.gallery}
-                    />
+                            <Typography variant="h3" component="h1" fontWeight={700} sx={{ mt: 1, mb: 2 }}>
+                                Příběh připravujeme
+                            </Typography>
+
+                            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: 760, lineHeight: 1.8 }}>
+                                Hrdinu aktuálního ročníku zatím vybíráme. Jakmile bude vše potvrzené,
+                                doplníme sem jeho příběh, fotografie a informace o tom, kde vaše podpora
+                                pomůže nejvíce.
+                            </Typography>
+                        </CardContent>
+                    </Card>
                 </Box>
 
                 <Divider sx={{ my: 5 }} />
 
                 <Box id="Payment">
                     <PaymentOptionsSection
-                        nadpis={`Podpořte ${CURRENT_BENEFICIARY_STORY.paymentMessageName ?? CURRENT_BENEFICIARY_STORY.name} finančním darem.`}
+                        nadpis={`Podpořte benefiční ročník ${EVENT_CONFIG.year} finančním darem.`}
                         qrCodeUrl={process.env.NEXT_PUBLIC_QRPAY!}
                         bankAccount="2887773010/3030"
                         variableSymbol={EVENT_CONFIG.year}
-                        message={`Pravěk Pro ${CURRENT_BENEFICIARY_STORY.paymentMessageName ?? CURRENT_BENEFICIARY_STORY.name} ${EVENT_CONFIG.year} + jméno a příjmení`}
+                        message={`Pravěk ${EVENT_CONFIG.year} + jméno a příjmení`}
                     />
                 </Box>
                 <Box id="sponzori">
