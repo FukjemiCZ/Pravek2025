@@ -21,6 +21,7 @@ import {
 import DrawerContent from "./components/drawer-content";
 import Image from "next/image";
 import { useRouter } from "next/navigation"; // ← přidáno
+import { EVENT_CONFIG } from "@/app/event-config";
 
 type AppShellProps = {
   children: React.ReactNode;
@@ -69,8 +70,8 @@ export default function AppShell({ children, menuType }: AppShellProps) {
                 }}
               >
                 <Image
-                  src={process.env.NEXT_PUBLIC_LOGO!}
-                  alt="logo"
+                  src={EVENT_CONFIG.logoPath}
+                  alt={`Logo Pravěk v Ráji ${EVENT_CONFIG.year}`}
                   fill
                   style={{
                     objectFit: "contain",
