@@ -90,8 +90,8 @@ export default function DesktopMenu({
         }}
       >
         <Image
-          src="/img/logo25.webp"
-          alt="Logo"
+          src={EVENT_CONFIG.logoPath}
+          alt={`Logo Pravěk v Ráji ${EVENT_CONFIG.year}`}
           width={150}
           height={150}
           style={{ objectFit: "contain", background: "white" }}
