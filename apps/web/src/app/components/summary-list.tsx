@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Box, CircularProgress, Typography } from "@mui/material";
 import SummaryYear from "./summary-year";
 import { SummaryData } from "../types/summary";
+import { EVENT_CONFIG } from "@/app/event-config";
 
 export default function SummaryList() {
   const [data, setData] = useState<SummaryData[]>([]);
@@ -30,11 +31,13 @@ export default function SummaryList() {
     );
   }
 
-  if (data.length === 0) {
-    return <Typography>Žádné ročníky nebyly nalezeny.</Typography>;
+  const historyData = data.filter((item) => item.year !== EVENT_CONFIG.year);
+
+  if (historyData.length === 0) {
+    return <Typography>Žádné minulé ročníky nebyly nalezeny.</Typography>;
   }
 
-  const sorted = data.sort((a, b) => Number(b.year) - Number(a.year));
+  const sorted = historyData.sort((a, b) => Number(b.year) - Number(a.year));
 
   return (
     <Box>
