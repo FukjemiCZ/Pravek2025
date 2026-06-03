@@ -35,7 +35,7 @@ export const MENU_SECTIONS = [
     key: "history",
     label: "Historie ročníků",
     items: [
-      { text: "2027", href: "#year-2027", page: "/history" },
+      { text: "2026", href: "#year-2026", page: "/history" },
       { text: "2025", href: "#year-2025", page: "/history" },
       { text: "2024", href: "#year-2024", page: "/history" },
     ],
