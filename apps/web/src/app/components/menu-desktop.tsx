@@ -21,6 +21,7 @@ import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 
 import { MENU_SECTIONS } from "@/app/menu-config";
+import { EVENT_CONFIG } from "@/app/event-config";
 
 type Props = {
   menuType: "home" | "race" | "charity";
@@ -107,7 +108,7 @@ export default function DesktopMenu({
       >
         <strong>PRAVĚK V RÁJI</strong>
         <br />
-        14. 5.–17. 5. 2026
+        {EVENT_CONFIG.menuDateLabel}
       </Box>
 
       <Divider sx={{ mb: 1 }} />
