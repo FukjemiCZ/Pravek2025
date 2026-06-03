@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" role="img" aria-labelledby="title desc">
+  <title id="title">Pravěk v Ráji 2027 – editable SVG logo</title>
+  <desc id="desc">Black and white circular logo for Pravěk v Ráji with the date 20.5. - 23.5.2027, location Vyskeř, a chapel, paw prints, and a wide editable name area labeled Pro.</desc>
+
+  <rect x="0" y="0" width="1200" height="1200" fill="white"/>
+
+  <defs>
+    <style>
+      .outer { fill: none; stroke: #000; stroke-width: 10; }
+      .main-stroke { fill: none; stroke: #000; stroke-width: 8; stroke-linecap: round; stroke-linejoin: round; }
+      .thin-stroke { fill: none; stroke: #000; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+      .fill-black { fill: #000; }
+      .title-text { font-family: Arial, "DejaVu Sans", sans-serif; font-weight: 900; font-size: 76px; letter-spacing: 1px; }
+      .date-text { font-family: Arial, "DejaVu Sans", sans-serif; font-weight: 800; font-size: 48px; }
+      .place-text { font-family: Arial, "DejaVu Sans", sans-serif; font-weight: 900; font-size: 82px; }
+      .pro-text { font-family: Arial, "DejaVu Sans", sans-serif; font-weight: 900; font-size: 70px; }
+      .guide-text { font-family: Arial, "DejaVu Sans", sans-serif; font-weight: 600; font-size: 18px; fill: #777; }
+      .top-title { text-anchor: middle; }
+    </style>
+
+    <g id="pawPrint">
+      <ellipse class="fill-black" cx="0" cy="0" rx="20" ry="28" transform="rotate(-10)" />
+      <ellipse class="fill-black" cx="-24" cy="-34" rx="10" ry="14" transform="rotate(-18 -24 -34)" />
+      <ellipse class="fill-black" cx="-4" cy="-48" rx="10" ry="14" transform="rotate(-8 -4 -48)" />
+      <ellipse class="fill-black" cx="18" cy="-44" rx="10" ry="14" transform="rotate(8 18 -44)" />
+      <ellipse class="fill-black" cx="34" cy="-26" rx="10" ry="14" transform="rotate(20 34 -26)" />
+    </g>
+  </defs>
+
+  <circle class="outer" cx="600" cy="600" r="560" />
+
+  <!-- Header -->
+  <text class="title-text top-title" x="600" y="175">Pravěk v Ráji</text>
+
+  <!-- Side markers -->
+  <g class="main-stroke">
+    <line x1="72" y1="610" x2="140" y2="610" />
+    <line x1="72" y1="640" x2="140" y2="640" />
+    <line x1="1060" y1="610" x2="1128" y2="610" />
+    <line x1="1060" y1="640" x2="1128" y2="640" />
+  </g>
+
+  <!-- Date and place -->
+  <g transform="translate(220 400)">
+    <text class="date-text" x="0" y="0">20.5. - 23.5.2027</text>
+    <line class="thin-stroke" x1="0" y1="24" x2="292" y2="24" />
+    <text class="place-text" x="0" y="104">Vyskeř</text>
+  </g>
+
+  <!-- Central chapel -->
+  <g transform="translate(560 335)">
+    <path class="main-stroke" d="M 0 180 L 110 80 L 298 126 L 298 360 L 0 360 Z" />
+    <path class="main-stroke" d="M 60 132 L 60 360" />
+    <path class="main-stroke" d="M 170 112 L 170 360" />
+    <path class="main-stroke" d="M 0 180 L 110 180 L 110 360" />
+    <path class="main-stroke" d="M 170 180 L 298 180" />
+    <path class="main-stroke" d="M 0 180 L 110 80 L 340 142" />
+    <path class="main-stroke" d="M 298 126 L 340 142 L 340 366 L 298 360" />
+    <path class="thin-stroke" d="M 128 94 L 325 147" />
+    <path class="thin-stroke" d="M 151 102 L 332 156" />
+    <path class="thin-stroke" d="M 174 110 L 337 165" />
+    <path class="main-stroke" d="M 126 74 L 126 26 L 164 4 L 202 26 L 202 74" />
+    <path class="main-stroke" d="M 112 88 L 216 56" />
+    <path class="main-stroke" d="M 112 88 L 112 104 L 216 104 L 216 56" />
+    <path class="main-stroke" d="M 143 24 L 143 82" />
+    <path class="main-stroke" d="M 184 24 L 184 82" />
+    <path class="main-stroke" d="M 147 4 L 147 -38 L 159 -50 L 171 -38 L 171 4" />
+    <path class="main-stroke" d="M 159 -50 L 159 -71" />
+    <path class="main-stroke" d="M 145 -71 L 173 -71" />
+    <path class="main-stroke" d="M 159 -71 L 159 -95" />
+    <path class="main-stroke" d="M 146 -83 L 172 -83" />
+    <path class="fill-black" d="M 125 360 L 125 254 C 125 220 196 220 196 254 L 196 360 Z" />
+    <path class="fill-black" d="M 256 360 L 256 278 C 256 248 289 248 289 278 L 289 360 Z" />
+    <path class="main-stroke" d="M 305 251 L 322 251 L 322 224 C 322 206 305 206 305 224 Z" />
+  </g>
+
+  <!-- Hill -->
+  <path class="main-stroke" d="M 230 870 C 350 825, 455 805, 560 805 C 670 805, 785 830, 895 885" />
+  <g class="thin-stroke">
+    <path d="M 398 900 Q 412 890 426 899" />
+    <path d="M 460 873 Q 472 863 486 871" />
+    <path d="M 520 907 Q 535 895 549 906" />
+    <path d="M 714 904 Q 730 894 746 903" />
+    <path d="M 814 919 Q 830 906 846 917" />
+  </g>
+
+  <!-- Trees -->
+  <g transform="translate(165 760)">
+    <path class="fill-black" d="M 35 145 L 58 102 L 45 102 L 71 60 L 56 60 L 90 0 L 124 60 L 109 60 L 136 102 L 120 102 L 148 145 L 112 135 L 112 188 L 70 188 L 70 135 Z" />
+    <path class="fill-black" d="M 0 165 L 12 140 L 5 140 L 20 110 L 10 110 L 30 70 L 50 110 L 40 110 L 55 140 L 47 140 L 62 165 L 44 160 L 44 188 L 18 188 L 18 160 Z" />
+    <path class="fill-black" d="M 160 170 L 172 145 L 165 145 L 180 115 L 170 115 L 190 75 L 210 115 L 200 115 L 215 145 L 207 145 L 222 170 L 204 165 L 204 188 L 178 188 L 178 165 Z" />
+  </g>
+
+  <!-- Rock -->
+  <g transform="translate(945 775)">
+    <path class="main-stroke" d="M 0 145 L 34 96 L 56 73 L 89 47 L 112 90 L 128 125 L 88 122 L 52 130 Z" />
+    <path class="thin-stroke" d="M 38 113 L 86 92" />
+    <path class="thin-stroke" d="M 50 132 L 100 118" />
+  </g>
+
+  <!-- Paw prints -->
+  <g transform="translate(185 905) scale(0.92)"><use href="#pawPrint" /></g>
+  <g transform="translate(260 990) scale(1.02)"><use href="#pawPrint" /></g>
+  <g transform="translate(1015 900) scale(0.92)"><use href="#pawPrint" /></g>
+  <g transform="translate(940 985) scale(1.02)"><use href="#pawPrint" /></g>
+
+  <!-- Decorative separator -->
+  <g class="main-stroke">
+    <line x1="340" y1="970" x2="530" y2="970" />
+    <polygon class="fill-black" points="585,970 600,955 615,970 600,985" />
+    <line x1="670" y1="970" x2="860" y2="970" />
+  </g>
+
+  <!-- Editable name area -->
+  <g id="for-name-placeholder" transform="translate(290 995)">
+    <rect x="0" y="0" width="620" height="90" rx="26" ry="26" fill="none" stroke="#000" stroke-width="8" />
+    <text class="pro-text" x="34" y="63">Pro</text>
+    <line class="main-stroke" x1="175" y1="64" x2="560" y2="64" />
+    <text class="guide-text" x="300" y="38">místo pro budoucí jméno</text>
+  </g>
+</svg>
