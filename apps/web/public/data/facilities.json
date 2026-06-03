@@ -24,7 +24,7 @@
             { "name": "Chlum", "link": "https://www.chlum.com/restaurace" }
         ],
         "basicRefreshments": true,
-        "drinks": ["Pivo", "Limo"]
+        "drinks": ["Pivo", "Limo"] 
       }
     }
   }
