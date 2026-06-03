@@ -3,11 +3,12 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import BottomNavBar from "@/app/components/bottom-navbar";
+import { EVENT_CONFIG } from "@/app/event-config";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Pravěk v Ráji 2026",
+  title: `Pravěk v Ráji ${EVENT_CONFIG.year}`,
   description: "Benefiční dogtrekkingový závod v Českém ráji.",
 };
 
