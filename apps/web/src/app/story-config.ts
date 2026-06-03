@@ -2,51 +2,33 @@ export type StoryDefinition = {
   name: string;
   storyPath: string;
   gallery?: string | string[];
-  paymentMessageName?: string;
 };
 
-export const CURRENT_BENEFICIARY_STORY: StoryDefinition = {
+export const CURRENT_BENEFICIARY = {
+  name: "Připravujeme",
+  status: "preparing",
+} as const;
+
+const ELISKA_STORY: StoryDefinition = {
+  name: "Eliška",
+  storyPath: "/elis-story.md",
+  gallery: "Eliska",
+};
+
+const DANIK_STORY: StoryDefinition = {
+  name: "Daneček",
+  storyPath: "/danik-story.md",
+};
+
+const ELEN_STORY: StoryDefinition = {
   name: "Elen",
   storyPath: "/elen-story.md",
-  paymentMessageName: "Elen",
 };
 
-const HISTORY_STORIES: Record<string, StoryDefinition> = {
-  eliska: {
-    name: "Eliška",
-    storyPath: "/elis-story.md",
-    gallery: "Eliska",
-  },
-  eliska2: {
-    name: "Eliška",
-    storyPath: "/elis-story.md",
-    gallery: "Eliska",
-  },
-  eliscin: {
-    name: "Eliška",
-    storyPath: "/elis-story.md",
-    gallery: "Eliska",
-  },
-  danik: {
-    name: "Daník",
-    storyPath: "/danik-story.md",
-  },
-  danecek: {
-    name: "Daneček",
-    storyPath: "/danik-story.md",
-  },
-  dana: {
-    name: "Dáňa",
-    storyPath: "/danik-story.md",
-  },
-  elen: {
-    name: "Elen",
-    storyPath: "/elen-story.md",
-  },
-  elena: {
-    name: "Elena",
-    storyPath: "/elen-story.md",
-  },
+const HISTORY_STORIES_BY_YEAR: Record<string, StoryDefinition> = {
+  "2024": ELEN_STORY,
+  "2025": DANIK_STORY,
+  "2026": ELISKA_STORY,
 };
 
 function normalizeStoryKey(value: string) {
@@ -58,17 +40,24 @@ function normalizeStoryKey(value: string) {
     .trim();
 }
 
-export function getHistoryStoryForBeneficiary(name: string): StoryDefinition | undefined {
+function getHistoryStoryByName(name: string): StoryDefinition | undefined {
   const normalized = normalizeStoryKey(name);
 
   if (!normalized) return undefined;
 
-  if (normalized.includes("eliska")) return HISTORY_STORIES.eliska;
-  if (normalized.includes("danik")) return HISTORY_STORIES.danik;
-  if (normalized.includes("danecek")) return HISTORY_STORIES.danecek;
-  if (normalized.includes("dana")) return HISTORY_STORIES.dana;
-  if (normalized.includes("elen")) return HISTORY_STORIES.elen;
-  if (normalized.includes("elena")) return HISTORY_STORIES.elena;
+  if (normalized.includes("eliska")) return ELISKA_STORY;
+  if (normalized.includes("danik")) return DANIK_STORY;
+  if (normalized.includes("danecek")) return DANIK_STORY;
+  if (normalized.includes("dana")) return DANIK_STORY;
+  if (normalized.includes("elen")) return ELEN_STORY;
+  if (normalized.includes("elena")) return ELEN_STORY;
 
   return undefined;
+}
+
+export function getHistoryStoryForBeneficiary(
+  year: string,
+  name: string
+): StoryDefinition | undefined {
+  return HISTORY_STORIES_BY_YEAR[year] ?? getHistoryStoryByName(name);
 }
