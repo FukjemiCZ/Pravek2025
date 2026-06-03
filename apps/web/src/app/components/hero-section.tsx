@@ -13,10 +13,20 @@ import {
 } from "@mui/material";
 import DynamicButton from "@/app/components/dynamic-button";
 
+const REGISTRATION_OPEN_DATE = new Date("2027-01-01T00:00:00+01:00");
+const REGISTRATION_OPEN_DATE_LABEL = "1. 1. 2027";
+
 export default function HeroSection() {
   const [openPayment, setOpenPayment] = React.useState(false);
+  const [isRegistrationOpen, setIsRegistrationOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsRegistrationOpen(Date.now() >= REGISTRATION_OPEN_DATE.getTime());
+  }, []);
 
   const handleRegister = () => {
+    if (!isRegistrationOpen) return;
+
     window.open(
       "https://prihlaseni.pravek-v-raji.cz",
       "_blank",
@@ -24,7 +34,11 @@ export default function HeroSection() {
     );
   };
 
-  const handlePaymentOpen = () => setOpenPayment(true);
+  const handlePaymentOpen = () => {
+    if (!isRegistrationOpen) return;
+
+    setOpenPayment(true);
+  };
   const handlePaymentClose = () => setOpenPayment(false);
 
   return (
@@ -58,6 +72,7 @@ export default function HeroSection() {
             color="primary"
             sx={{ m: 1 }}
             onClick={handleRegister}
+            disabled={!isRegistrationOpen}
           >
             Přihlásit se
           </Button>
@@ -67,9 +82,16 @@ export default function HeroSection() {
             color="primary"
             sx={{ m: 1 }}
             onClick={handlePaymentOpen}
+            disabled={!isRegistrationOpen}
           >
             Zaplatit startovné
           </Button>
+
+          {!isRegistrationOpen && (
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+              Přihlášky a platba startovného budou spuštěny {REGISTRATION_OPEN_DATE_LABEL}.
+            </Typography>
+          )}
 
           {/* EXISTUJÍCÍ DYNAMIC BUTTONY */}
           <DynamicButton buttonId="support" sx={{ m: 1 }} />
