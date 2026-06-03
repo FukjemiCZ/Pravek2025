@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Card, CardContent, Typography, Box, Chip } from "@mui/material";
+import { EVENT_CONFIG } from "@/app/event-config";
 
 interface DayForecast {
   date: string;
@@ -15,9 +16,16 @@ export default function WeatherSection() {
 
   useEffect(() => {
     async function fetchWeather() {
-      const res = await fetch(
-        "https://api.open-meteo.com/v1/forecast?latitude=50.5617&longitude=15.1603&daily=temperature_2m_max,temperature_2m_min,precipitation_sum&timezone=Europe/Prague&start_date=2026-05-15&end_date=2026-05-17"
-      );
+      const params = new URLSearchParams({
+        latitude: "50.5617",
+        longitude: "15.1603",
+        daily: "temperature_2m_max,temperature_2m_min,precipitation_sum",
+        timezone: "Europe/Prague",
+        start_date: EVENT_CONFIG.startDateIso,
+        end_date: EVENT_CONFIG.endDateIso,
+      });
+
+      const res = await fetch(`https://api.open-meteo.com/v1/forecast?${params}`);
 
       const data = await res.json();
 
@@ -44,7 +52,7 @@ export default function WeatherSection() {
       <CardContent>
         <Typography variant="h6">Počasí na závod</Typography>
         <Typography variant="body2" sx={{ mb: 2 }}>
-          15. – 17. května 2026
+          {EVENT_CONFIG.dateLabel}
         </Typography>
 
         {forecast.length === 0 ? (
