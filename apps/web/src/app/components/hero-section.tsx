@@ -12,9 +12,9 @@ import {
   DialogContent,
 } from "@mui/material";
 import DynamicButton from "@/app/components/dynamic-button";
+import { EVENT_CONFIG } from "@/app/event-config";
 
-const REGISTRATION_OPEN_DATE = new Date("2027-01-01T00:00:00+01:00");
-const REGISTRATION_OPEN_DATE_LABEL = "1. 1. 2027";
+const REGISTRATION_OPEN_DATE = new Date(EVENT_CONFIG.registrationOpenDateTimeIso);
 
 export default function HeroSection() {
   const [openPayment, setOpenPayment] = React.useState(false);
@@ -54,11 +54,11 @@ export default function HeroSection() {
     >
       <Container maxWidth="md">
         <Typography variant="h3" component="h1" gutterBottom>
-          Benefiční dogtrekking Pravěk v Ráji 2027
+          {EVENT_CONFIG.name} {EVENT_CONFIG.year}
         </Typography>
 
         <Typography variant="h6" gutterBottom>
-          20. – 23. května 2027 &nbsp;|&nbsp; Fotbalové hřiště Vyskeř
+          {EVENT_CONFIG.dateLabel} &nbsp;|&nbsp; {EVENT_CONFIG.location}
         </Typography>
 
         <Typography variant="h6" gutterBottom>
@@ -89,7 +89,7 @@ export default function HeroSection() {
 
           {!isRegistrationOpen && (
             <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-              Přihlášky a platba startovného budou spuštěny {REGISTRATION_OPEN_DATE_LABEL}.
+              Přihlášky a platba startovného budou spuštěny {EVENT_CONFIG.registrationOpenDateLabel}.
             </Typography>
           )}
 
@@ -138,7 +138,7 @@ export default function HeroSection() {
           {/* QR KÓD */}
           <Box
             component="img"
-            src="https://www.pravek-v-raji.cz/img/qr2027.png"
+            src={`https://www.pravek-v-raji.cz/img/qr${EVENT_CONFIG.year}.png`}
             alt="QR kód – platba startovného"
             sx={{
               width: "100%",
@@ -168,7 +168,7 @@ export default function HeroSection() {
             <Typography variant="body2" sx={{ mt: 1 }}>
               <strong>Poznámka:</strong>
               <br />
-              Pravěk Pro Elišku 2027 + jméno příjmení
+              Pravěk Pro Elišku {EVENT_CONFIG.year} + jméno příjmení
             </Typography>
           </Box>
 
