@@ -36,7 +36,7 @@ export default function SummaryYear({ summary }: { summary: SummaryData }) {
 
       {summary.beneficiaries.map((ben, idx) => {
         const key = `${summary.year}-b-${idx}`;
-        const story = getHistoryStoryForBeneficiary(ben.name);
+        const story = getHistoryStoryForBeneficiary(summary.year, ben.name);
 
         return (
           <Box key={key} sx={{ my: 5 }}>
@@ -106,7 +106,34 @@ export default function SummaryYear({ summary }: { summary: SummaryData }) {
         );
       })}
 
-      {/* ✅ Galerie místo sekce "Mapa trasy" */}
+      {summary.mapImages.length > 0 && (
+        <>
+          <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
+            Mapy ročníku
+          </Typography>
+
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "repeat(2, 1fr)" },
+              gap: 3,
+              mb: 4,
+            }}
+          >
+            {summary.mapImages.map((mapImage, index) => (
+              <Image
+                key={`${summary.year}-map-${index}`}
+                src={mapImage}
+                alt={`Mapa ročníku ${summary.year} ${index + 1}`}
+                width={600}
+                height={400}
+                style={{ borderRadius: 12, width: "100%", height: "auto" }}
+              />
+            ))}
+          </Box>
+        </>
+      )}
+
       <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
         Galerie ročníku
       </Typography>
