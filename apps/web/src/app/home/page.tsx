@@ -9,9 +9,9 @@ import HeroSection from "../components/hero-section";
 import ContactSection from "../components/contact-section";
 import CharityTeaser from "../components/charity-teaser";
 import Gallery from "../components/gallery";
+import ImpactSummary from "../components/impact-summary";
 
 export default function HomePage() {
-
     // AUTO-SCROLL NA #ANCHOR
     useEffect(() => {
         const hash = window.location.hash;
@@ -30,6 +30,9 @@ export default function HomePage() {
             <HeroSection />
 
             <Container maxWidth="lg" sx={{ py: 5 }}>
+                <ImpactSummary variant="home" />
+                <Divider sx={{ my: 5 }} />
+
                 <ArticleCards />
                 <Divider sx={{ my: 5 }} />
                 <CharityTeaser />

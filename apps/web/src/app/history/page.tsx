@@ -1,12 +1,13 @@
 "use client";
 
-import { Container } from "@mui/material";
+import { useEffect } from "react";
+import { Container, Divider } from "@mui/material";
+
 import AppShell from "../app-shell";
 import SummaryList from "../components/summary-list";
-import { useEffect } from "react";
+import ImpactSummary from "../components/impact-summary";
 
 export default function HistoryPage() {
-
   // Auto-scroll správně
   useEffect(() => {
     const hash = window.location.hash;
@@ -23,6 +24,8 @@ export default function HistoryPage() {
   return (
     <AppShell menuType="charity">
       <Container maxWidth="lg" sx={{ py: 6 }}>
+        <ImpactSummary variant="history" />
+        <Divider sx={{ my: 5 }} />
         <SummaryList />
       </Container>
     </AppShell>
