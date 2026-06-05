@@ -70,7 +70,7 @@ export default function ImpactMiniSummary({
           textOverflow: "ellipsis",
         }}
       >
-        {formatCzkAmount(stats.amount)} · {stats.years} roč.
+        {formatCzkAmount(stats.amount)} · {stats.years} ročníků
       </Typography>
     </Box>
   );
