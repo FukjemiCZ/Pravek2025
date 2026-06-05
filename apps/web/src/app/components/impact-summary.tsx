@@ -1,16 +1,8 @@
-"use client";
+import { Card, CardContent, Typography } from "@mui/material";
 
-import { Card, CardContent, Stack, Typography } from "@mui/material";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
-
-type ImpactSummaryProps = {
-  variant?: "home" | "history";
-};
-
-export default function ImpactSummary({ variant = "home" }: ImpactSummaryProps) {
-  const isHistory = variant === "history";
-
+export default function ImpactSummary() {
   return (
-    <Card
-      elevation
+    <Card elevation={0} sx={{ bgcolor: "primary.main", color: "primary.contrastText", borderRadius: 4, my: 4 }}>
+      <CardContent sx={{ textAlign: "center", py: { xs: 4, md: 5 } }}>
+        <Typography variant="overline" sx={{ opacity: 0.85 }}>
+          Společná
