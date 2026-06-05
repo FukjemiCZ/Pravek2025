@@ -13,3 +13,13 @@ function parseAmount(amount: string) {
   const normalized = amount.replace(/[^0-9]/g, "");
   return normalized ? Number(normalized) : 0;
 }
+
+function formatCurrency(amount: number) {
+  return new Intl.NumberFormat("cs-CZ", {
+    style: "currency",
+    currency: "CZK",
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+export default function ImpactSummary({
