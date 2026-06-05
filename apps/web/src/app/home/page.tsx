@@ -30,10 +30,11 @@ export default function HomePage() {
             <HeroSection />
 
             <Container maxWidth="lg" sx={{ py: 5 }}>
-                <ImpactSummary variant="home" />
-                <Divider sx={{ my: 5 }} />
+                
 
                 <ArticleCards />
+                <Divider sx={{ my: 5 }} />
+                <ImpactSummary variant="home" />
                 <Divider sx={{ my: 5 }} />
                 <CharityTeaser />
                 <Divider sx={{ my: 5 }} />
