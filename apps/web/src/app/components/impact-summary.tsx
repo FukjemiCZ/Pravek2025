@@ -134,7 +134,7 @@ export default function ImpactSummary({
     variant === "history"
       ? `Za ${formatYearsCount(
           impact.years
-        )} jsme mezi nemocné děti rozdělili přesně ${formatCzkAmount(
+        )} jsme společně pomoli celkovou částkou ${formatCzkAmount(
           impact.amount
         )}.`
       : `Za ${formatYearsCount(
