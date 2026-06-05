@@ -26,17 +26,17 @@ export default function ImpactMiniSummary({
     return (
       <Box
         sx={{
-          px: 1.5,
-          py: 0.45,
+          px: 1.25,
+          py: 0.4,
           borderRadius: 999,
           backgroundColor: alpha("#fff", 0.16),
-          minWidth: 150,
-          maxWidth: "100%",
+          width: "fit-content",
+          maxWidth: "calc(100vw - 32px)",
         }}
       >
         <Skeleton
           variant="text"
-          width={128}
+          width={112}
           sx={{ bgcolor: alpha("#fff", 0.28) }}
         />
       </Box>
@@ -47,41 +47,30 @@ export default function ImpactMiniSummary({
     <Box
       aria-label="Souhrn předané pomoci"
       sx={{
-        px: 1.5,
+        px: 1.25,
         py: 0.45,
         borderRadius: 999,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: 0.75,
         color: "inherit",
         backgroundColor: alpha("#fff", 0.16),
         border: `1px solid ${alpha("#fff", 0.26)}`,
-        maxWidth: "100%",
+        width: "fit-content",
+        maxWidth: "calc(100vw - 32px)",
         overflow: "hidden",
-        whiteSpace: "nowrap",
       }}
     >
       <Typography
         component="span"
         sx={{
-          fontSize: "0.78rem",
+          display: "block",
+          fontSize: { xs: "0.72rem", sm: "0.78rem" },
           fontWeight: 800,
           lineHeight: 1,
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
         }}
       >
-        {formatCzkAmount(stats.amount)}
-      </Typography>
-
-      <Typography
-        component="span"
-        sx={{
-          fontSize: "0.72rem",
-          opacity: 0.84,
-          lineHeight: 1,
-        }}
-      >
-        · {stats.years} ročníky
+        {formatCzkAmount(stats.amount)} · {stats.years} roč.
       </Typography>
     </Box>
   );
