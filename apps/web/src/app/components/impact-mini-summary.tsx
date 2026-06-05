@@ -22,59 +22,64 @@ export default function ImpactMiniSummary({
   }
 
   if (placement === "mobileAppBar") {
-  if (loading || !stats) {
+    if (loading || !stats) {
+      return (
+        <Box
+          sx={{
+            ml: 1,
+            mr: 1,
+            px: 1.25,
+            py: 0.4,
+            borderRadius: 999,
+            backgroundColor: alpha("#fff", 0.16),
+            maxWidth: "calc(100vw - 132px)",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+          }}
+        >
+          <Skeleton
+            variant="text"
+            width={112}
+            sx={{ bgcolor: alpha("#fff", 0.28) }}
+          />
+        </Box>
+      );
+    }
+
     return (
       <Box
+        aria-label="Souhrn předané pomoci"
         sx={{
+          ml: 1,
+          mr: 1,
           px: 1.25,
-          py: 0.4,
+          py: 0.45,
           borderRadius: 999,
+          color: "inherit",
           backgroundColor: alpha("#fff", 0.16),
-          width: "fit-content",
-          maxWidth: "calc(100vw - 32px)",
+          border: `1px solid ${alpha("#fff", 0.26)}`,
+          maxWidth: "calc(100vw - 132px)",
+          overflow: "hidden",
+          whiteSpace: "nowrap",
         }}
       >
-        <Skeleton
-          variant="text"
-          width={112}
-          sx={{ bgcolor: alpha("#fff", 0.28) }}
-        />
+        <Typography
+          component="span"
+          sx={{
+            display: "block",
+            fontSize: { xs: "0.72rem", sm: "0.78rem" },
+            fontWeight: 800,
+            lineHeight: 1,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {formatCzkAmount(stats.amount)} · {stats.years} roč.
+        </Typography>
       </Box>
     );
   }
-
-  return (
-    <Box
-      aria-label="Souhrn předané pomoci"
-      sx={{
-        px: 1.25,
-        py: 0.45,
-        borderRadius: 999,
-        color: "inherit",
-        backgroundColor: alpha("#fff", 0.16),
-        border: `1px solid ${alpha("#fff", 0.26)}`,
-        width: "fit-content",
-        maxWidth: "calc(100vw - 32px)",
-        overflow: "hidden",
-      }}
-    >
-      <Typography
-        component="span"
-        sx={{
-          display: "block",
-          fontSize: { xs: "0.72rem", sm: "0.78rem" },
-          fontWeight: 800,
-          lineHeight: 1,
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-        }}
-      >
-        {formatCzkAmount(stats.amount)} · {stats.years} ročníků
-      </Typography>
-    </Box>
-  );
-}
 
   if (loading || !stats) {
     return (

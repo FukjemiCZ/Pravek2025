@@ -52,7 +52,14 @@ export default function AppShell({ children, menuType }: AppShellProps) {
             display: { xs: "block", md: "none" },
           }}
         >
-          <Toolbar sx={{ display: "flex", alignItems: "center" }}>
+          <Toolbar
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              position: "relative",
+              minHeight: 56,
+            }}
+          >
             {/* Placeholder + klikací absolutní velké logo */}
             <Box sx={{ width: 46, height: 46, position: "relative", ml: -1 }}>
               <Box
@@ -81,26 +88,31 @@ export default function AppShell({ children, menuType }: AppShellProps) {
               </Box>
             </Box>
 
+            {/* ČÁSTKA UPROSTŘED MOBILNÍ LIŠTY */}
+            <Box
+              sx={{
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+                zIndex: 1,
+                pointerEvents: "none",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <ImpactMiniSummary placement="mobileAppBar" />
+            </Box>
+
             {/* HAMBURGER */}
             <IconButton
               color="inherit"
               onClick={handleDrawerToggle}
-              sx={{ ml: "auto" }}
+              sx={{ ml: "auto", zIndex: 2 }}
             >
               <MenuIcon />
             </IconButton>
           </Toolbar>
-
-          <Box
-            sx={{
-              px: 2,
-              pb: 1,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <ImpactMiniSummary placement="mobileAppBar" />
-          </Box>
         </AppBar>
 
         {/* DESKTOP DRAWER */}
@@ -150,7 +162,7 @@ export default function AppShell({ children, menuType }: AppShellProps) {
           component="main"
           sx={{
             flexGrow: 1,
-            mt: { xs: 12, md: 0 },
+            mt: { xs: 8, md: 0 },
             ml: { md: "240px" },
             pb: 10,
           }}
