@@ -19,6 +19,7 @@ import {
   CssBaseline,
 } from "./theme";
 import DrawerContent from "./components/drawer-content";
+import ImpactMiniSummary from "./components/impact-mini-summary";
 import Image from "next/image";
 import { useRouter } from "next/navigation"; // ← přidáno
 import { EVENT_CONFIG } from "@/app/event-config";
@@ -81,7 +82,9 @@ export default function AppShell({ children, menuType }: AppShellProps) {
                 />
               </Box>
             </Box>
-
+            
+            <ImpactMiniSummary placement="mobileAppBar" />
+            
             {/* HAMBURGER */}
             <IconButton color="inherit" onClick={handleDrawerToggle} sx={{ ml: "auto" }}>
               <MenuIcon />

@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import {
   Alert,
   Box,
@@ -10,97 +9,20 @@ import {
   Typography,
 } from "@mui/material";
 
-import { EVENT_CONFIG } from "../event-config";
-import { SummaryData, SummariesResponse } from "../types/summary";
+import {
+  formatCzkAmount,
+  formatYearsCount,
+  useImpactStats,
+} from "../hooks/use-impact-stats";
 
 type ImpactSummaryProps = {
   variant?: "home" | "history";
 };
 
-type ImpactState = {
-  amount: number;
-  years: number;
-};
-
-function parseCzkAmount(value: string): number {
-  const digits = value.replace(/[^0-9]/g, "");
-  return digits ? Number(digits) : 0;
-}
-
-function formatCzkAmount(value: number): string {
-  return new Intl.NumberFormat("cs-CZ", {
-    style: "currency",
-    currency: "CZK",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
-function formatYearsCount(count: number): string {
-  if (count === 1) {
-    return "1 uzavřený ročník";
-  }
-
-  if (count >= 2 && count <= 4) {
-    return `${count} uzavřené ročníky`;
-  }
-
-  return `${count} uzavřených ročníků`;
-}
-
 export default function ImpactSummary({
   variant = "home",
 }: ImpactSummaryProps) {
-  const [impact, setImpact] = useState<ImpactState | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function loadImpact() {
-      try {
-        const response = await fetch("/api/summary", {
-          cache: "no-store",
-        });
-
-        if (!response.ok) {
-          throw new Error("Nepodařilo se načíst souhrn ročníků.");
-        }
-
-        const json: SummariesResponse = await response.json();
-        const summaries: SummaryData[] = json.summaries || [];
-
-        const historicalSummaries = summaries.filter(
-          (summary) => summary.year !== EVENT_CONFIG.year
-        );
-
-        const amount = historicalSummaries.reduce((sum, summary) => {
-          return sum + parseCzkAmount(summary.amount);
-        }, 0);
-
-        if (!cancelled) {
-          setImpact({
-            amount,
-            years: historicalSummaries.length,
-          });
-        }
-      } catch {
-        if (!cancelled) {
-          setError(true);
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
-      }
-    }
-
-    loadImpact();
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const { stats, loading, error } = useImpactStats();
 
   if (loading) {
     return (
@@ -117,7 +39,7 @@ export default function ImpactSummary({
     );
   }
 
-  if (error || !impact) {
+  if (error || !stats) {
     return (
       <Alert severity="warning">
         Souhrn pomoci se nepodařilo načíst.
@@ -169,7 +91,7 @@ export default function ImpactSummary({
             color="text.secondary"
             sx={{ mt: 0.5 }}
           >
-            {formatYearsCount(impact.years)}
+            {formatYearsCount(stats.years)}
           </Typography>
         </Box>
 
@@ -188,7 +110,7 @@ export default function ImpactSummary({
               lineHeight: 1.05,
             }}
           >
-            {formatCzkAmount(impact.amount)}
+            {formatCzkAmount(stats.amount)}
           </Typography>
 
           <Typography

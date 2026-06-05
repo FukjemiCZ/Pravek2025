@@ -23,6 +23,7 @@ import { useRouter, usePathname } from "next/navigation";
 
 import { MENU_SECTIONS } from "@/app/menu-config";
 import { EVENT_CONFIG } from "@/app/event-config";
+import ImpactMiniSummary from "./impact-mini-summary";
 
 type Props = {
   menuType: "home" | "race" | "charity";
@@ -125,7 +126,8 @@ export default function DrawerContent({
           </span>
         </Box>
       )}
-
+      {!isMobile && <ImpactMiniSummary placement="drawer" />}
+      
       {/* ULTRA-MINIMAL NAVIGATION */}
       <List sx={{ width: "100%" }}>
         {MENU_SECTIONS.map((section) => {
