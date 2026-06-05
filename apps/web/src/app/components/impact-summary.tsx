@@ -22,4 +22,11 @@ function formatCurrency(amount: number) {
   }).format(amount);
 }
 
-export default function ImpactSummary({
+export default function ImpactSummary({ variant = "home" }: ImpactSummaryProps) {
+  const [data, setData] = useState<SummaryData[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const
