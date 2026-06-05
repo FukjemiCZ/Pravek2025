@@ -1,10 +1,16 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { Box, Card, CardContent, CircularProgress, Stack, Typography } from "@mui/material";
+import { Card, CardContent, Stack, Typography } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import VolunteerActivismIcon from "@mui/icons-material/VolunteerActivism";
-import { EVENT_CONFIG } from "@/app/event-config";
-import type { SummaryData } from "@/app/types/summary";
 
-type ImpactSummaryVariant = "
+type ImpactSummaryProps = {
+  variant?: "home" | "history";
+};
+
+export default function ImpactSummary({ variant = "home" }: ImpactSummaryProps) {
+  const isHistory = variant === "history";
+
+  return (
+    <Card
+      elevation
