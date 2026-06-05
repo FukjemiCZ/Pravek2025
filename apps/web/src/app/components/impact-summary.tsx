@@ -14,4 +14,5 @@ function parseAmount(amount: string) {
   return normalized ? Number(normalized) : 0;
 }
 
-function formatCurrency(amount
+function formatCurrency(amount: number) {
+  return new Intl
