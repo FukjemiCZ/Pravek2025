@@ -22,73 +22,70 @@ export default function ImpactMiniSummary({
   }
 
   if (placement === "mobileAppBar") {
-    if (loading || !stats) {
-      return (
-        <Box
-          sx={{
-            ml: 1,
-            mr: 1,
-            px: 1.25,
-            py: 0.55,
-            borderRadius: 999,
-            backgroundColor: alpha("#fff", 0.16),
-            minWidth: 112,
-          }}
-        >
-          <Skeleton
-            variant="text"
-            width={92}
-            sx={{ bgcolor: alpha("#fff", 0.28) }}
-          />
-        </Box>
-      );
-    }
-
+  if (loading || !stats) {
     return (
       <Box
-        aria-label="Souhrn předané pomoci"
         sx={{
-          ml: 1,
-          mr: 1,
-          px: 1.25,
-          py: 0.55,
+          px: 1.5,
+          py: 0.45,
           borderRadius: 999,
-          display: "flex",
-          alignItems: "baseline",
-          gap: 0.75,
-          color: "inherit",
           backgroundColor: alpha("#fff", 0.16),
-          border: `1px solid ${alpha("#fff", 0.26)}`,
-          maxWidth: "calc(100vw - 132px)",
-          overflow: "hidden",
-          whiteSpace: "nowrap",
+          minWidth: 150,
+          maxWidth: "100%",
         }}
       >
-        <Typography
-          component="span"
-          sx={{
-            fontSize: "0.78rem",
-            fontWeight: 800,
-            lineHeight: 1,
-          }}
-        >
-          {formatCzkAmount(stats.amount)}
-        </Typography>
-
-        <Typography
-          component="span"
-          sx={{
-            display: { xs: "none", sm: "inline" },
-            fontSize: "0.72rem",
-            opacity: 0.82,
-            lineHeight: 1,
-          }}
-        >
-          · {stats.years} ročníky
-        </Typography>
+        <Skeleton
+          variant="text"
+          width={128}
+          sx={{ bgcolor: alpha("#fff", 0.28) }}
+        />
       </Box>
     );
   }
+
+  return (
+    <Box
+      aria-label="Souhrn předané pomoci"
+      sx={{
+        px: 1.5,
+        py: 0.45,
+        borderRadius: 999,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 0.75,
+        color: "inherit",
+        backgroundColor: alpha("#fff", 0.16),
+        border: `1px solid ${alpha("#fff", 0.26)}`,
+        maxWidth: "100%",
+        overflow: "hidden",
+        whiteSpace: "nowrap",
+      }}
+    >
+      <Typography
+        component="span"
+        sx={{
+          fontSize: "0.78rem",
+          fontWeight: 800,
+          lineHeight: 1,
+        }}
+      >
+        {formatCzkAmount(stats.amount)}
+      </Typography>
+
+      <Typography
+        component="span"
+        sx={{
+          fontSize: "0.72rem",
+          opacity: 0.84,
+          lineHeight: 1,
+        }}
+      >
+        · {stats.years} ročníky
+      </Typography>
+    </Box>
+  );
+}
 
   if (loading || !stats) {
     return (

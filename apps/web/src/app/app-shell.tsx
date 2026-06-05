@@ -21,7 +21,7 @@ import {
 import DrawerContent from "./components/drawer-content";
 import ImpactMiniSummary from "./components/impact-mini-summary";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; // ← přidáno
+import { useRouter } from "next/navigation";
 import { EVENT_CONFIG } from "@/app/event-config";
 
 type AppShellProps = {
@@ -36,7 +36,7 @@ export default function AppShell({ children, menuType }: AppShellProps) {
   const theme = createCustomTheme(darkMode);
   const muiTheme = useTheme();
   const isDesktop = useMediaQuery(muiTheme.breakpoints.up("md"));
-  const router = useRouter(); // ← router
+  const router = useRouter();
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
@@ -44,7 +44,6 @@ export default function AppShell({ children, menuType }: AppShellProps) {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box sx={{ display: "flex" }}>
-
         {/* MOBILE APPBAR */}
         <AppBar
           position="fixed"
@@ -54,15 +53,14 @@ export default function AppShell({ children, menuType }: AppShellProps) {
           }}
         >
           <Toolbar sx={{ display: "flex", alignItems: "center" }}>
-
             {/* Placeholder + klikací absolutní velké logo */}
             <Box sx={{ width: 46, height: 46, position: "relative", ml: -1 }}>
               <Box
-                onClick={() => router.push("/home")} // ← kliknutí na logo
+                onClick={() => router.push("/home")}
                 sx={{
                   position: "absolute",
                   left: 0,
-                  width: 92,        // velikost loga
+                  width: 92,
                   height: 92,
                   zIndex: 10,
                   cursor: "pointer",
@@ -82,15 +80,27 @@ export default function AppShell({ children, menuType }: AppShellProps) {
                 />
               </Box>
             </Box>
-            
-            <ImpactMiniSummary placement="mobileAppBar" />
-            
+
             {/* HAMBURGER */}
-            <IconButton color="inherit" onClick={handleDrawerToggle} sx={{ ml: "auto" }}>
+            <IconButton
+              color="inherit"
+              onClick={handleDrawerToggle}
+              sx={{ ml: "auto" }}
+            >
               <MenuIcon />
             </IconButton>
-
           </Toolbar>
+
+          <Box
+            sx={{
+              px: 2,
+              pb: 1,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <ImpactMiniSummary placement="mobileAppBar" />
+          </Box>
         </AppBar>
 
         {/* DESKTOP DRAWER */}
@@ -140,7 +150,7 @@ export default function AppShell({ children, menuType }: AppShellProps) {
           component="main"
           sx={{
             flexGrow: 1,
-            mt: { xs: 8, md: 0 },
+            mt: { xs: 12, md: 0 },
             ml: { md: "240px" },
             pb: 10,
           }}
